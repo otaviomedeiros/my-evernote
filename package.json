@@ -1,0 +1,11 @@
+{
+  "name": "MyEvertone",
+  "version": "1.0.0",
+  "description": "Notes app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Otavio Medeiros <otaviorm@gmail.com>",
+  "license": "ISC"
+}
