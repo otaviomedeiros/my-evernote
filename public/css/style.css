@@ -8,3 +8,12 @@
   border-right: 1px solid #ececec;
   background-color: #f8f8f8;
 }
+
+.main-container .sidebar .sidebar-icon {
+  padding-top: 30px;
+}
+
+.main-container .sidebar .sidebar-icon {
+  color: #2dbe60;
+  font-size:30px;
+}
