@@ -5,7 +5,15 @@ RUN npm install -g bower nodemon
 RUN mkdir /app
 WORKDIR /app
 
+
+COPY bower.json .
+COPY .bowerrc .
+RUN bower install
+
+COPY package.json .
+RUN npm install
+
 COPY . .
 
-RUN bower install
-RUN npm install
+EXPOSE 3000
+CMD [ "npm", "start" ]

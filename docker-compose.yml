@@ -1,6 +1,7 @@
 mongo:
   image: mongo:3
   container_name: mongo
+  
 
 app:
   build: .
@@ -10,3 +11,7 @@ app:
     - mongo
   ports:
     - '3000:3000'
+  volumes:
+    - .:/app
+    - /app/node_modules
+    - /app/public/bower_components
