@@ -1,0 +1,19 @@
+mongo:
+  image: mongo:3
+  container_name: mongo
+
+
+app:
+  build: .
+  container_name: app
+  command: npm start
+  links:
+    - mongo
+  ports:
+    - '3000:3000'
+  volumes:
+    - .:/app
+    - /app/node_modules
+    - /app/public/bower_components
+  env_file:
+    - .env

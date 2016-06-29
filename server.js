@@ -3,9 +3,9 @@ var app = express();
 var notesRouter = require('./app/routes/notes');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://orders:orders@ds023064.mlab.com:23064/orders');
+mongoose.connect(process.env.MONGO_URL);
 
 app.use('/', express.static(__dirname + '/public'));
 app.use('/api/notes', notesRouter);
 
-app.listen(3000);
+app.listen(process.env.APP_PORT);
