@@ -55,6 +55,10 @@
   padding-top: 10px;
 }
 
+.main-container .list .list-item .list-item-action-bar {
+  height: 100%;
+}
+
 .main-container .list .list-item:hover {
   background-color: #2dbe60;
 }

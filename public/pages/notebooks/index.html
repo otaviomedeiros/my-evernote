@@ -9,11 +9,18 @@
 
 <div class="list row">
   <div class="list-item col-md-12" ng-repeat="notebook in notebooks">
-    <div class="list-item-title">
-      {{ notebook.name }}
+    <div class="col-md-8">
+      <div class="list-item-title">
+        {{ notebook.name }}
+      </div>
+      <div class="list-item-addons">
+        0 notes
+      </div>
     </div>
-    <div class="list-item-addons">
-      0 notes
+    <div class="col-md-4 list-item-action-bar">
+      <a ng-click="deleteNotebook(notebook)">
+        <span class="glyphicon glyphicon-trash"></span>
+      </a>
     </div>
   </div>
 

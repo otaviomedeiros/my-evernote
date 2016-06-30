@@ -14,9 +14,17 @@ notesApp.config(['$routeProvider', function($routeProvider){
 }]);
 
 
-notesApp.controller('notebooksController', ['$scope', '$http', function($scope, $http){
+notesApp.controller('notebooksController', ['$scope', '$http', '$location', function($scope, $http, $location){
 
   $scope.notebooks = [];
+
+  $scope.deleteNotebook = function(notebook){
+    $http.delete('/api/notebooks/' + notebook._id).then(function(result){
+      $http.get('/api/notebooks').then(function(result){
+        $scope.notebooks = result.data;
+      });
+    });
+  };
 
   $http.get('/api/notebooks').then(function(result){
     $scope.notebooks = result.data;
