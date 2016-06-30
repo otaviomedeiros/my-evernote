@@ -10,6 +10,10 @@ notesApp.config(['$routeProvider', function($routeProvider){
     when('/notebooks/new', {
       templateUrl: 'pages/notebooks/new.html',
       controller: 'notebookFormController'
+    }).
+    when('/notebooks/:id', {
+      templateUrl: 'pages/notebooks/edit.html',
+      controller: 'notebookFormController'
     });
 }]);
 
@@ -32,12 +36,25 @@ notesApp.controller('notebooksController', ['$scope', '$http', '$location', func
 
 }]);
 
-notesApp.controller('notebookFormController', ['$scope', '$http', '$location', function($scope, $http, $location){
+notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams){
 
-  $scope.notebook = {};
+  if ($routeParams.id){
+    $http.get('/api/notebooks/' + $routeParams.id).then(function(result){
+        $scope.notebook = result.data;
+    });
+  } else {
+    $scope.notebook = {};
+  }
 
   $scope.saveNotebook = function(){
     $http.post('/api/notebooks', $scope.notebook).then(function(result){
+      $scope.notebook = {};
+      $location.path('/notebooks');
+    });
+  };
+
+  $scope.updateNotebook = function(){
+    $http.put('/api/notebooks/' + $scope.notebook._id, $scope.notebook).then(function(result){
       $scope.notebook = {};
       $location.path('/notebooks');
     });
