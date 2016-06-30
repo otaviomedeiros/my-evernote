@@ -1,7 +1,8 @@
 mongo:
   image: mongo:3
   container_name: mongo
-
+  volumes:
+    - /var/lib/docker/volumes/mongo/data:/data/db
 
 app:
   build: .
