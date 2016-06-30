@@ -8,4 +8,12 @@ router.get('/', function(req, res){
   });
 });
 
+router.post('/', function(req, res){
+  var note = new Note();
+
+  note.save(function(err){
+    res.json(note);
+  });
+});
+
 module.exports = router;
