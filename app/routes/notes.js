@@ -9,7 +9,7 @@ router.get('/', function(req, res){
 });
 
 router.post('/', function(req, res){
-  var note = new Note();
+  var note = new Note(req.body);
 
   note.save(function(err){
     res.json(note);

@@ -6,6 +6,6 @@ var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URL);
 
 app.use('/', express.static(__dirname + '/public'));
-app.use('/api/notes', notesRouter);
+app.use('/api/notebooks', notesRouter);
 
 app.listen(process.env.APP_PORT);

@@ -14,7 +14,13 @@ notesApp.config(['$routeProvider', function($routeProvider){
 }]);
 
 
-notesApp.controller('notebooksController', ['$scope', function($scope){
+notesApp.controller('notebooksController', ['$scope', '$http', function($scope, $http){
+
+  $scope.notebooks = [];
+
+  $http.get('/api/notebooks').then(function(result){
+    $scope.notebooks = result.data;
+  });
 
 }]);
 
@@ -23,7 +29,7 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', f
   $scope.notebook = {};
 
   $scope.saveNotebook = function(){
-    $http.post('/api/notes', $scope.notebook).then(function(result){
+    $http.post('/api/notebooks', $scope.notebook).then(function(result){
       $scope.notebook = {};
       $location.path('/notebooks');
     });
