@@ -33,6 +33,11 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', f
       $scope.notebook = {};
       $location.path('/notebooks');
     });
-  }
+  };
+
+  $scope.cancelNotebook = function(){
+    $scope.notebook = {};
+    $location.path('/notebooks');
+  };
 
 }]);
