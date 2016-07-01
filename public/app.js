@@ -74,6 +74,7 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '
 notesApp.controller('noteFormController', ['$scope', '$http', function($scope, $http){
 
   $scope.note = {};
+  $scope.notebooks = [];
 
   $scope.saveNote = function(){
     $http.post('/api/notes', $scope.note).then(function(result){
@@ -81,4 +82,7 @@ notesApp.controller('noteFormController', ['$scope', '$http', function($scope, $
     });
   };
 
+  $http.get('/api/notebooks').then(function(result){
+    $scope.notebooks = result.data;
+  });
 }]);
