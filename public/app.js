@@ -15,6 +15,10 @@ notesApp.config(['$routeProvider', function($routeProvider){
       templateUrl: 'pages/notebooks/edit.html',
       controller: 'notebookFormController'
     }).
+    when('/notebooks/:id/notes', {
+      templateUrl: 'pages/notes/index.html',
+      controller: 'notesController'
+    }).
     when('/notes/new', {
       templateUrl: 'pages/notes/new.html',
       controller: 'noteFormController'
@@ -86,3 +90,25 @@ notesApp.controller('noteFormController', ['$scope', '$http', function($scope, $
     $scope.notebooks = result.data;
   });
 }]);
+
+
+notesApp.controller('notesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+
+  $scope.notes = [];
+
+  $http.get('/api/notebooks/' + $routeParams.id + '/notes').then(function(result){
+    $scope.notes = result.data;
+  });
+}]);
+
+notesApp.filter('htmlToPlaintext', function() {
+  return function(text) {
+    return text ? String(text).replace(/<[^>]+>/gm, '') : '';
+  }
+});
+
+notesApp.filter('notecontent', function() {
+  return function(noteContent) {
+    return noteContent ? noteContent.substr(0, 300) : '';
+  }
+});
