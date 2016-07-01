@@ -5,6 +5,13 @@
     <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
     <script src="/bower_components/angular/angular.min.js" charset="utf-8"></script>
     <script src="/bower_components/angular-route/angular-route.min.js" charset="utf-8"></script>
+
+    <link rel='stylesheet' href='/bower_components/textAngular/dist/textAngular.css'>
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css" media="screen" title="no title" charset="utf-8">
+    <script src='/bower_components/textAngular/dist/textAngular-rangy.min.js'></script>
+    <script src='/bower_components/textAngular/dist/textAngular-sanitize.min.js'></script>
+    <script src='/bower_components/textAngular/dist/textAngular.min.js'></script>
+
     <script src="app.js" charset="utf-8"></script>
     <title>My Evernote</title>
   </head>
@@ -13,7 +20,9 @@
     <div class="container-fluid main-container">
       <div class="col-md-1 sidebar text-center">
         <div class="sidebar-item">
-          <span class="glyphicon glyphicon-plus-sign sidebar-icon"></span>
+          <a href="#/notes/new">
+            <span class="glyphicon glyphicon-plus-sign sidebar-icon"></span>
+          </a>
         </div>
         <div class="sidebar-item">
           <a href="#/notebooks">

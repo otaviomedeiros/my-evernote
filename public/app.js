@@ -1,4 +1,4 @@
-var notesApp = angular.module('notesApp', ['ngRoute']);
+var notesApp = angular.module('notesApp', ['ngRoute', 'textAngular']);
 
 notesApp.config(['$routeProvider', function($routeProvider){
 
@@ -14,6 +14,10 @@ notesApp.config(['$routeProvider', function($routeProvider){
     when('/notebooks/:id', {
       templateUrl: 'pages/notebooks/edit.html',
       controller: 'notebookFormController'
+    }).
+    when('/notes/new', {
+      templateUrl: 'pages/notes/new.html',
+      controller: 'noteFormController'
     });
 }]);
 
@@ -63,6 +67,18 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '
   $scope.cancelNotebook = function(){
     $scope.notebook = {};
     $location.path('/notebooks');
+  };
+
+}]);
+
+notesApp.controller('noteFormController', ['$scope', '$http', function($scope, $http){
+
+  $scope.note = {};
+
+  $scope.saveNote = function(){
+    $http.post('/api/notes', $scope.note).then(function(result){
+      console.log(result.data);
+    });
   };
 
 }]);

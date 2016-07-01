@@ -88,3 +88,7 @@
   font-weight: 400;
   height: 50%;
 }
+
+.note-form .note-form-header {
+  padding-bottom: 10px;
+}
