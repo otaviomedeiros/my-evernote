@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Notebook = require('../models/notebook');
+var Note = require('../models/note');
 
 router.get('/', function(req, res){
   Notebook.find({}, function(err, notes){
@@ -31,6 +32,12 @@ router.get('/:id', function(req, res){
 router.put('/:id', function(req, res){
   Notebook.update({_id: req.params.id}, req.body, function(err, note){
     res.json(note);
+  });
+});
+
+router.get('/:id/notes', function(req, res){
+  Note.find({notebookId: req.params.id}, function(err, notes){
+    res.json(notes);
   });
 });
 

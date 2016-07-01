@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>NOTES</h1>
+  </div>
+</div>
+
+<div class="list row">
+  <div class="list-item list-item-note col-md-12" ng-repeat="note in notes">
+    <div class="col-md-8">
+      <div class="list-item-title list-item-note">
+        <a href="#/notebooks/{{ notebook._id }}/notes">
+          {{ note.title }}
+        </a>
+      </div>
+      <div class="list-item-addons">
+        {{ note.content | htmlToPlaintext | notecontent }}
+      </div>
+    </div>
+    <div class="col-md-4 list-item-action-bar">
+      <a href="#/notebooks/{{ notebook._id }}">
+        <span class="glyphicon glyphicon-edit"></span>
+      </a>
+      <a ng-click="deleteNotebook(notebook)">
+        <span class="glyphicon glyphicon-trash"></span>
+      </a>
+    </div>
+  </div>
+
+</div>
