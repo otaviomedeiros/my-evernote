@@ -10,4 +10,16 @@ router.post('/', function(req, res){
   });
 });
 
+router.get('/:id', function(req, res){
+  Note.findById(req.params.id, function(err, note){
+    res.json(note);
+  });
+});
+
+router.put('/:id', function(req, res){
+  Note.update({_id: req.params.id}, req.body, function(err, note){
+    res.json(note);
+  });
+});
+
 module.exports = router;
