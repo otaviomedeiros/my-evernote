@@ -1,0 +1,22 @@
+<div class="form-container text-center">
+  <div class="container-row">
+    <div class="row container-cell">
+      <form ng-submit="saveTag()">
+        <div class="col-md-12">
+          <span class="glyphicon glyphicon-book"></span>
+        </div>
+        <div class="col-md-12">
+          CREATE TAG
+          <hr>
+        </div>
+        <div class="col-md-12">
+          <input type="text" class="form-control" ng-model="tag.name" placeholder="You tag name">
+        </div>
+        <div class="col-md-12">
+          <button type="button" name="button" class="btn btn-default" ng-click="cancelTag()">Cancel</button>
+          <button type="submit" name="button" class="btn btn-success">Create tag</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
