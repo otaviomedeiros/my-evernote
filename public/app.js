@@ -26,6 +26,14 @@ notesApp.config(['$routeProvider', function($routeProvider){
     when('/notes/:id', {
       templateUrl: 'pages/notes/form.html',
       controller: 'editNoteController'
+    }).
+    when('/tags', {
+      templateUrl: 'pages/tags/index.html',
+      controller: 'tagsController'
+    }).
+    when('/tags/new', {
+      templateUrl: 'pages/tags/form.html',
+      controller: 'tagsFormController'
     });
 }]);
 
@@ -135,6 +143,31 @@ notesApp.controller('notesController', ['$scope', '$http', '$routeParams', funct
     $scope.notes = result.data;
   });
 }]);
+
+
+
+notesApp.controller('tagsController', ['$scope', '$http', function($scope, $http){
+
+  $scope.tags = [];
+
+  $http.get('/api/tags').then(function(result){
+    $scope.tags = result.data;
+  });
+}]);
+
+notesApp.controller('tagsFormController', ['$scope', '$http', '$location', function($scope, $http, $location){
+
+  $scope.tag = {};
+
+  $scope.saveTag = function(){
+    $http.post('/api/tags', $scope.tag).then(function(result){
+      $scope.tag = {};
+      $location.path('/tags');
+    });
+  };
+
+}]);
+
 
 notesApp.filter('htmlToPlaintext', function() {
   return function(text) {
