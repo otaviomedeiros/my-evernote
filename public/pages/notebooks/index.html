@@ -11,7 +11,9 @@
   <div class="list-item col-md-12" ng-repeat="notebook in notebooks">
     <div class="col-md-8">
       <div class="list-item-title">
-        {{ notebook.name }}
+        <a href="#/notebooks/{{ notebook._id }}/notes">
+          {{ notebook.name }}
+        </a>
       </div>
       <div class="list-item-addons">
         0 notes

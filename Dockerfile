@@ -9,11 +9,12 @@ ENV NODE_PATH=/opt/node_modules
 RUN mkdir /app
 WORKDIR /app
 
+COPY . .
+
 COPY bower.json .
 COPY .bowerrc .
 RUN bower install
 
-COPY . .
 
 EXPOSE 3000
 CMD [ "npm", "start" ]

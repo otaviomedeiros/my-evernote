@@ -1,4 +1,4 @@
-var notesApp = angular.module('notesApp', ['ngRoute']);
+var notesApp = angular.module('notesApp', ['ngRoute', 'textAngular']);
 
 notesApp.config(['$routeProvider', function($routeProvider){
 
@@ -14,6 +14,18 @@ notesApp.config(['$routeProvider', function($routeProvider){
     when('/notebooks/:id', {
       templateUrl: 'pages/notebooks/edit.html',
       controller: 'notebookFormController'
+    }).
+    when('/notebooks/:id/notes', {
+      templateUrl: 'pages/notes/index.html',
+      controller: 'notesController'
+    }).
+    when('/notes/new', {
+      templateUrl: 'pages/notes/form.html',
+      controller: 'newNoteController'
+    }).
+    when('/notes/:id', {
+      templateUrl: 'pages/notes/form.html',
+      controller: 'editNoteController'
     });
 }]);
 
@@ -66,3 +78,72 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '
   };
 
 }]);
+
+notesApp.controller('newNoteController', ['$scope', '$http', function($scope, $http){
+
+  $scope.note = {};
+  $scope.notebooks = [];
+
+  $scope.saveNote = function(){
+    $http.post('/api/notes', $scope.note).then(function(result){
+      console.log(result.data);
+    });
+  };
+
+  $http.get('/api/notebooks').then(function(result){
+    $scope.notebooks = result.data;
+  });
+
+}]);
+
+
+notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+
+  $scope.note = {};
+  $scope.notebooks = [];
+
+  $scope.saveNote = function(){
+    $http.put('/api/notes/' + $scope.note._id, $scope.note).then(function(result){
+      console.log(result.data);
+    });
+  };
+
+  $http.get('/api/notebooks').then(function(result){
+    $scope.notebooks = result.data;
+  });
+
+  $http.get('/api/notes/' + $routeParams.id).then(function(result){
+    $scope.note = result.data;
+  });
+
+}]);
+
+
+notesApp.controller('notesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+
+  $scope.notes = [];
+
+  $scope.deleteNote = function(note){
+    $http.delete('/api/notes/' + note._id).then(function(result){
+      $http.get('/api/notebooks/' + $routeParams.id + '/notes').then(function(result){
+        $scope.notes = result.data;
+      });
+    })
+  };
+
+  $http.get('/api/notebooks/' + $routeParams.id + '/notes').then(function(result){
+    $scope.notes = result.data;
+  });
+}]);
+
+notesApp.filter('htmlToPlaintext', function() {
+  return function(text) {
+    return text ? String(text).replace(/<[^>]+>/gm, '') : '';
+  }
+});
+
+notesApp.filter('notecontent', function() {
+  return function(noteContent) {
+    return noteContent ? noteContent.substr(0, 300) : '';
+  }
+});
