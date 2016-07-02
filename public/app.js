@@ -123,6 +123,14 @@ notesApp.controller('notesController', ['$scope', '$http', '$routeParams', funct
 
   $scope.notes = [];
 
+  $scope.deleteNote = function(note){
+    $http.delete('/api/notes/' + note._id).then(function(result){
+      $http.get('/api/notebooks/' + $routeParams.id + '/notes').then(function(result){
+        $scope.notes = result.data;
+      });
+    })
+  };
+
   $http.get('/api/notebooks/' + $routeParams.id + '/notes').then(function(result){
     $scope.notes = result.data;
   });
