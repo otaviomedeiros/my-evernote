@@ -84,6 +84,9 @@
   font-size: 11px;
   font-weight: 500;
 }
+.main-container .list .list-item .list-item-addons {
+  height: 80px !important;
+}
 
 .main-container .list .list-item .list-item-title {
   color: #4a4a4a;
@@ -91,6 +94,10 @@
   font-size: 16px;
   font-weight: 400;
   height: 50%;
+}
+
+.main-container .list .list-item-note .list-item-title {
+  height: 40px !important;
 }
 
 
