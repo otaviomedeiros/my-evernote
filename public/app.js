@@ -122,12 +122,13 @@ notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', fu
 
   $http.get('/api/notes/' + $routeParams.id).then(function(result){
     $scope.note = result.data;
+    
   });
 
   $scope.loadTags = function(query) {
     return $http.get('/api/tags').then(function(result){
       return result.data.map(function(item){
-        return {text: item.name, id: item._id};
+        return {text: item.name, tagId: item._id};
       });
     });
 
