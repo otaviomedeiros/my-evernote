@@ -4,7 +4,7 @@
     <div class="col-md-12">
       <div class="pull-left" style="margin-top:20px">
         <select class="form-control" ng-model="note.notebookId">
-          <option ng-repeat="notebook in notebooks" ng-value="notebook._id">{{notebook.name}}</option>
+          <option ng-repeat="notebook in notebooks" ng-selected="notebook._id === note.notebookId" ng-value="notebook._id">{{notebook.name}}</option>
         </select>
       </div>
       <div class="pull-right">
