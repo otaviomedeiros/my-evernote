@@ -177,6 +177,6 @@ notesApp.filter('htmlToPlaintext', function() {
 
 notesApp.filter('notecontent', function() {
   return function(noteContent) {
-    return noteContent ? noteContent.substr(0, 300) : '';
+    return noteContent ? noteContent.substr(0, 580) : '';
   }
 });
