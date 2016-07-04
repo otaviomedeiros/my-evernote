@@ -6,25 +6,23 @@
 
 <div class="list row">
   <div class="list-item list-item-note col-md-12" ng-repeat="note in notes">
-    <div class="col-md-12">
-      <div class="list-item-title list-item-note col-md-12">
-        <div class="pull-left">
-          <a href="#/notes/{{ note._id }}">
-            {{ note.title }}
-          </a>
-        </div>
-        <div class="list-item-action-bar pull-right">
-          <a href="#/notes/{{ note._id }}">
-            <span class="glyphicon glyphicon-edit"></span>
-          </a>
-          <a ng-click="deleteNote(note)">
-            <span class="glyphicon glyphicon-trash"></span>
-          </a>
-        </div>
+    <div class="list-item-title list-item-note col-md-12">
+      <div class="pull-left">
+        <a href="#/notes/{{ note._id }}">
+          {{ note.title }}
+        </a>
       </div>
-      <div class="list-item-addons col-md-12">
-        {{ note.content | htmlToPlaintext | notecontent }}
+      <div class="list-item-action-bar pull-right">
+        <a href="#/notes/{{ note._id }}">
+          <span class="glyphicon glyphicon-edit"></span>
+        </a>
+        <a ng-click="deleteNote(note)">
+          <span class="glyphicon glyphicon-trash"></span>
+        </a>
       </div>
+    </div>
+    <div class="list-item-addons col-md-12">
+      {{ note.content | htmlToPlaintext | notecontent }}
     </div>
   </div>
 
