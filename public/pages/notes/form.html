@@ -2,10 +2,15 @@
 
   <div class="row note-form-header">
     <div class="col-md-12">
-      <div class="pull-left" style="margin-top:20px">
+      <div class="pull-left note-options">
         <select class="form-control" ng-model="note.notebookId">
           <option ng-repeat="notebook in notebooks" ng-selected="notebook._id === note.notebookId" ng-value="notebook._id">{{notebook.name}}</option>
         </select>
+      </div>
+      <div class="pull-left note-options" style="height: 35px; width: 300px">
+        <tags-input ng-model="note.tags">
+          <auto-complete source="loadTags()"></auto-complete>
+        </tags-input>
       </div>
       <div class="pull-right">
         <button type="button" name="button" class="btn btn-success" ng-click="saveNote()">Save</button>
