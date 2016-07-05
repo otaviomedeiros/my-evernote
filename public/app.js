@@ -102,6 +102,14 @@ notesApp.controller('newNoteController', ['$scope', '$http', function($scope, $h
     $scope.notebooks = result.data;
   });
 
+  $scope.loadTags = function(query) {
+    return $http.get('/api/tags').then(function(result){
+      return result.data.map(function(item){
+        return {text: item.name, tagId: item._id};
+      });
+    });
+  };
+  
 }]);
 
 
@@ -131,8 +139,6 @@ notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', fu
       });
     });
   };
-
-
 
 }]);
 
