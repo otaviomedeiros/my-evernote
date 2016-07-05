@@ -17,7 +17,7 @@ notesApp.config(['$routeProvider', function($routeProvider){
     }).
     when('/notebooks/:id/notes', {
       templateUrl: 'pages/notes/index.html',
-      controller: 'notesController'
+      controller: 'notebookNotesController'
     }).
     when('/notes/new', {
       templateUrl: 'pages/notes/form.html',
@@ -34,6 +34,10 @@ notesApp.config(['$routeProvider', function($routeProvider){
     when('/tags/new', {
       templateUrl: 'pages/tags/form.html',
       controller: 'tagsFormController'
+    }).
+    when('/tags/:id/notes', {
+      templateUrl: 'pages/notes/index.html',
+      controller: 'tagNotesController'
     });
 }]);
 
@@ -109,7 +113,7 @@ notesApp.controller('newNoteController', ['$scope', '$http', function($scope, $h
       });
     });
   };
-  
+
 }]);
 
 
@@ -143,7 +147,7 @@ notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', fu
 }]);
 
 
-notesApp.controller('notesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+notesApp.controller('notebookNotesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
 
   $scope.notes = [];
 
@@ -160,6 +164,24 @@ notesApp.controller('notesController', ['$scope', '$http', '$routeParams', funct
   });
 }]);
 
+
+notesApp.controller('tagNotesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+
+  $scope.notes = [];
+
+  $scope.deleteNote = function(note){
+    $http.delete('/api/notes/' + note._id).then(function(result){
+      $http.get('/api/tags/' + $routeParams.id + '/notes').then(function(result){
+        $scope.notes = result.data;
+      });
+    })
+  };
+
+  $http.get('/api/tags/' + $routeParams.id + '/notes').then(function(result){
+    $scope.notes = result.data;
+  });
+
+}]);
 
 
 notesApp.controller('tagsController', ['$scope', '$http', function($scope, $http){
