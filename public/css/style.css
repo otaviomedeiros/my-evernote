@@ -105,3 +105,8 @@
 .note-form .note-form-header {
   padding-bottom: 10px;
 }
+
+.note-form .note-form-header .note-options {
+  margin-top:20px;
+  margin-right: 10px;
+}
