@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var tagSchema = new Schema({tagId: String});
+var tagSchema = new Schema({tagId: String, text: String});
 var notesSchema = new Schema({
   title: String,
   notebookId: String,

@@ -122,7 +122,6 @@ notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', fu
 
   $http.get('/api/notes/' + $routeParams.id).then(function(result){
     $scope.note = result.data;
-    
   });
 
   $scope.loadTags = function(query) {
@@ -131,7 +130,6 @@ notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', fu
         return {text: item.name, tagId: item._id};
       });
     });
-
   };
 
 
