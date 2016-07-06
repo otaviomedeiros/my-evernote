@@ -22,4 +22,15 @@ app.use('/api/notebooks', notebooksRouter);
 app.use('/api/notes', notesRouter);
 app.use('/api/tags', tagsRouter);
 
+
+// error handlers
+// Catch unauthorised errors
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401);
+    res.json({"message" : err.name + ": " + err.message});
+  }
+});
+
+
 app.listen(process.env.APP_PORT);

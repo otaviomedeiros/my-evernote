@@ -24,7 +24,7 @@ router.post('/login', function(req, res){
       return;
     }
 
-    if(user){
+    if (user){
       res.json({ "token" : user.generateJwt() });
     } else {
       res.status(401).json(info);
