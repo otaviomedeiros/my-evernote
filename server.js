@@ -12,6 +12,7 @@ var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URL);
 
 app.use('/', express.static(__dirname + '/public'));
+app.use('/users', express.static(__dirname + '/public/pages/users'));
 app.use(bodyParser.json());
 
 app.use(passport.initialize());

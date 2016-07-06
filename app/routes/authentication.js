@@ -11,7 +11,11 @@ router.post('/register', function(req, res){
   user.setPassword(req.body.password);
 
   user.save(function(err) {
-    res.json({ "token": user.generateJwt() });
+    if (err) {
+      res.status(422).json(err);
+    } else {
+      res.json({ "token": user.generateJwt() });
+    }
   });
 });
 
