@@ -222,6 +222,20 @@ notesApp.service('authentication', ['$window', function($window){
 
     logout: function(){
       $window.localStorage.removeItem('note-app-token');
+    },
+
+    isLoggedIn: function(){
+      var token = this.getToken();
+
+      if(token){
+        var payload = token.split('.')[1];
+        payload = $window.atob(payload);
+        payload = JSON.parse(payload);
+
+        return payload.exp > Date.now() / 1000;
+      } else {
+        return false;
+      }
     }
   }
 }]);
