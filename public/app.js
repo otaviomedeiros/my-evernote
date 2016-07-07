@@ -9,7 +9,7 @@ notesApp.config(['$routeProvider', function($routeProvider){
     }).
     when('/users/login', {
       templateUrl: 'pages/users/login.html',
-      controller: 'loginController'
+      controller: 'authController'
     }).
     when('/notebooks', {
       templateUrl: 'pages/notebooks/index.html',
@@ -250,7 +250,7 @@ notesApp.controller('registerController', ['$scope', '$location', 'authenticatio
 
 }]);
 
-notesApp.controller('loginController', ['$scope', '$location', 'authentication', function($scope, $location, authentication){
+notesApp.controller('authController', ['$scope', '$location', 'authentication', function($scope, $location, authentication){
 
   $scope.user = { email: '', password: '' };
 
@@ -263,6 +263,11 @@ notesApp.controller('loginController', ['$scope', '$location', 'authentication',
       .then(function(){
         $location.path('/notebooks');
       });
+  };
+
+  $scope.logout = function(){
+    authentication.logout();
+    $location.path('/users/login');
   };
 
 }]);

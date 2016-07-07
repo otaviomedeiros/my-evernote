@@ -37,6 +37,11 @@
             <span class="glyphicon glyphicon-tag sidebar-icon"></span>
           </a>
         </div>
+        <div class="sidebar-item" ng-controller="authController">
+          <a href="#/logout" ng-click="logout()">
+            <span class="glyphicon glyphicon-log-out sidebar-icon"></span>
+          </a>
+        </div>
       </div>
 
       <div class="col-md-11 app-content" ng-view>
