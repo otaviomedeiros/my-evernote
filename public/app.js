@@ -210,7 +210,7 @@ notesApp.controller('tagsFormController', ['$scope', '$http', '$location', funct
 // --------
 // Services
 
-notesApp.service('authentication', ['$window', function($window){
+notesApp.service('authentication', ['$window', '$http', function($window, $http){
   return {
     saveToken: function(token){
       $window.localStorage['note-app-token'] = token;
@@ -247,6 +247,18 @@ notesApp.service('authentication', ['$window', function($window){
 
         return { email: payload.email, name: payload.name };
       }
+    },
+
+    register: function(){
+      $http.post('/api/authentication/register', $scope.user).success(function(result){
+        this.saveToken(result.data.token);
+      });
+    },
+
+    login: function(user) {
+      return $http.post('/api/authentication/login', user).success(function(result) {
+        this.saveToken(result.data.token);
+      });
     }
   }
 }]);
