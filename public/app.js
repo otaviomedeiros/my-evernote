@@ -3,6 +3,10 @@ var notesApp = angular.module('notesApp', ['ngRoute', 'textAngular', 'ngTagsInpu
 notesApp.config(['$routeProvider', function($routeProvider){
 
   $routeProvider.
+    when('/users/register', {
+      templateUrl: 'pages/users/register.html',
+      controller: 'registerController'
+    }).
     when('/notebooks', {
       templateUrl: 'pages/notebooks/index.html',
       controller: 'notebooksController'
@@ -268,7 +272,7 @@ notesApp.service('authentication', ['$window', '$http', function($window, $http)
     },
 
     register: function(user){
-      $http.post('/api/authentication/register', user).success(function(result){
+      return $http.post('/api/authentication/register', user).success(function(result){
         this.saveToken(result.data.token);
       });
     },
