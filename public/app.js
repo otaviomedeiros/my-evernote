@@ -207,6 +207,29 @@ notesApp.controller('tagsFormController', ['$scope', '$http', '$location', funct
 }]);
 
 
+// --------
+// Services
+
+notesApp.service('authentication', ['$window', function($window){
+  return {
+    saveToken: function(token){
+      $window.localStorage['note-app-token'] = token;
+    },
+
+    getToken: function(){
+      return $window.localStorage['note-app-token'];
+    },
+
+    logout: function(){
+      $window.localStorage.removeItem('note-app-token');
+    }
+  }
+}]);
+
+
+
+// --------
+// Filters
 notesApp.filter('htmlToPlaintext', function() {
   return function(text) {
     return text ? String(text).replace(/<[^>]+>/gm, '') : '';
