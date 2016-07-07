@@ -50,6 +50,11 @@ notesApp.config(['$routeProvider', function($routeProvider){
 }]);
 
 
+notesApp.config(['$httpProvider', function($httpProvider){
+  $httpProvider.interceptors.push('authInterceptor');
+}]);
+
+
 notesApp.run(['$rootScope', '$location', 'authentication', function($rootScope, $location, authentication){
   $rootScope.$on('$routeChangeStart', function(){
     if ($location.path() !== '/users/login' && $location.path() !== '/users/register' && !authentication.isLoggedIn()){
@@ -73,14 +78,14 @@ notesApp.controller('notebooksController', ['$scope', '$http', '$location', 'aut
   $scope.notebooks = [];
 
   $scope.deleteNotebook = function(notebook){
-    $http.delete('/api/notebooks/' + notebook._id, { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
-      $http.get('/api/notebooks', { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+    $http.delete('/api/notebooks/' + notebook._id).then(function(result){
+      $http.get('/api/notebooks').then(function(result){
         $scope.notebooks = result.data;
       });
     });
   };
 
-  $http.get('/api/notebooks', { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+  $http.get('/api/notebooks').then(function(result){
     $scope.notebooks = result.data;
   });
 
@@ -89,7 +94,7 @@ notesApp.controller('notebooksController', ['$scope', '$http', '$location', 'aut
 notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '$routeParams', 'authentication', function($scope, $http, $location, $routeParams, authentication){
 
   if ($routeParams.id){
-    $http.get('/api/notebooks/' + $routeParams.id, { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+    $http.get('/api/notebooks/' + $routeParams.id).then(function(result){
         $scope.notebook = result.data;
     });
   } else {
@@ -97,14 +102,14 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '
   }
 
   $scope.saveNotebook = function(){
-    $http.post('/api/notebooks', $scope.notebook, { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+    $http.post('/api/notebooks', $scope.notebook).then(function(result){
       $scope.notebook = {};
       $location.path('/notebooks');
     });
   };
 
   $scope.updateNotebook = function(){
-    $http.put('/api/notebooks/' + $scope.notebook._id, $scope.notebook, { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+    $http.put('/api/notebooks/' + $scope.notebook._id, $scope.notebook).then(function(result){
       $scope.notebook = {};
       $location.path('/notebooks');
     });
@@ -123,17 +128,17 @@ notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', f
   $scope.notebooks = [];
 
   $scope.saveNote = function(){
-    $http.post('/api/notes', $scope.note, { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+    $http.post('/api/notes', $scope.note).then(function(result){
       console.log(result.data);
     });
   };
 
-  $http.get('/api/notebooks', { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+  $http.get('/api/notebooks').then(function(result){
     $scope.notebooks = result.data;
   });
 
   $scope.loadTags = function(query) {
-    return $http.get('/api/tags', { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+    return $http.get('/api/tags').then(function(result){
       return result.data.map(function(item){
         return {text: item.name, tagId: item._id};
       });
@@ -149,21 +154,21 @@ notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', 'a
   $scope.notebooks = [];
 
   $scope.saveNote = function(){
-    $http.put('/api/notes/' + $scope.note._id, $scope.note, { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+    $http.put('/api/notes/' + $scope.note._id, $scope.note).then(function(result){
       console.log(result.data);
     });
   };
 
-  $http.get('/api/notebooks', { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+  $http.get('/api/notebooks').then(function(result){
     $scope.notebooks = result.data;
   });
 
-  $http.get('/api/notes/' + $routeParams.id, { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+  $http.get('/api/notes/' + $routeParams.id).then(function(result){
     $scope.note = result.data;
   });
 
   $scope.loadTags = function(query) {
-    return $http.get('/api/tags', { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+    return $http.get('/api/tags').then(function(result){
       return result.data.map(function(item){
         return {text: item.name, tagId: item._id};
       });
@@ -178,14 +183,14 @@ notesApp.controller('notebookNotesController', ['$scope', '$http', '$routeParams
   $scope.notes = [];
 
   $scope.deleteNote = function(note){
-    $http.delete('/api/notes/' + note._id, { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
-      $http.get('/api/notebooks/' + $routeParams.id + '/notes', { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+    $http.delete('/api/notes/' + note._id).then(function(result){
+      $http.get('/api/notebooks/' + $routeParams.id + '/notes').then(function(result){
         $scope.notes = result.data;
       });
     })
   };
 
-  $http.get('/api/notebooks/' + $routeParams.id + '/notes', { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+  $http.get('/api/notebooks/' + $routeParams.id + '/notes').then(function(result){
     $scope.notes = result.data;
   });
 }]);
@@ -196,14 +201,14 @@ notesApp.controller('tagNotesController', ['$scope', '$http', '$routeParams', 'a
   $scope.notes = [];
 
   $scope.deleteNote = function(note){
-    $http.delete('/api/notes/' + note._id, { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
-      $http.get('/api/tags/' + $routeParams.id + '/notes', { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+    $http.delete('/api/notes/' + note._id).then(function(result){
+      $http.get('/api/tags/' + $routeParams.id + '/notes').then(function(result){
         $scope.notes = result.data;
       });
     })
   };
 
-  $http.get('/api/tags/' + $routeParams.id + '/notes', { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+  $http.get('/api/tags/' + $routeParams.id + '/notes').then(function(result){
     $scope.notes = result.data;
   });
 
@@ -214,7 +219,7 @@ notesApp.controller('tagsController', ['$scope', '$http', 'authentication', func
 
   $scope.tags = [];
 
-  $http.get('/api/tags', { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+  $http.get('/api/tags').then(function(result){
     $scope.tags = result.data;
   });
 }]);
@@ -224,7 +229,7 @@ notesApp.controller('tagsFormController', ['$scope', '$http', '$location', 'auth
   $scope.tag = {};
 
   $scope.saveTag = function(){
-    $http.post('/api/tags', $scope.tag, { headers: { Authorization: 'Bearer ' + authentication.getToken()} }).then(function(result){
+    $http.post('/api/tags', $scope.tag).then(function(result){
       $scope.tag = {};
       $location.path('/tags');
     });
@@ -337,6 +342,16 @@ notesApp.service('authentication', ['$window', '$http', function($window, $http)
     logout : logout
   };
 
+}]);
+
+
+notesApp.service('authInterceptor', ['$window', function($window){
+  return {
+    request: function(config){
+      config.headers['Authorization'] = 'Bearer ' + $window.localStorage['note-app-token'];
+      return config;
+    }
+  };
 }]);
 
 
