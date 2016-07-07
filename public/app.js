@@ -236,6 +236,17 @@ notesApp.service('authentication', ['$window', function($window){
       } else {
         return false;
       }
+    },
+
+    currentUser: function(){
+      if (this.isLoggedIn()){
+        var token = this.getToken();
+        var payload = token.split('.')[1];
+        payload = $window.atob(payload);
+        payload = JSON.parse(payload);
+
+        return { email: payload.email, name: payload.name };
+      }
     }
   }
 }]);
