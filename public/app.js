@@ -3,6 +3,14 @@ var notesApp = angular.module('notesApp', ['ngRoute', 'textAngular', 'ngTagsInpu
 notesApp.config(['$routeProvider', function($routeProvider){
 
   $routeProvider.
+    when('/users/register', {
+      templateUrl: 'pages/users/register.html',
+      controller: 'registerController'
+    }).
+    when('/users/login', {
+      templateUrl: 'pages/users/login.html',
+      controller: 'authController'
+    }).
     when('/notebooks', {
       templateUrl: 'pages/notebooks/index.html',
       controller: 'notebooksController'
@@ -42,7 +50,30 @@ notesApp.config(['$routeProvider', function($routeProvider){
 }]);
 
 
-notesApp.controller('notebooksController', ['$scope', '$http', '$location', function($scope, $http, $location){
+notesApp.config(['$httpProvider', function($httpProvider){
+  $httpProvider.interceptors.push('authInterceptor');
+}]);
+
+
+notesApp.run(['$rootScope', '$location', 'authentication', function($rootScope, $location, authentication){
+  $rootScope.$on('$routeChangeStart', function(){
+    if ($location.path() !== '/users/login' && $location.path() !== '/users/register' && !authentication.isLoggedIn()){
+      $location.path('/users/login');
+    }
+  });
+}]);
+
+
+notesApp.controller('navigationController', ['$scope', 'authentication', function($scope, authentication){
+
+  $scope.isLoggedIn = function(){
+    return authentication.isLoggedIn();
+  };
+
+}]);
+
+
+notesApp.controller('notebooksController', ['$scope', '$http', '$location', 'authentication', function($scope, $http, $location, authentication){
 
   $scope.notebooks = [];
 
@@ -60,7 +91,7 @@ notesApp.controller('notebooksController', ['$scope', '$http', '$location', func
 
 }]);
 
-notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams){
+notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '$routeParams', 'authentication', function($scope, $http, $location, $routeParams, authentication){
 
   if ($routeParams.id){
     $http.get('/api/notebooks/' + $routeParams.id).then(function(result){
@@ -91,7 +122,7 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '
 
 }]);
 
-notesApp.controller('newNoteController', ['$scope', '$http', function($scope, $http){
+notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', function($scope, $http, authentication){
 
   $scope.note = {};
   $scope.notebooks = [];
@@ -117,7 +148,7 @@ notesApp.controller('newNoteController', ['$scope', '$http', function($scope, $h
 }]);
 
 
-notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', 'authentication', function($scope, $http, $routeParams, authentication){
 
   $scope.note = {};
   $scope.notebooks = [];
@@ -147,7 +178,7 @@ notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', fu
 }]);
 
 
-notesApp.controller('notebookNotesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+notesApp.controller('notebookNotesController', ['$scope', '$http', '$routeParams', 'authentication', function($scope, $http, $routeParams, authentication){
 
   $scope.notes = [];
 
@@ -165,7 +196,7 @@ notesApp.controller('notebookNotesController', ['$scope', '$http', '$routeParams
 }]);
 
 
-notesApp.controller('tagNotesController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+notesApp.controller('tagNotesController', ['$scope', '$http', '$routeParams', 'authentication', function($scope, $http, $routeParams, authentication){
 
   $scope.notes = [];
 
@@ -184,7 +215,7 @@ notesApp.controller('tagNotesController', ['$scope', '$http', '$routeParams', fu
 }]);
 
 
-notesApp.controller('tagsController', ['$scope', '$http', function($scope, $http){
+notesApp.controller('tagsController', ['$scope', '$http', 'authentication', function($scope, $http, authentication){
 
   $scope.tags = [];
 
@@ -193,7 +224,7 @@ notesApp.controller('tagsController', ['$scope', '$http', function($scope, $http
   });
 }]);
 
-notesApp.controller('tagsFormController', ['$scope', '$http', '$location', function($scope, $http, $location){
+notesApp.controller('tagsFormController', ['$scope', '$http', '$location', 'authentication', function($scope, $http, $location, authentication){
 
   $scope.tag = {};
 
@@ -207,6 +238,126 @@ notesApp.controller('tagsFormController', ['$scope', '$http', '$location', funct
 }]);
 
 
+notesApp.controller('registerController', ['$scope', '$location', 'authentication', function($scope, $location, authentication){
+
+  $scope.user = { name: '', email: '', password: '' };
+
+  $scope.register = function(){
+    authentication
+      .register($scope.user)
+      .error(function(err){
+        alert(err);
+      })
+      .then(function(){
+        $location.path('/notebooks');
+      });
+  }
+
+}]);
+
+notesApp.controller('authController', ['$scope', '$location', 'authentication', function($scope, $location, authentication){
+
+  $scope.user = { email: '', password: '' };
+
+  $scope.login = function(){
+    authentication
+      .login($scope.user)
+      .error(function(err){
+        alert(err);
+      })
+      .then(function(){
+        $location.path('/notebooks');
+      });
+  };
+
+  $scope.logout = function(){
+    authentication.logout();
+    $location.path('/users/login');
+  };
+
+}]);
+
+
+// --------
+// Services
+
+notesApp.service('authentication', ['$window', '$http', function($window, $http){
+
+  var saveToken = function(token){
+    $window.localStorage['note-app-token'] = token;
+  };
+
+  var getToken = function(){
+    return $window.localStorage['note-app-token'];
+  };
+
+  var logout = function(){
+    $window.localStorage.removeItem('note-app-token');
+  };
+
+  var isLoggedIn = function(){
+    var token = getToken();
+
+    if(token){
+      var payload = token.split('.')[1];
+      payload = $window.atob(payload);
+      payload = JSON.parse(payload);
+
+      return payload.exp > Date.now() / 1000;
+    } else {
+      return false;
+    }
+  };
+
+  var currentUser = function(){
+    if (isLoggedIn()){
+      var token = getToken();
+      var payload = token.split('.')[1];
+      payload = $window.atob(payload);
+      payload = JSON.parse(payload);
+
+      return { email: payload.email, name: payload.name };
+    }
+  };
+
+  var register = function(user){
+    return $http.post('/auth/register', user).success(function(result){
+      saveToken(result.token);
+    });
+  };
+
+  var login = function(user) {
+    return $http.post('/auth/login', user).success(function(result) {
+      saveToken(result.token);
+    });
+  };
+
+  return {
+    currentUser : currentUser,
+    saveToken : saveToken,
+    getToken : getToken,
+    isLoggedIn : isLoggedIn,
+    register : register,
+    login : login,
+    logout : logout
+  };
+
+}]);
+
+
+notesApp.service('authInterceptor', ['$window', function($window){
+  return {
+    request: function(config){
+      config.headers['Authorization'] = 'Bearer ' + $window.localStorage['note-app-token'];
+      return config;
+    }
+  };
+}]);
+
+
+
+// --------
+// Filters
 notesApp.filter('htmlToPlaintext', function() {
   return function(text) {
     return text ? String(text).replace(/<[^>]+>/gm, '') : '';
