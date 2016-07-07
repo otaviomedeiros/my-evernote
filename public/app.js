@@ -316,13 +316,13 @@ notesApp.service('authentication', ['$window', '$http', function($window, $http)
   };
 
   var register = function(user){
-    return $http.post('/api/authentication/register', user).success(function(result){
+    return $http.post('/auth/register', user).success(function(result){
       saveToken(result.token);
     });
   };
 
   var login = function(user) {
-    return $http.post('/api/authentication/login', user).success(function(result) {
+    return $http.post('/auth/login', user).success(function(result) {
       saveToken(result.token);
     });
   };
