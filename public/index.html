@@ -21,7 +21,7 @@
 
   <body>
     <div class="container-fluid main-container">
-      <div class="col-md-1 sidebar text-center">
+      <div class="col-md-1 sidebar text-center" ng-controller="navigationController" ng-show="isLoggedIn()">
         <div class="sidebar-item">
           <a href="#/notes/new">
             <span class="glyphicon glyphicon-plus-sign sidebar-icon"></span>
