@@ -207,6 +207,24 @@ notesApp.controller('tagsFormController', ['$scope', '$http', '$location', funct
 }]);
 
 
+notesApp.controller('registerController', ['$scope', '$location', 'authentication', function($scope, $location, authentication){
+
+  $scope.user = { name: '', email: '', password: '' };
+
+  $scope.register = function(){
+    authentication
+      .register($scope.user)
+      .error(function(err){
+        alert(err);
+      })
+      .then(function(){
+        $location.path('/notebooks');
+      });
+  }
+
+}]);
+
+
 // --------
 // Services
 
@@ -249,8 +267,8 @@ notesApp.service('authentication', ['$window', '$http', function($window, $http)
       }
     },
 
-    register: function(){
-      $http.post('/api/authentication/register', $scope.user).success(function(result){
+    register: function(user){
+      $http.post('/api/authentication/register', user).success(function(result){
         this.saveToken(result.data.token);
       });
     },
