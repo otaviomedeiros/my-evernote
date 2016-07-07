@@ -233,56 +233,66 @@ notesApp.controller('registerController', ['$scope', '$location', 'authenticatio
 // Services
 
 notesApp.service('authentication', ['$window', '$http', function($window, $http){
-  return {
-    saveToken: function(token){
-      $window.localStorage['note-app-token'] = token;
-    },
 
-    getToken: function(){
-      return $window.localStorage['note-app-token'];
-    },
+  var saveToken = function(token){
+    $window.localStorage['note-app-token'] = token;
+  };
 
-    logout: function(){
-      $window.localStorage.removeItem('note-app-token');
-    },
+  var getToken = function(){
+    return $window.localStorage['note-app-token'];
+  };
 
-    isLoggedIn: function(){
-      var token = this.getToken();
+  var logout = function(){
+    $window.localStorage.removeItem('note-app-token');
+  };
 
-      if(token){
-        var payload = token.split('.')[1];
-        payload = $window.atob(payload);
-        payload = JSON.parse(payload);
+  var isLoggedIn = function(){
+    var token = getToken();
 
-        return payload.exp > Date.now() / 1000;
-      } else {
-        return false;
-      }
-    },
+    if(token){
+      var payload = token.split('.')[1];
+      payload = $window.atob(payload);
+      payload = JSON.parse(payload);
 
-    currentUser: function(){
-      if (this.isLoggedIn()){
-        var token = this.getToken();
-        var payload = token.split('.')[1];
-        payload = $window.atob(payload);
-        payload = JSON.parse(payload);
-
-        return { email: payload.email, name: payload.name };
-      }
-    },
-
-    register: function(user){
-      return $http.post('/api/authentication/register', user).success(function(result){
-        this.saveToken(result.data.token);
-      });
-    },
-
-    login: function(user) {
-      return $http.post('/api/authentication/login', user).success(function(result) {
-        this.saveToken(result.data.token);
-      });
+      return payload.exp > Date.now() / 1000;
+    } else {
+      return false;
     }
-  }
+  };
+
+  var currentUser = function(){
+    if (isLoggedIn()){
+      var token = getToken();
+      var payload = token.split('.')[1];
+      payload = $window.atob(payload);
+      payload = JSON.parse(payload);
+
+      return { email: payload.email, name: payload.name };
+    }
+  };
+
+  var register = function(user){
+    return $http.post('/api/authentication/register', user).success(function(result){
+      saveToken(result.token);
+    });
+  };
+
+  var login = function(user) {
+    return $http.post('/api/authentication/login', user).success(function(result) {
+      saveToken(result.token);
+    });
+  };
+
+  return {
+    currentUser : currentUser,
+    saveToken : saveToken,
+    getToken : getToken,
+    isLoggedIn : isLoggedIn,
+    register : register,
+    login : login,
+    logout : logout
+  };
+
 }]);
 
 
