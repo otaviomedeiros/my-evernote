@@ -4,39 +4,40 @@ var Notebook = require('../models/notebook');
 var Note = require('../models/note');
 
 router.get('/', function(req, res){
-  Notebook.find({}, function(err, notes){
+  Notebook.find({ userId: req.payload._id }, function(err, notes){
     res.json(notes);
   });
 });
 
 router.post('/', function(req, res){
-  var note = new Notebook(req.body);
+  var notebook = new Notebook(req.body);
+  notebook.userId = req.payload._id;
 
-  note.save(function(err){
-    res.json(note);
+  notebook.save(function(err){
+    res.json(notebook);
   });
 });
 
 router.delete('/:id', function(req, res){
-  Notebook.remove({ _id: req.params.id }, function(err) {
+  Notebook.remove({ userId: req.payload._id, _id: req.params.id }, function(err) {
     res.json({status: 'ok'})
   });
 });
 
 router.get('/:id', function(req, res){
-  Notebook.findById(req.params.id, function(err, note){
+  Notebook.findOne({ userId: req.payload._id, _id: req.params.id }, function(err, note){
     res.json(note);
   });
 });
 
 router.put('/:id', function(req, res){
-  Notebook.update({_id: req.params.id}, req.body, function(err, note){
+  Notebook.update({ userId: req.payload._id, _id: req.params.id }, req.body, function(err, note){
     res.json(note);
   });
 });
 
 router.get('/:id/notes', function(req, res){
-  Note.find({notebookId: req.params.id}, function(err, notes){
+  Note.find({ userId: req.payload._id, notebookId: req.params.id }, function(err, notes){
     res.json(notes);
   });
 });
