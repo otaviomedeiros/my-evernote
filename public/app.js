@@ -46,7 +46,8 @@ notesApp.config(['$routeProvider', function($routeProvider){
     when('/tags/:id/notes', {
       templateUrl: 'pages/notes/index.html',
       controller: 'tagNotesController'
-    });
+    }).
+    otherwise({ redirectTo: '/users/login' });
 }]);
 
 
