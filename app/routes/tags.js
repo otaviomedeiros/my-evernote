@@ -5,13 +5,14 @@ var Note = require('../models/note');
 
 
 router.get('/', function(req, res){
-  Tag.find({}, function(err, tags){
+  Tag.find({ userId: req.payload._id }, function(err, tags){
     res.json(tags);
   });
 });
 
 router.post('/', function(req, res){
   var tag = new Tag(req.body);
+  tag.userId = req.payload._id;
 
   tag.save(function(err, tag){
     res.json(tag);
@@ -19,7 +20,7 @@ router.post('/', function(req, res){
 });
 
 router.get('/:id/notes', function(req, res){
-  Note.find({'tags.tagId': req.params.id}, function(err, notes){
+  Note.find({ userId: req.payload._id, 'tags.tagId': req.params.id }, function(err, notes){
     res.json(notes);
   });
 });
