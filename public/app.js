@@ -1,4 +1,4 @@
-var notesApp = angular.module('notesApp', ['ngRoute', 'textAngular', 'ngTagsInput']);
+var notesApp = angular.module('notesApp', ['ngRoute', 'ngMessages', 'textAngular', 'ngTagsInput']);
 
 notesApp.config(['$routeProvider', function($routeProvider){
 
