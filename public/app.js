@@ -249,17 +249,11 @@ notesApp.controller('registerController', ['$scope', '$location', 'authenticatio
     authentication
       .register($scope.user)
       .error(function(err){
-        if (err.code === 11000){
-          $scope.registerForm.email.$setValidity('inuse', false);
-        }
+        console.log(err);
       })
       .then(function(){
         $location.path('/notebooks');
       });
-  };
-
-  $scope.resetValidationState = function(){
-    $scope.registerForm.email.$setValidity('inuse', true);
   };
 
 }]);
@@ -377,4 +371,26 @@ notesApp.filter('notecontent', function() {
   return function(noteContent) {
     return noteContent ? noteContent.substr(0, 580) : '';
   }
+});
+
+
+
+
+// directives
+notesApp.directive('emailAlreadyInUse', function($q, $http){
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attrs, emailNgModel){
+      emailNgModel.$asyncValidators.alreadyinuse = function(modelValue, viewValue){
+        return $q(function(resolve, reject){
+          $http.get('/auth/email/' + viewValue).success(function(){
+            reject();
+          }).error(function(){
+            resolve();
+          })
+        });
+      };
+    }
+  };
 });
