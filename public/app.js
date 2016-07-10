@@ -243,16 +243,24 @@ notesApp.controller('registerController', ['$scope', '$location', 'authenticatio
 
   $scope.user = { name: '', email: '', password: '' };
 
+  $scope.serverErrors = [];
+
   $scope.register = function(){
     authentication
       .register($scope.user)
       .error(function(err){
-        alert(err);
+        if (err.code === 11000){
+          $scope.registerForm.email.$setValidity('inuse', false);
+        }
       })
       .then(function(){
         $location.path('/notebooks');
       });
-  }
+  };
+
+  $scope.resetValidationState = function(){
+    $scope.registerForm.email.$setValidity('inuse', true);
+  };
 
 }]);
 
