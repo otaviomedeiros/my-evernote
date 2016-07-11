@@ -1,34 +1,34 @@
 <div class="note-form">
-
-  <div class="row note-form-header">
-    <div class="col-md-12">
-      <div class="pull-left note-options">
-        <select class="form-control" ng-model="note.notebookId">
-          <option ng-repeat="notebook in notebooks" ng-selected="notebook._id === note.notebookId" ng-value="notebook._id">{{notebook.name}}</option>
-        </select>
-      </div>
-      <div class="pull-left note-options" style="height: 35px; width: 300px">
-        <tags-input ng-model="note.tags">
-          <auto-complete source="loadTags()"></auto-complete>
-        </tags-input>
-      </div>
-      <div class="pull-right">
-        <button type="button" name="button" class="btn btn-success" ng-click="saveNote()">Save</button>
-        <button type="button" name="button" class="btn btn-default">Cancel</button>
+  <form name="tagForm", ng-submit="saveNote()">
+    <div class="row note-form-header">
+      <div class="col-md-12">
+        <div class="pull-left note-options">
+          <select class="form-control" ng-model="note.notebookId">
+            <option ng-repeat="notebook in notebooks" ng-selected="notebook._id === note.notebookId" ng-value="notebook._id">{{notebook.name}}</option>
+          </select>
+        </div>
+        <div class="pull-left note-options" style="height: 35px; width: 300px">
+          <tags-input ng-model="note.tags">
+            <auto-complete source="loadTags()"></auto-complete>
+          </tags-input>
+        </div>
+        <div class="pull-right">
+          <button type="submit" name="button" class="btn btn-success">Save</button>
+          <button type="button" name="button" class="btn btn-default">Cancel</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <input type="text" placeholder="Your title here" ng-model="note.title">
+    <div class="row">
+      <div class="col-md-12">
+        <input type="text" placeholder="Your title here" ng-model="note.title">
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <div text-angular ng-model="note.content"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div text-angular ng-model="note.content"></div>
+      </div>
     </div>
-  </div>
-
+  </form>
 </div>
