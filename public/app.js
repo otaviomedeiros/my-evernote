@@ -74,22 +74,28 @@ notesApp.controller('navigationController', ['$scope', 'authentication', functio
 }]);
 
 
-notesApp.controller('notebooksController', ['$scope', '$http', '$location', 'authentication', function($scope, $http, $location, authentication){
+notesApp.controller('notebooksController', ['$scope', '$http', '$location', 'authentication', 'Flash', function($scope, $http, $location, authentication, Flash){
 
   $scope.notebooks = [];
 
   $scope.deleteNotebook = function(notebook){
-    $http.delete('/api/notebooks/' + notebook._id).then(function(result){
-      $http.get('/api/notebooks').then(function(result){
-        $scope.notebooks = result.data;
+    $http.delete('/api/notebooks/' + notebook._id)
+      .success(function(result){
+        Flash.create('Success', "Notebook deleted", 3000, {}, false);
+        $scope.loadNotebooks();
+      })
+      .error(function(error){
+        Flash.create('danger', error, 0, {}, false);
       });
+  };
+
+  $scope.loadNotebooks = function(){
+    $http.get('/api/notebooks').then(function(result){
+      $scope.notebooks = result.data;
     });
   };
 
-  $http.get('/api/notebooks').then(function(result){
-    $scope.notebooks = result.data;
-  });
-
+  $scope.loadNotebooks();
 }]);
 
 notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '$routeParams', 'authentication', 'Flash', function($scope, $http, $location, $routeParams, authentication, Flash){
