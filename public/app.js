@@ -189,39 +189,53 @@ notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', 'a
 }]);
 
 
-notesApp.controller('notebookNotesController', ['$scope', '$http', '$routeParams', 'authentication', function($scope, $http, $routeParams, authentication){
+notesApp.controller('notebookNotesController', ['$scope', '$http', '$routeParams', 'authentication', 'Flash', function($scope, $http, $routeParams, authentication, Flash){
 
   $scope.notes = [];
 
   $scope.deleteNote = function(note){
-    $http.delete('/api/notes/' + note._id).then(function(result){
-      $http.get('/api/notebooks/' + $routeParams.id + '/notes').then(function(result){
-        $scope.notes = result.data;
+    $http.delete('/api/notes/' + note._id)
+      .success(function(result){
+        Flash.create('Success', "Note deleted", 3000, {}, false);
+        $scope.loadNotes();
+      })
+      .error(function(error){
+        Flash.create('danger', error, 0, {}, false);
       });
-    })
   };
 
-  $http.get('/api/notebooks/' + $routeParams.id + '/notes').then(function(result){
-    $scope.notes = result.data;
-  });
+  $scope.loadNotes = function(){
+    $http.get('/api/notebooks/' + $routeParams.id + '/notes').then(function(result){
+      $scope.notes = result.data;
+    });
+  };
+
+  $scope.loadNotes();
 }]);
 
 
-notesApp.controller('tagNotesController', ['$scope', '$http', '$routeParams', 'authentication', function($scope, $http, $routeParams, authentication){
+notesApp.controller('tagNotesController', ['$scope', '$http', '$routeParams', 'authentication', 'Flash', function($scope, $http, $routeParams, authentication, Flash){
 
   $scope.notes = [];
 
   $scope.deleteNote = function(note){
-    $http.delete('/api/notes/' + note._id).then(function(result){
-      $http.get('/api/tags/' + $routeParams.id + '/notes').then(function(result){
-        $scope.notes = result.data;
+    $http.delete('/api/notes/' + note._id)
+      .success(function(result){
+        Flash.create('Success', "Note deleted", 3000, {}, false);
+        $scope.loadNotes();
+      })
+      .error(function(error){
+        Flash.create('danger', error, 0, {}, false);
       });
-    })
   };
 
-  $http.get('/api/tags/' + $routeParams.id + '/notes').then(function(result){
-    $scope.notes = result.data;
-  });
+  $scope.loadNotes = function(){
+    $http.get('/api/tags/' + $routeParams.id + '/notes').then(function(result){
+      $scope.notes = result.data;
+    });
+  };
+
+  $scope.loadNotes();
 
 }]);
 
