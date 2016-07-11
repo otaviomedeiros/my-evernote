@@ -4,7 +4,9 @@ var Notebook = require('../models/notebook');
 var Note = require('../models/note');
 
 router.get('/', function(req, res){
-  Notebook.find({ userId: req.payload._id }, function(err, notes){
+  req.query.userId = req.payload._id;
+
+  Notebook.find(req.query, function(err, notes){
     res.json(notes);
   });
 });

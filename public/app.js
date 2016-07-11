@@ -92,7 +92,7 @@ notesApp.controller('notebooksController', ['$scope', '$http', '$location', 'aut
 
 }]);
 
-notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '$routeParams', 'authentication', function($scope, $http, $location, $routeParams, authentication){
+notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '$routeParams', 'authentication', 'Flash', function($scope, $http, $location, $routeParams, authentication, Flash){
 
   if ($routeParams.id){
     $http.get('/api/notebooks/' + $routeParams.id).then(function(result){
@@ -105,6 +105,7 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '
   $scope.saveNotebook = function(){
     $http.post('/api/notebooks', $scope.notebook).then(function(result){
       $scope.notebook = {};
+      Flash.create('Success', 'Notebook created with success!', 3000, {}, false);
       $location.path('/notebooks');
     });
   };
@@ -112,6 +113,7 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '
   $scope.updateNotebook = function(){
     $http.put('/api/notebooks/' + $scope.notebook._id, $scope.notebook).then(function(result){
       $scope.notebook = {};
+      Flash.create('Success', 'Notebook changed with success!', 3000, {}, false);
       $location.path('/notebooks');
     });
   };
@@ -395,4 +397,28 @@ notesApp.directive('emailAlreadyInUse', ['$q', '$http', function($q, $http){
       };
     }
   };
+}]);
+
+notesApp.directive('uniqueNotebook', ['$q', '$http', function($q, $http){
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, elem, attrs, nameNgModel){
+      nameNgModel.$asyncValidators.unique = function(modelValue, viewValue){
+        return $q(function(resolve, reject){
+          $http.get('/api/notebooks', { params: { name: viewValue } })
+            .success(function(notes){
+              if (notes.length > 0) {
+                reject();
+              } else {
+                resolve();
+              }
+            })
+            .error(function(){
+              reject();
+            })
+        });
+      }
+    }
+  }
 }]);
