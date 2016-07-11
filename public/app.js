@@ -235,13 +235,14 @@ notesApp.controller('tagsController', ['$scope', '$http', 'authentication', func
   });
 }]);
 
-notesApp.controller('tagsFormController', ['$scope', '$http', '$location', 'authentication', function($scope, $http, $location, authentication){
+notesApp.controller('tagsFormController', ['$scope', '$http', '$location', 'authentication', 'Flash', function($scope, $http, $location, authentication, Flash){
 
   $scope.tag = {};
 
   $scope.saveTag = function(){
     $http.post('/api/tags', $scope.tag).then(function(result){
       $scope.tag = {};
+      Flash.create('Success', 'Tag created with success!', 3000, {}, false);
       $location.path('/tags');
     });
   };
@@ -425,6 +426,30 @@ notesApp.directive('uniqueNotebook', ['$q', '$http', function($q, $http){
             .error(function(){
               reject();
             })
+        });
+      }
+    }
+  }
+}]);
+
+notesApp.directive('uniqueTag', ['$q', '$http', function($q, $http){
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attrs, tagNameNgModel){
+      tagNameNgModel.$asyncValidators.unique = function(modelValue, viewValue){
+        return $q(function(resolve, reject){
+          $http.get('/api/tags', { params: { name: viewValue } })
+            .success(function(tags){
+              if (tags.length > 0) {
+                reject();
+              } else {
+                resolve();
+              }
+            })
+            .error(function(){
+              reject();
+            });
         });
       }
     }
