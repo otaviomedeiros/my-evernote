@@ -27,4 +27,10 @@ router.get('/:id/notes', function(req, res){
   });
 });
 
+router.delete('/:id', function(req, res){
+  Tag.remove({ userId: req.payload._id, _id: req.params.id }, function(err) {
+    res.json({status: 'ok'})
+  });
+});
+
 module.exports = router;
