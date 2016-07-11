@@ -92,7 +92,7 @@ notesApp.controller('notebooksController', ['$scope', '$http', '$location', 'aut
 
 }]);
 
-notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '$routeParams', 'authentication', function($scope, $http, $location, $routeParams, authentication){
+notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '$routeParams', 'authentication', 'Flash', function($scope, $http, $location, $routeParams, authentication, Flash){
 
   if ($routeParams.id){
     $http.get('/api/notebooks/' + $routeParams.id).then(function(result){
@@ -105,6 +105,7 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '
   $scope.saveNotebook = function(){
     $http.post('/api/notebooks', $scope.notebook).then(function(result){
       $scope.notebook = {};
+      Flash.create('Success', 'Notebook created with success!', 3000, {}, false);
       $location.path('/notebooks');
     });
   };
@@ -112,6 +113,7 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '
   $scope.updateNotebook = function(){
     $http.put('/api/notebooks/' + $scope.notebook._id, $scope.notebook).then(function(result){
       $scope.notebook = {};
+      Flash.create('Success', 'Notebook changed with success!', 3000, {}, false);
       $location.path('/notebooks');
     });
   };
@@ -123,15 +125,19 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '
 
 }]);
 
-notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', function($scope, $http, authentication){
+notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', 'Flash', function($scope, $http, authentication, Flash){
 
   $scope.note = {};
   $scope.notebooks = [];
 
   $scope.saveNote = function(){
-    $http.post('/api/notes', $scope.note).then(function(result){
-      console.log(result.data);
-    });
+    $http.post('/api/notes', $scope.note)
+      .success(function(result){
+        Flash.create('Success', "Note saved", 3000, {}, false);
+      })
+      .error(function(error){
+        Flash.create('danger', error, 0, {}, false);
+      });
   };
 
   $http.get('/api/notebooks').then(function(result){
@@ -149,15 +155,19 @@ notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', f
 }]);
 
 
-notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', 'authentication', function($scope, $http, $routeParams, authentication){
+notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', 'authentication', 'Flash', function($scope, $http, $routeParams, authentication, Flash){
 
   $scope.note = {};
   $scope.notebooks = [];
 
   $scope.saveNote = function(){
-    $http.put('/api/notes/' + $scope.note._id, $scope.note).then(function(result){
-      console.log(result.data);
-    });
+    $http.put('/api/notes/' + $scope.note._id, $scope.note)
+      .success(function(result){
+        Flash.create('Success', "Note saved", 3000, {}, false);
+      })
+      .error(function(error){
+        Flash.create('danger', error, 0, {}, false);
+      });
   };
 
   $http.get('/api/notebooks').then(function(result){
@@ -225,13 +235,14 @@ notesApp.controller('tagsController', ['$scope', '$http', 'authentication', func
   });
 }]);
 
-notesApp.controller('tagsFormController', ['$scope', '$http', '$location', 'authentication', function($scope, $http, $location, authentication){
+notesApp.controller('tagsFormController', ['$scope', '$http', '$location', 'authentication', 'Flash', function($scope, $http, $location, authentication, Flash){
 
   $scope.tag = {};
 
   $scope.saveTag = function(){
     $http.post('/api/tags', $scope.tag).then(function(result){
       $scope.tag = {};
+      Flash.create('Success', 'Tag created with success!', 3000, {}, false);
       $location.path('/tags');
     });
   };
@@ -395,4 +406,52 @@ notesApp.directive('emailAlreadyInUse', ['$q', '$http', function($q, $http){
       };
     }
   };
+}]);
+
+notesApp.directive('uniqueNotebook', ['$q', '$http', function($q, $http){
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, elem, attrs, nameNgModel){
+      nameNgModel.$asyncValidators.unique = function(modelValue, viewValue){
+        return $q(function(resolve, reject){
+          $http.get('/api/notebooks', { params: { name: viewValue } })
+            .success(function(notes){
+              if (notes.length > 0) {
+                reject();
+              } else {
+                resolve();
+              }
+            })
+            .error(function(){
+              reject();
+            })
+        });
+      }
+    }
+  }
+}]);
+
+notesApp.directive('uniqueTag', ['$q', '$http', function($q, $http){
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attrs, tagNameNgModel){
+      tagNameNgModel.$asyncValidators.unique = function(modelValue, viewValue){
+        return $q(function(resolve, reject){
+          $http.get('/api/tags', { params: { name: viewValue } })
+            .success(function(tags){
+              if (tags.length > 0) {
+                reject();
+              } else {
+                resolve();
+              }
+            })
+            .error(function(){
+              reject();
+            });
+        });
+      }
+    }
+  }
 }]);

@@ -5,7 +5,9 @@ var Note = require('../models/note');
 
 
 router.get('/', function(req, res){
-  Tag.find({ userId: req.payload._id }, function(err, tags){
+  req.query.userId = req.payload._id;
+
+  Tag.find(req.query, function(err, tags){
     res.json(tags);
   });
 });

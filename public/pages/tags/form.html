@@ -1,7 +1,7 @@
 <div class="form-container text-center">
   <div class="container-row">
     <div class="row container-cell">
-      <form ng-submit="saveTag()">
+      <form name="tagForm" ng-submit="tagForm.$valid && saveTag()">
         <div class="col-md-12">
           <span class="glyphicon glyphicon-book"></span>
         </div>
@@ -9,12 +9,19 @@
           CREATE TAG
           <hr>
         </div>
-        <div class="col-md-12">
-          <input type="text" class="form-control" ng-model="tag.name" placeholder="You tag name">
+        <div class="col-md-12" ng-class="{ 'has-error': (tagForm.name.$touched || tagForm.$submitted) && tagForm.name.$invalid}">
+          <input name="name" type="text" required unique-tag ng-maxlength="100" class="form-control" ng-model="tag.name" placeholder="You tag name">
+
+          <div class="help-block" ng-messages="tagForm.name.$error" ng-show="tagForm.name.$touched || tagForm.$submitted">
+            <p ng-message="maxlength">Tag is too long.</p>
+            <p ng-message="required">Tag name is required.</p>
+            <p ng-message="unique">A tag with this name already exists.</p>
+          </div>
         </div>
+
         <div class="col-md-12">
           <button type="button" name="button" class="btn btn-default" ng-click="cancelTag()">Cancel</button>
-          <button type="submit" name="button" class="btn btn-success">Create tag</button>
+          <button type="submit" formnovalidate name="button" class="btn btn-success">Create tag</button>
         </div>
       </form>
     </div>

@@ -1,7 +1,7 @@
 <div class="form-container text-center">
   <div class="container-row">
     <div class="row container-cell">
-      <form ng-submit="updateNotebook()">
+      <form name="notebookForm" ng-submit="notebookForm.$valid && updateNotebook()">
         <div class="col-md-12">
           <span class="glyphicon glyphicon-book"></span>
         </div>
@@ -9,12 +9,19 @@
           NOTEBOOK INFO
           <hr>
         </div>
-        <div class="col-md-12">
-          <input type="text" class="form-control" ng-model="notebook.name" placeholder="Title your notebook">
+        <div class="col-md-12" ng-class="{ 'has-error': (notebookForm.name.$touched || notebookForm.$submitted) && notebookForm.name.$invalid}">
+          <input name="name" required unique-notebook ng-minlength="2" ng-maxlength="150" type="text" class="form-control" ng-model="notebook.name" placeholder="Title your notebook">
+
+          <div class="help-block" ng-messages="notebookForm.name.$error" ng-show="notebookForm.name.$touched || notebookForm.$submitted">
+            <p ng-message="minlength">Notebook name is too short.</p>
+            <p ng-message="maxlength">Notebook name is too long.</p>
+            <p ng-message="required">Notebook name is required.</p>
+            <p ng-message="unique">A notebook with this name already exists.</p>
+          </div>
         </div>
         <div class="col-md-12">
           <button type="button" name="button" class="btn btn-default" ng-click="cancelNotebook()">Cancel</button>
-          <button type="submit" name="button" class="btn btn-success">Update notebook</button>
+          <button type="submit" formnovalidate name="button" class="btn btn-success">Update notebook</button>
         </div>
       </form>
     </div>
