@@ -125,15 +125,19 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '
 
 }]);
 
-notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', function($scope, $http, authentication){
+notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', 'Flash', function($scope, $http, authentication, Flash){
 
   $scope.note = {};
   $scope.notebooks = [];
 
   $scope.saveNote = function(){
-    $http.post('/api/notes', $scope.note).then(function(result){
-      console.log(result.data);
-    });
+    $http.post('/api/notes', $scope.note)
+      .success(function(result){
+        Flash.create('Success', "Note saved", 3000, {}, false);
+      })
+      .error(function(error){
+        Flash.create('danger', error, 0, {}, false);
+      });
   };
 
   $http.get('/api/notebooks').then(function(result){
@@ -151,15 +155,19 @@ notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', f
 }]);
 
 
-notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', 'authentication', function($scope, $http, $routeParams, authentication){
+notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', 'authentication', 'Flash', function($scope, $http, $routeParams, authentication, Flash){
 
   $scope.note = {};
   $scope.notebooks = [];
 
   $scope.saveNote = function(){
-    $http.put('/api/notes/' + $scope.note._id, $scope.note).then(function(result){
-      console.log(result.data);
-    });
+    $http.put('/api/notes/' + $scope.note._id, $scope.note)
+      .success(function(result){
+        Flash.create('Success', "Note saved", 3000, {}, false);
+      })
+      .error(function(error){
+        Flash.create('danger', error, 0, {}, false);
+      });
   };
 
   $http.get('/api/notebooks').then(function(result){

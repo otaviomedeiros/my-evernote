@@ -1,11 +1,16 @@
 <div class="note-form">
-  <form name="tagForm", ng-submit="saveNote()">
+  <flash-message></flash-message>
+  <form name="noteForm", ng-submit="noteForm.$valid && saveNote()">
     <div class="row note-form-header">
       <div class="col-md-12">
-        <div class="pull-left note-options">
-          <select class="form-control" ng-model="note.notebookId">
+        <div class="pull-left note-options" ng-class="{ 'has-error': noteForm.$submitted && noteForm.notebook.$invalid }">
+          <select required class="form-control" name="notebook" ng-model="note.notebookId">
             <option ng-repeat="notebook in notebooks" ng-selected="notebook._id === note.notebookId" ng-value="notebook._id">{{notebook.name}}</option>
           </select>
+
+          <div class="help-block" ng-messages="noteForm.notebook.$error" ng-show="noteForm.notebook.$touched || noteForm.$submitted">
+            <p ng-message="required">Notebook name is required.</p>
+          </div>
         </div>
         <div class="pull-left note-options" style="height: 35px; width: 300px">
           <tags-input ng-model="note.tags">
@@ -13,15 +18,21 @@
           </tags-input>
         </div>
         <div class="pull-right">
-          <button type="submit" name="button" class="btn btn-success">Save</button>
+          <button type="submit" formnovalidate name="button" class="btn btn-success">Save</button>
           <button type="button" name="button" class="btn btn-default">Cancel</button>
         </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-12">
-        <input type="text" placeholder="Your title here" ng-model="note.title">
+      <div class="col-md-12" ng-class="{ 'has-error': (noteForm.title.$touched || noteForm.$submitted) && noteForm.title.$invalid }">
+        <input name="title" type="text" required ng-minlength="2" ng-maxlength="500" placeholder="Your title here" ng-model="note.title" class="form-control">
+
+        <div class="help-block" ng-messages="noteForm.title.$error" ng-show="noteForm.title.$touched || noteForm.$submitted">
+          <p ng-message="minlength">Note title is too short.</p>
+          <p ng-message="maxlength">Note title is too long.</p>
+          <p ng-message="required">Note title is required.</p>
+        </div>
       </div>
     </div>
 
