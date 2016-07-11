@@ -36,4 +36,14 @@ router.post('/login', function(req, res){
   })(req, res);
 });
 
+router.get('/email/:email', function(req, res){
+  User.findOne({ email: req.params.email }, function(err, user){
+    if (err || !user){
+      res.status(404).json({ status: 'not found' });
+    } else {
+      res.status(200).json({ status: 'found' });
+    }
+  });
+});
+
 module.exports = router;

@@ -1,4 +1,4 @@
-var notesApp = angular.module('notesApp', ['ngRoute', 'textAngular', 'ngTagsInput']);
+var notesApp = angular.module('notesApp', ['ngRoute', 'ngMessages', 'textAngular', 'ngTagsInput', 'ngFlash']);
 
 notesApp.config(['$routeProvider', function($routeProvider){
 
@@ -243,30 +243,34 @@ notesApp.controller('registerController', ['$scope', '$location', 'authenticatio
 
   $scope.user = { name: '', email: '', password: '' };
 
+  $scope.serverErrors = [];
+
   $scope.register = function(){
     authentication
       .register($scope.user)
       .error(function(err){
-        alert(err);
+        console.log(err);
       })
       .then(function(){
         $location.path('/notebooks');
       });
-  }
+  };
 
 }]);
 
-notesApp.controller('authController', ['$scope', '$location', 'authentication', function($scope, $location, authentication){
+notesApp.controller('authController', ['$scope', '$location', 'authentication', 'Flash', function($scope, $location, authentication, Flash){
 
   $scope.user = { email: '', password: '' };
 
   $scope.login = function(){
+    Flash.clear();
+
     authentication
       .login($scope.user)
       .error(function(err){
-        alert(err);
+        Flash.create('danger', err.message, 0, {}, false);
       })
-      .then(function(){
+      .success(function(){
         $location.path('/notebooks');
       });
   };
@@ -370,3 +374,25 @@ notesApp.filter('notecontent', function() {
     return noteContent ? noteContent.substr(0, 580) : '';
   }
 });
+
+
+
+
+// directives
+notesApp.directive('emailAlreadyInUse', ['$q', '$http', function($q, $http){
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attrs, emailNgModel){
+      emailNgModel.$asyncValidators.alreadyinuse = function(modelValue, viewValue){
+        return $q(function(resolve, reject){
+          $http.get('/auth/email/' + viewValue).success(function(){
+            reject();
+          }).error(function(){
+            resolve();
+          })
+        });
+      };
+    }
+  };
+}]);
