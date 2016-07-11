@@ -226,13 +226,28 @@ notesApp.controller('tagNotesController', ['$scope', '$http', '$routeParams', 'a
 }]);
 
 
-notesApp.controller('tagsController', ['$scope', '$http', 'authentication', function($scope, $http, authentication){
+notesApp.controller('tagsController', ['$scope', '$http', 'authentication', 'Flash', function($scope, $http, authentication, Flash){
 
   $scope.tags = [];
 
-  $http.get('/api/tags').then(function(result){
-    $scope.tags = result.data;
-  });
+  $scope.deleteTag = function(tag){
+    $http.delete('/api/tags/' + tag._id)
+      .success(function(result){
+        Flash.create('Success', "Tag deleted", 3000, {}, false);
+        $scope.loadTags();
+      })
+      .error(function(error){
+        Flash.create('danger', error, 0, {}, false);
+      });
+  };
+
+  $scope.loadTags = function(){
+    $http.get('/api/tags').then(function(result){
+      $scope.tags = result.data;
+    });
+  };
+
+  $scope.loadTags();
 }]);
 
 notesApp.controller('tagsFormController', ['$scope', '$http', '$location', 'authentication', 'Flash', function($scope, $http, $location, authentication, Flash){
@@ -455,3 +470,20 @@ notesApp.directive('uniqueTag', ['$q', '$http', function($q, $http){
     }
   }
 }]);
+
+
+notesApp.directive('confirm', function(){
+  return {
+    restrict: 'A',
+    link: {
+      pre: function(scope, element, attrs){
+        element.bind('click', function(){
+          if (!confirm(attrs.confirm)) {
+            event.stopImmediatePropagation();
+            event.preventDefault;
+          }
+        });
+      }
+    }
+  }
+});
