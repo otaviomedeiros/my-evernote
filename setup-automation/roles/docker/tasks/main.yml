@@ -1,0 +1,32 @@
+---
+- name: Update package information
+  apt: name={{ item }} state=present
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - apparmor
+
+- name: Add the new GPG key
+  apt_key: keyserver={{ docker_key_server }} id={{ docker_key_identifier }}
+
+- name: Add an entry in sources.list for docker
+  copy: src=docker.list dest=/etc/apt/sources.list.d/docker.list
+
+- name: update apt cache
+  apt: update_cache=yes cache_valid_time=86400
+
+- shell: uname -r
+  register: uname
+  changed_when: false
+
+- name: Ensure linux-image-extra is installed
+  apt: name=linux-image-extra-{{ uname.stdout }} state=present
+
+- name: Install Docker
+  apt: name=docker-engine state=present
+
+- name: Create the docker group
+  group: name=docker state=present
+
+- name: Add vm user to docker group
+  user: name=vagrant group=docker
