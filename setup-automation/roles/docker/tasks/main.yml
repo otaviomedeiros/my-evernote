@@ -30,3 +30,12 @@
 
 - name: Create the docker group
   group: name=docker state=present
+
+- name: install virtual env
+  apt: name=python-virtualenv state=present
+
+- name: install pip
+  easy_install: name=pip state=present
+
+- name: install docker module requirements
+  pip: name=docker-py
