@@ -1,0 +1,8 @@
+---
+- hosts: database
+  become: true
+  gather_facts: false
+  tasks:
+    - name: pull mongo image
+      docker_image:
+        name: mongo:3
