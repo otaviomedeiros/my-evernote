@@ -23,13 +23,10 @@
   apt: name=linux-image-extra-{{ uname.stdout }} state=present
 
 - name: update apt cache
-  apt: update_cache=yes 
+  apt: update_cache=yes
 
 - name: Install Docker
   apt: name=docker-engine state=present
 
 - name: Create the docker group
   group: name=docker state=present
-
-- name: Add vm user to docker group
-  user: name=vagrant group=docker
