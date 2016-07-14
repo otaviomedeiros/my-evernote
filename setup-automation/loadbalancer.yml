@@ -1,0 +1,10 @@
+---
+- hosts: loadbalancer
+  become: true
+  gather_facts: false
+  tasks:
+    - name: pull nginx image
+      docker_image:
+        name: nginx:1.10
+        state: present
+      changed_when: false

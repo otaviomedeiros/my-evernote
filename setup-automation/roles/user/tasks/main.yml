@@ -1,0 +1,4 @@
+---
+- name: create user
+  user: name={{ ssh_user }} state=present password={{ ssh_user_password | password_hash('sha512')}} groups=sudo,docker
+  changed_when: false
