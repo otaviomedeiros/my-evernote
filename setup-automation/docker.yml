@@ -9,7 +9,7 @@
       apt: name=python-virtualenv state=present
 
     - name: install pip
-      easy_install: name=pip state=latest
+      easy_install: name=pip state=present
 
     - name: install docker module requirements
       pip: name=docker-py

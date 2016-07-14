@@ -6,3 +6,5 @@
     - name: pull node image
       docker_image:
         name: node:argon
+        state: present
+      changed_when: false
