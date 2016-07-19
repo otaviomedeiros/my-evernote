@@ -7,3 +7,6 @@ git checkout -f
 FULL_LATEST_TAG="${REPO_NAME}:latest"
 
 docker build -t "${FULL_LATEST_TAG}" "${GIT_WORK_TREE}"
+
+echo "Restarting ${REPO_NAME}"
+docker stop "${REPO_NAME}"
