@@ -4,10 +4,10 @@
   gather_facts: false
   roles:
     - git-repo
-    
+
   tasks:
     - name: pull node image
       docker_image:
-        name: node:argon
+        name: node
         state: present
-      changed_when: false
+        tag: 'argon'

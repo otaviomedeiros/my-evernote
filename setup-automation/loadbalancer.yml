@@ -5,6 +5,6 @@
   tasks:
     - name: pull nginx image
       docker_image:
-        name: nginx:1.10
+        name: nginx
         state: present
-      changed_when: false
+        tag: '1.10'
