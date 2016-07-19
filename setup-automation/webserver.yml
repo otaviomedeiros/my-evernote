@@ -2,22 +2,12 @@
 - hosts: webserver
   become: true
   gather_facts: false
+  roles:
+    - git-repo
+    
   tasks:
     - name: pull node image
       docker_image:
         name: node:argon
         state: present
       changed_when: false
-
-    - name: ensure git is installed
-      apt: name=git state=present
-
-    - name: create git repo folder
-      file: path={{ repo_folder }} state=directory
-
-    - name: create bare repo
-      command: git init --bare chdir={{ repo_folder }} warn=no
-      changed_when: false
-
-    - name: give permission to ssh user in repo folder
-      file: path={{ repo_folder }} owner={{ ssh_user }} group={{ ssh_user }} state=directory recurse=yes

@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+REPO_NAME="notes"
+export GIT_WORK_TREE="/var/git/${REPO_NAME}"
+git checkout -f

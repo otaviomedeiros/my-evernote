@@ -1,0 +1,17 @@
+---
+- name: ensure git is installed
+  apt: name=git state=present
+
+- name: create git repo folder
+  file: path={{ repo_folder }} state=directory
+
+- name: create bare repo
+  command: git init --bare chdir={{ repo_folder }} warn=no
+  changed_when: false
+
+- name: give permission to ssh user in repo folder
+  file: path={{ repo_folder }} owner={{ ssh_user }} group={{ ssh_user }} state=directory recurse=yes
+  changed_when: false
+
+- name: deploy script as post receive git hook
+  copy: src=post-receive dest={{ repo_folder }}/hooks owner={{ ssh_user }} group={{ ssh_user }} mode=755
