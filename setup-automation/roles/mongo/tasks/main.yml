@@ -1,0 +1,12 @@
+---
+- name: pull mongo image
+  docker_image:
+    name: mongo
+    state: present
+    tag: '3'
+
+- name: copy upstart script
+  copy: src=mongo.conf dest=/etc/init
+
+- name: ensure mongo is started
+  service: name=mongo state=started
