@@ -1,0 +1,3 @@
+---
+repo_folder: /var/git/{{ app_name }}.git
+work_tree_folder: /var/git/{{ app_name }}

@@ -2,6 +2,9 @@
 - hosts: webserver
   become: true
   gather_facts: false
+  roles:
+    - git-repo
+    
   tasks:
     - name: pull node image
       docker_image:
