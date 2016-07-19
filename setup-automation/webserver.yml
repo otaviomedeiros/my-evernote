@@ -18,3 +18,6 @@
     - name: create bare repo
       command: git init --bare chdir={{ repo_folder }} warn=no
       changed_when: false
+
+    - name: give permission to ssh user in repo folder
+      file: path={{ repo_folder }} owner={{ ssh_user }} group={{ ssh_user }} state=directory recurse=yes
