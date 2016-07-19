@@ -6,9 +6,8 @@
   file: path={{ repo_folder }} state=directory
 
 - name: create bare repo
-  action: command chdir={{ repo_folder }} creates={{ repo_folder }}/HEAD git init --bare warn=no
+  command: git init --bare chdir={{ repo_folder }} warn=no
   changed_when: false
-
 
 - name: give permission to ssh user in repo folder
   file: path={{ repo_folder }} owner={{ ssh_user }} group={{ ssh_user }} state=directory recurse=yes
