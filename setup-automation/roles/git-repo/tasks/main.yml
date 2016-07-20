@@ -14,4 +14,4 @@
   changed_when: false
 
 - name: deploy script as post receive git hook
-  copy: src=post-receive dest={{ repo_folder }}/hooks owner={{ ssh_user }} group={{ ssh_user }} mode=755
+  template: src=post-receive.j2 dest={{ repo_folder }}/hooks/post-receive owner={{ ssh_user }} group={{ ssh_user }} mode=755
