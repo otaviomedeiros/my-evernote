@@ -1,0 +1,3 @@
+---
+mongo_image: mongo:3
+mongo_persisted_data_folder: /var/lib/docker/volumes/mongo/data

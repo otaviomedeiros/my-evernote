@@ -6,7 +6,7 @@
     tag: '3'
 
 - name: copy upstart script
-  copy: src=mongo.conf dest=/etc/init
+  template: src=mongo.conf.j2 dest=/etc/init/mongo.conf
 
 - name: ensure mongo is started
   service: name=mongo state=started
