@@ -5,8 +5,14 @@
     state: present
     tag: 'argon'
 
+- name: ensure app config folder exists
+  file: path={{ app_conf_folder }} state=directory 
+
+- name: ensure app source folder exists
+  file: path={{ app_source_folder }} owner={{ ssh_user }} group={{ ssh_user }} state=directory recurse=yes
+
 - name: copy .env file
-  template: src=.notes.env.j2 dest={{ work_tree_folder }}/.notes.env
+  template: src=.notes.env.j2 dest={{ app_conf_folder }}/.notes.env
 
 - name: copy upstart script
   copy: src=notes.conf dest=/etc/init
