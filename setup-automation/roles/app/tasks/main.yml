@@ -6,7 +6,7 @@
     tag: 'argon'
 
 - name: copy .env file
-  copy: src=.env dest={{ work_tree_folder }}
+  template: src=.notes.env.j2 dest={{ work_tree_folder }}/.notes.env
 
 - name: copy upstart script
   copy: src=notes.conf dest=/etc/init
