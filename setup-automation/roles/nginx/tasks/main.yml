@@ -1,0 +1,21 @@
+---
+- name: pull nginx image
+  docker_image:
+    name: nginx
+    state: present
+    tag: '1.10'
+
+- name: ensure nginx conf folder exists
+  file: path={{ nginx_conf_folder }} state=directory
+
+- name: copy nginx conf file
+  copy: src=server/nginx.conf dest={{ nginx_conf_folder }}
+
+- name: copy nginx app conf file
+  copy: src=server/default.conf dest={{ nginx_conf_folder }}
+
+- name: copy upstart script
+  template: src=upstart/nginx.conf.j2 dest=/etc/init/nginx.conf
+
+- name: ensure nginx service started
+  service: name=nginx state=started

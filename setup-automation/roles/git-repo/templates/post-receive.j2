@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+
+APP_NAME={{ app_container_name }}
+export GIT_WORK_TREE="/var/${APP_NAME}"
+git checkout -f
+
+FULL_LATEST_TAG="${APP_NAME}:latest"
+
+docker build -t "${FULL_LATEST_TAG}" "${GIT_WORK_TREE}"
+
+echo "Restarting ${APP_NAME}"
+docker stop "${APP_NAME}"

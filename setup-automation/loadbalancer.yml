@@ -2,9 +2,6 @@
 - hosts: loadbalancer
   become: true
   gather_facts: false
-  tasks:
-    - name: pull nginx image
-      docker_image:
-        name: nginx
-        state: present
-        tag: '1.10'
+  roles:
+    - nginx
+  

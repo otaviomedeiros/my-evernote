@@ -1,3 +1,2 @@
 ---
-repo_folder: /var/git/{{ app_name }}.git
-work_tree_folder: /var/git/{{ app_name }}
+repo_folder: /var/git/{{ app_container_name }}.git

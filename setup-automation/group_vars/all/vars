@@ -1,4 +1,7 @@
 ---
 ssh_user: "{{ vault_ssh_user }}"
 ssh_user_password: "{{ vault_ssh_user_password }}"
-app_name: notes
+app_conf_folder: /etc/notes
+app_container_name: notes
+mongo_name: mongo
+nginx_container_name: nginx

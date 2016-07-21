@@ -1,0 +1,3 @@
+---
+nginx_conf_folder: /etc/notes/nginx/
+nginx_image: nginx:1.10

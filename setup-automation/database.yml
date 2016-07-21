@@ -2,9 +2,5 @@
 - hosts: database
   become: true
   gather_facts: false
-  tasks:
-    - name: pull mongo image
-      docker_image:
-        name: mongo
-        state: present
-        tag: '3'
+  roles:
+    - mongo
