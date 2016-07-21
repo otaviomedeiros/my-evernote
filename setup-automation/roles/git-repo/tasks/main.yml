@@ -15,3 +15,4 @@
 
 - name: deploy script as post receive git hook
   template: src=post-receive.j2 dest={{ repo_folder }}/hooks/post-receive owner={{ ssh_user }} group={{ ssh_user }} mode=755
+  

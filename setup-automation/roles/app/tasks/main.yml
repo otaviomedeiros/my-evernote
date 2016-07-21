@@ -17,5 +17,15 @@
 - name: copy upstart script
   template: src=notes.conf.j2 dest=/etc/init/notes.conf
 
+- name: checkout app repo
+  git: repo={{ app_repo_url }} dest={{ app_source_folder }}
+
+- name: build app image
+  docker_image:
+    path: "{{ app_source_folder }}"
+    state: present
+    name: "{{ app_container_name }}"
+    tag: latest
+
 - name: ensure notes is started
   service: name=notes state=started
