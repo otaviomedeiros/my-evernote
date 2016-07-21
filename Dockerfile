@@ -15,8 +15,9 @@ WORKDIR /app
 
 COPY . .
 
-RUN rm -rf public/bower_components
-RUN ln -sf /opt/bower_components/ public/
+COPY docker-entrypoint /
+RUN chmod +x /docker-entrypoint
+ENTRYPOINT ["/docker-entrypoint"]
 
 EXPOSE 3000
 CMD [ "npm", "start" ]

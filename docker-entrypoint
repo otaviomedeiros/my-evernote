@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
+rm -rf public/bower_components
+ln -sf /opt/bower_components/ public/
+
+# Execute the CMD from the Dockerfile.
+exec "$@"
