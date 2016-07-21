@@ -306,6 +306,10 @@ notesApp.controller('registerController', ['$scope', '$location', 'authenticatio
 
 notesApp.controller('authController', ['$scope', '$location', 'authentication', 'Flash', function($scope, $location, authentication, Flash){
 
+  if (authentication.isLoggedIn()){
+    $location.path('/notebooks');
+  }
+
   $scope.user = { email: '', password: '' };
 
   $scope.login = function(){
