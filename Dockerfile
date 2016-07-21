@@ -15,7 +15,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN rm -rf public/bower_components && ln -s /opt/bower_components/ public/
+RUN rm -rf public/bower_components
+RUN ln -s /opt/bower_components/ public/
 
 EXPOSE 3000
 CMD [ "npm", "start" ]
