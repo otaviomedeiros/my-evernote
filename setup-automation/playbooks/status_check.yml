@@ -1,0 +1,10 @@
+---
+- hosts: loadbalancer
+  tasks:
+    - name: check nginx
+      wait_for: port=80 timeout=1
+
+- hosts: webserver
+  tasks:
+    - name: check node app server
+      wait_for: port=3000 timeout=1
