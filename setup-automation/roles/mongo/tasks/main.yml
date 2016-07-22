@@ -4,9 +4,11 @@
     name: mongo
     state: present
     tag: '3'
+  notify: restart mongo
 
 - name: copy upstart script
   template: src=mongo.conf.j2 dest=/etc/init/mongo.conf
+  notify: restart mongo
 
 - name: ensure mongo is started
   service: name=mongo state=started

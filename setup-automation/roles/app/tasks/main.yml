@@ -1,24 +1,29 @@
 ---
-- name: pull node image
-  docker_image:
-    name: node
-    state: present
-    tag: 'argon'
-
 - name: ensure app config folder exists
   file: path={{ app_conf_folder }} state=directory
 
 - name: ensure app source folder exists
   file: path={{ app_source_folder }} owner={{ ssh_user }} group={{ ssh_user }} state=directory recurse=yes
+  changed_when: false
 
 - name: copy .env file
   template: src=.notes.env.j2 dest={{ app_conf_folder }}/.notes.env
+  notify: restart notes
 
 - name: copy upstart script
   template: src=notes.conf.j2 dest=/etc/init/notes.conf
+  notify: restart notes
 
 - name: checkout app repo
   git: repo={{ app_repo_url }} dest={{ app_source_folder }}
+  notify: restart notes
+
+- name: pull node image
+  docker_image:
+    name: node
+    state: present
+    tag: 'argon'
+  notify: restart notes
 
 - name: build app image
   docker_image:
@@ -26,6 +31,7 @@
     state: present
     name: "{{ app_container_name }}"
     tag: latest
+  notify: restart notes
 
 - name: ensure notes is started
   service: name=notes state=started

@@ -4,18 +4,22 @@
     name: nginx
     state: present
     tag: '1.10'
+  notify: restart nginx
 
 - name: ensure nginx conf folder exists
   file: path={{ nginx_conf_folder }} state=directory
 
 - name: copy nginx conf file
   copy: src=server/nginx.conf dest={{ nginx_conf_folder }}
+  notify: restart nginx
 
 - name: copy nginx app conf file
   copy: src=server/default.conf dest={{ nginx_conf_folder }}
+  notify: restart nginx
 
 - name: copy upstart script
   template: src=upstart/nginx.conf.j2 dest=/etc/init/nginx.conf
+  notify: restart nginx
 
 - name: ensure nginx service started
   service: name=nginx state=started
