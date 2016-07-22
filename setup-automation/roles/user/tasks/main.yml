@@ -7,3 +7,5 @@
     password: "{{ ssh_user_password | password_hash('sha512')}}"
     groups: sudo,docker
   changed_when: false
+
+- authorized_key: user={{ ssh_user }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
