@@ -1,0 +1,8 @@
+[loadbalancer]
+159.203.191.40 ansible_user=root
+
+[webserver]
+159.203.191.40 ansible_user=root
+
+[database]
+159.203.191.40 ansible_user=root
