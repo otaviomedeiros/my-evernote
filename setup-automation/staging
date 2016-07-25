@@ -1,8 +1,8 @@
 [loadbalancer]
-192.168.99.120 ansible_user=vagrant
+159.203.191.40 ansible_user=root
 
 [webserver]
-192.168.99.120 ansible_user=vagrant
+159.203.191.40 ansible_user=root
 
 [database]
-192.168.99.120 ansible_user=vagrant
+159.203.191.40 ansible_user=root

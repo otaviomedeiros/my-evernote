@@ -1,8 +1,8 @@
 [loadbalancer]
-159.203.191.40 ansible_user=root
+ec2-52-42-27-160.us-west-2.compute.amazonaws.com ansible_user=ubuntu ansible_ssh_private_key_file=./notes-keypar.pem
 
 [webserver]
-159.203.191.40 ansible_user=root
+ec2-52-42-27-160.us-west-2.compute.amazonaws.com ansible_user=ubuntu ansible_ssh_private_key_file=./notes-keypar.pem
 
 [database]
-159.203.191.40 ansible_user=root
+ec2-52-42-27-160.us-west-2.compute.amazonaws.com ansible_user=ubuntu ansible_ssh_private_key_file=./notes-keypar.pem
