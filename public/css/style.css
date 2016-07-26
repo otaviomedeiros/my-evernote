@@ -1,3 +1,8 @@
+body {
+  -webkit-font-smoothing: antialiased;
+  font-family: "proxima-nova", "proxima nova", "helvetica neue", "helvetica", "arial", sans-serif;
+  font-weight: 600;
+}
 .main-container {
   padding-left: 0;
 }
@@ -28,21 +33,6 @@
 .main-container .app-content .form-container .container-cell {
   display: table-cell;
   vertical-align: middle;
-}
-
-.main-container .sidebar {
-  height: 100%;
-  border-right: 1px solid #ececec;
-  background-color: #f8f8f8;
-}
-
-.main-container .sidebar .sidebar-icon {
-  padding-top: 30px;
-}
-
-.main-container .sidebar .sidebar-icon {
-  color: #2dbe60;
-  font-size:30px;
 }
 
 .main-container .list {
@@ -109,4 +99,50 @@
 .note-form .note-form-header .note-options {
   margin-top:20px;
   margin-right: 10px;
+}
+
+
+.main-menu ul.primary li a {
+  padding-top: 30px;
+  padding-bottom: 6px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.main-menu.navbar {
+    background-color: #fff !important;
+    border: none !important;
+}
+
+.main-menu ul.primary li.active a {
+  color: #0069ff !important;
+  background: none !important;
+}
+
+.main-menu ul.primary li a:hover {
+  border-bottom: 2px solid #0069ff;
+  color: #0069ff;
+  cursor: pointer;
+}
+
+.main-menu ul.secondary {
+  padding-top: 20px;
+}
+
+.main-menu .navbar-nav li a {
+  padding: 10px 25px;
+}
+
+.btn.btn-success {
+  color: white !important;
+  background: #15CD72;
+  border: 1px solid #15CD72;
+  font-weight: 600;
+}
+
+.btn.btn-success:hover {
+  background: #0CB863 !important;
+  border: 1px solid #0CB863 !important;
 }

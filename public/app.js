@@ -1,4 +1,9 @@
-var notesApp = angular.module('notesApp', ['ngRoute', 'ngMessages', 'textAngular', 'ngTagsInput', 'ngFlash']);
+var notesApp = angular.module('notesApp', ['ngRoute', 'ngMessages', 'textAngular', 'ngTagsInput', 'ngFlash', 'underscore']);
+
+var underscore = angular.module('underscore', []);
+underscore.factory('_', ['$window', function($window) {
+  return $window._;
+}]);
 
 notesApp.config(['$routeProvider', function($routeProvider){
 
@@ -511,3 +516,19 @@ notesApp.directive('confirm', function(){
     }
   }
 });
+
+
+notesApp.directive('menuItem', ['_', function(_){
+  return {
+    restrict: 'A',
+    link: function(scope, elem, attrs){
+      elem.find('a')[0].onclick = function(a, b, c){
+        _.forEach(elem[0].parentElement.getElementsByTagName('li'), function(li){
+          li.classList.remove('active');
+        });
+
+        elem[0].classList.add('active');
+      };
+    }
+  }
+}]);
