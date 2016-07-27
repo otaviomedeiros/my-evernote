@@ -1,6 +1,6 @@
 body {
   -webkit-font-smoothing: antialiased;
-  font-family: "proxima-nova", "proxima nova", "helvetica neue", "helvetica", "arial", sans-serif;
+  font-family: gotham, helvetica, arial, sans-serif;
   font-weight: 600;
 }
 .main-container {
@@ -8,12 +8,9 @@ body {
 }
 
 .main-container .app-content h1 {
-  -webkit-font-smoothing: antialiased;
-  font-family: gotham, helvetica, arial, sans-serif;
   font-size: 21px;
   font-weight: 300;
   letter-spacing: 0.5px;
-  color: #878787;
 }
 
 .main-container .app-content .btn {
@@ -36,12 +33,12 @@ body {
 }
 
 .main-container .list {
-  margin-top: 70px;
-  border-top: 1px solid #ececec;
+  margin-top: 40px;
 }
 
 .main-container .list .list-item {
   padding-top: 10px;
+  border-top: 2px solid #f1f1f1;
 }
 
 .main-container .list .list-item-note {
@@ -49,25 +46,21 @@ body {
 }
 
 .main-container .list .list-item .list-item-action-bar {
-
+  display: none;
 }
 
-.main-container .list .list-item:hover {
-  background-color: #2dbe60;
-}
 
 .main-container .list .list-item:hover .list-item-title a {
-  color: #fff;
+  color: black;
 }
 
 
 .main-container .list .list-item:hover .list-item-addons {
   border: none;
-  color: #ececec;
+  color: #4a4a4a;
 }
 
 .main-container .list .list-item .list-item-addons {
-  border-bottom: 1px solid #ececec;
   color: #878787;
   font-family: gotham, helvetica, arial, sans-serif;
   font-size: 11px;
@@ -145,4 +138,11 @@ body {
 .btn.btn-success:hover {
   background: #0CB863 !important;
   border: 1px solid #0CB863 !important;
+}
+
+.btn.btn-primary {
+  color: white !important;
+  background: #0069ff;
+  border: 1px solid #0069ff;
+  font-weight: 500;
 }

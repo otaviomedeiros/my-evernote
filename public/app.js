@@ -522,13 +522,26 @@ notesApp.directive('menuItem', ['_', function(_){
   return {
     restrict: 'A',
     link: function(scope, elem, attrs){
-      elem.find('a')[0].onclick = function(a, b, c){
-        _.forEach(elem[0].parentElement.getElementsByTagName('li'), function(li){
-          li.classList.remove('active');
-        });
+      elem.find('a').on('click', function(){
+        elem.siblings('[menu-item]').removeClass('active');
+        elem.addClass('active');
+      });
+    }
+  }
+}]);
 
-        elem[0].classList.add('active');
-      };
+
+notesApp.directive('showActionsHover', ['_', function(_){
+  return {
+    restrict: 'A',
+    link: function(scope, elem, attrs){
+      elem.on('mouseenter', function(){
+        elem.find('[actions-hover]').show();
+      });
+
+      elem.on('mouseleave', function(){
+        elem.find('[actions-hover]').hide();
+      });
     }
   }
 }]);
