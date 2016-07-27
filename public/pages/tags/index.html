@@ -1,8 +1,6 @@
 <div class="row">
   <div class="col-md-10">
     <h1>TAGS</h1>
-  </div>
-  <div class="col-md-2">
     <a href="#/tags/new" class="btn btn-default">New Tag</a>
   </div>
 </div>
@@ -10,14 +8,14 @@
 <flash-message></flash-message>
 
 <div class="list row">
-  <div class="list-item col-md-12" ng-repeat="tag in tags">
+  <div class="list-item col-md-12" show-actions-hover ng-repeat="tag in tags">
     <div class="list-item-title col-md-12">
       <div class="pull-left">
         <a href="#/tags/{{ tag._id }}/notes">
           {{ tag.name }}
         </a>
       </div>
-      <div class="list-item-action-bar pull-right">
+      <div actions-hover class="list-item-action-bar pull-right">
         <a ng-click="deleteTag(tag)" confirm="Are you sure?">
           <span class="glyphicon glyphicon-trash"></span>
         </a>
