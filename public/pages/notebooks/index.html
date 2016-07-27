@@ -1,8 +1,6 @@
 <div class="row">
-  <div class="col-md-10">
+  <div class="col-md-12">
     <h1>NOTEBOOKS</h1>
-  </div>
-  <div class="col-md-2">
     <a href="#/notebooks/new" class="btn btn-default">New Notebook</a>
   </div>
 </div>
@@ -10,14 +8,14 @@
 <flash-message></flash-message>
 
 <div class="list row">
-  <div class="list-item col-md-12" ng-repeat="notebook in notebooks">
+  <div class="list-item col-md-12" show-actions-hover ng-repeat="notebook in notebooks">
     <div class="list-item-title col-md-12">
       <div class="pull-left">
         <a href="#/notebooks/{{ notebook._id }}/notes">
           {{ notebook.name }}
         </a>
       </div>
-      <div class="list-item-action-bar pull-right">
+      <div actions-hover class="list-item-action-bar pull-right">
         <a href="#/notebooks/{{ notebook._id }}">
           <span class="glyphicon glyphicon-edit"></span>
         </a>

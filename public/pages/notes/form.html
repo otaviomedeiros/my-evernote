@@ -12,14 +12,14 @@
             <p ng-message="required">Notebook name is required.</p>
           </div>
         </div>
-        <div class="pull-left note-options" style="height: 35px; width: 300px">
+        <div class="pull-left note-options tags">
           <tags-input ng-model="note.tags">
             <auto-complete source="loadTags()"></auto-complete>
           </tags-input>
         </div>
         <div class="pull-right">
           <button type="submit" formnovalidate name="button" class="btn btn-success">Save</button>
-          <button type="button" name="button" class="btn btn-default">Cancel</button>
+          <button type="button" name="button" class="btn btn-default" ng-click="cancelNote()">Cancel</button>
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <div text-angular ng-model="note.content"></div>
+        <div text-angular ng-model="note.content" ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','ul','ol','undo','redo'],['justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent']]"></div>
       </div>
     </div>
   </form>

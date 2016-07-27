@@ -1,4 +1,9 @@
-var notesApp = angular.module('notesApp', ['ngRoute', 'ngMessages', 'textAngular', 'ngTagsInput', 'ngFlash']);
+var notesApp = angular.module('notesApp', ['ngRoute', 'ngMessages', 'textAngular', 'ngTagsInput', 'ngFlash', 'underscore']);
+
+var underscore = angular.module('underscore', []);
+underscore.factory('_', ['$window', function($window) {
+  return $window._;
+}]);
 
 notesApp.config(['$routeProvider', function($routeProvider){
 
@@ -131,7 +136,7 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '
 
 }]);
 
-notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', 'Flash', function($scope, $http, authentication, Flash){
+notesApp.controller('newNoteController', ['$scope', '$http', '$location', 'authentication', 'Flash', function($scope, $http, $location, authentication, Flash){
 
   $scope.note = {};
   $scope.notebooks = [];
@@ -144,6 +149,11 @@ notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', '
       .error(function(error){
         Flash.create('danger', error, 0, {}, false);
       });
+  };
+
+  $scope.cancelNote = function(){
+    $scope.note = {};
+    $location.path('/notebooks');
   };
 
   $http.get('/api/notebooks').then(function(result){
@@ -161,7 +171,7 @@ notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', '
 }]);
 
 
-notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', 'authentication', 'Flash', function($scope, $http, $routeParams, authentication, Flash){
+notesApp.controller('editNoteController', ['$scope', '$http', '$location', '$routeParams', 'authentication', 'Flash', function($scope, $http, $location, $routeParams, authentication, Flash){
 
   $scope.note = {};
   $scope.notebooks = [];
@@ -174,6 +184,11 @@ notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', 'a
       .error(function(error){
         Flash.create('danger', error, 0, {}, false);
       });
+  };
+
+  $scope.cancelNote = function(){
+    $scope.note = {};
+    $location.path('/notebooks');
   };
 
   $http.get('/api/notebooks').then(function(result){
@@ -280,6 +295,11 @@ notesApp.controller('tagsFormController', ['$scope', '$http', '$location', 'auth
       Flash.create('Success', 'Tag created with success!', 3000, {}, false);
       $location.path('/tags');
     });
+  };
+
+  $scope.cancelTag = function(){
+    $scope.tag = {};
+    $location.path('/tags');
   };
 
 }]);
@@ -511,3 +531,45 @@ notesApp.directive('confirm', function(){
     }
   }
 });
+
+
+notesApp.directive('menuItem', [function(){
+  return {
+    restrict: 'A',
+    link: function(scope, elem, attrs){
+      elem.find('a').on('click', function(){
+        elem.siblings('[menu-item]').removeClass('active');
+        elem.addClass('active');
+      });
+    }
+  }
+}]);
+
+
+notesApp.directive('showActionsHover', [function(){
+  return {
+    restrict: 'A',
+    link: function(scope, elem, attrs){
+      elem.on('mouseenter', function(){
+        elem.find('[actions-hover]').show();
+      });
+
+      elem.on('mouseleave', function(){
+        elem.find('[actions-hover]').hide();
+      });
+    }
+  }
+}]);
+
+
+notesApp.directive('hideMenu', [function(){
+  return {
+    restrict: 'A',
+    link: function(scope, elem, attrs){
+      $('nav').hide();
+      scope.$on('$destroy', function(){
+        $('nav').show();
+      });
+    }
+  }
+}]);

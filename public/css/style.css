@@ -1,14 +1,16 @@
+body {
+  -webkit-font-smoothing: antialiased;
+  font-family: gotham, helvetica, arial, sans-serif;
+  font-weight: 600;
+}
 .main-container {
   padding-left: 0;
 }
 
 .main-container .app-content h1 {
-  -webkit-font-smoothing: antialiased;
-  font-family: gotham, helvetica, arial, sans-serif;
   font-size: 21px;
   font-weight: 300;
   letter-spacing: 0.5px;
-  color: #878787;
 }
 
 .main-container .app-content .btn {
@@ -30,28 +32,13 @@
   vertical-align: middle;
 }
 
-.main-container .sidebar {
-  height: 100%;
-  border-right: 1px solid #ececec;
-  background-color: #f8f8f8;
-}
-
-.main-container .sidebar .sidebar-icon {
-  padding-top: 30px;
-}
-
-.main-container .sidebar .sidebar-icon {
-  color: #2dbe60;
-  font-size:30px;
-}
-
 .main-container .list {
-  margin-top: 70px;
-  border-top: 1px solid #ececec;
+  margin-top: 40px;
 }
 
 .main-container .list .list-item {
   padding-top: 10px;
+  border-top: 2px solid #f1f1f1;
 }
 
 .main-container .list .list-item-note {
@@ -59,25 +46,21 @@
 }
 
 .main-container .list .list-item .list-item-action-bar {
-
+  display: none;
 }
 
-.main-container .list .list-item:hover {
-  background-color: #2dbe60;
-}
 
 .main-container .list .list-item:hover .list-item-title a {
-  color: #fff;
+  color: black;
 }
 
 
 .main-container .list .list-item:hover .list-item-addons {
   border: none;
-  color: #ececec;
+  color: #4a4a4a;
 }
 
 .main-container .list .list-item .list-item-addons {
-  border-bottom: 1px solid #ececec;
   color: #878787;
   font-family: gotham, helvetica, arial, sans-serif;
   font-size: 11px;
@@ -109,4 +92,113 @@
 .note-form .note-form-header .note-options {
   margin-top:20px;
   margin-right: 10px;
+}
+
+.note-form .note-options.tags {
+  height: 35px;
+  width: 300px;
+}
+
+
+.main-menu ul.primary li a {
+  padding-top: 30px;
+  padding-bottom: 6px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.main-menu.navbar {
+    background-color: #fff !important;
+    border: none !important;
+}
+
+.main-menu ul.primary li.active a {
+  color: #0069ff !important;
+  background: none !important;
+}
+
+.main-menu ul.primary li a:hover {
+  border-bottom: 2px solid #0069ff;
+  color: #0069ff;
+  cursor: pointer;
+}
+
+.main-menu ul.secondary {
+  padding-top: 20px;
+}
+
+.main-menu .navbar-nav li a {
+  padding: 10px 25px;
+}
+
+.btn.btn-success {
+  color: white !important;
+  background: #15CD72;
+  border: 1px solid #15CD72;
+  font-weight: 600;
+}
+
+.btn.btn-success:hover {
+  background: #0CB863 !important;
+  border: 1px solid #0CB863 !important;
+}
+
+.btn.btn-primary {
+  color: white !important;
+  background: #0069ff;
+  border: 1px solid #0069ff;
+  font-weight: 500;
+}
+
+
+.simple-form {
+  padding: 50px
+}
+
+.simple-form input {
+  padding: 20px 20px !important;
+  font-size: 30px !important;
+  font-weight: normal !important;
+}
+
+.note-form {
+  font-weight: normal !important;
+}
+
+tags-input .host {
+  margin: 0 !important;
+}
+
+tags-input .tags {
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+tags-input .tags .tag-item {
+  border: 1px solid #ccc !important;
+  background: #e6e6e6 !important;
+  color: #585858 !important;
+}
+
+tags-input .autocomplete .suggestion-item.selected, tags-input .autocomplete .suggestion-item.selected em {
+  color: #585858;
+  background-color: #e6e6e6;
+}
+
+div[text-angular-toolbar] .btn {
+  font-size: 10px;
+  height: 25px;
+}
+
+div[text-angular-toolbar] .btn-group {
+  margin-bottom: 10px;
+}
+
+.ta-scroll-window.ta-text.ta-editor.form-control {
+  border: none !important;
+  border-radius: 0 !important;
+  border-top: 1px solid #ccc !important;
 }

@@ -7,14 +7,14 @@
 <flash-message></flash-message>
 
 <div class="list row">
-  <div class="list-item list-item-note col-md-12" ng-repeat="note in notes">
+  <div class="list-item list-item-note col-md-12" show-actions-hover ng-repeat="note in notes">
     <div class="list-item-title list-item-note col-md-12">
       <div class="pull-left">
         <a href="#/notes/{{ note._id }}">
           {{ note.title }}
         </a>
       </div>
-      <div class="list-item-action-bar pull-right">
+      <div actions-hover class="list-item-action-bar pull-right">
         <a href="#/notes/{{ note._id }}">
           <span class="glyphicon glyphicon-edit"></span>
         </a>
