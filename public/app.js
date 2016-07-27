@@ -287,6 +287,11 @@ notesApp.controller('tagsFormController', ['$scope', '$http', '$location', 'auth
     });
   };
 
+  $scope.cancelTag = function(){
+    $scope.tag = {};
+    $location.path('/tags');
+  };
+
 }]);
 
 

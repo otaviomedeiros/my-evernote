@@ -1,16 +1,12 @@
-<div class="form-container text-center">
+<div class="form-container text-center" hide-menu>
   <div class="container-row">
-    <div class="row container-cell">
-      <form name="notebookForm" ng-submit="notebookForm.$valid && updateNotebook()">
+    <div class="row container-cell text-center">
+      <form name="notebookForm" autocomplete="off" ng-submit="notebookForm.$valid && updateNotebook()">
         <div class="col-md-12">
-          <span class="glyphicon glyphicon-book"></span>
+          <h1>EDIT NOTEBOOK</h1>
         </div>
-        <div class="col-md-12">
-          NOTEBOOK INFO
-          <hr>
-        </div>
-        <div class="col-md-12" ng-class="{ 'has-error': (notebookForm.name.$touched || notebookForm.$submitted) && notebookForm.name.$invalid}">
-          <input name="name" required unique-notebook ng-minlength="2" ng-maxlength="150" type="text" class="form-control" ng-model="notebook.name" placeholder="Title your notebook">
+        <div class="simple-form col-md-12" ng-class="{ 'has-error': (notebookForm.name.$touched || notebookForm.$submitted) && notebookForm.name.$invalid}">
+          <input name="name" required unique-notebook ng-minlength="2" ng-maxlength="150" type="text" class="text-center form-control" ng-model="notebook.name" placeholder="Title your notebook">
 
           <div class="help-block" ng-messages="notebookForm.name.$error" ng-show="notebookForm.name.$touched || notebookForm.$submitted">
             <p ng-message="minlength">Notebook name is too short.</p>

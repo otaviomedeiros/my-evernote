@@ -1,16 +1,12 @@
-<div class="form-container text-center">
+<div class="form-container text-center" hide-menu>
   <div class="container-row">
     <div class="row container-cell">
       <form name="tagForm" ng-submit="tagForm.$valid && saveTag()">
         <div class="col-md-12">
-          <span class="glyphicon glyphicon-book"></span>
+          <h1>NEW TAG</h1>
         </div>
-        <div class="col-md-12">
-          CREATE TAG
-          <hr>
-        </div>
-        <div class="col-md-12" ng-class="{ 'has-error': (tagForm.name.$touched || tagForm.$submitted) && tagForm.name.$invalid}">
-          <input name="name" type="text" required unique-tag ng-maxlength="100" class="form-control" ng-model="tag.name" placeholder="You tag name">
+        <div class="simple-form col-md-12" ng-class="{ 'has-error': (tagForm.name.$touched || tagForm.$submitted) && tagForm.name.$invalid}">
+          <input name="name" type="text" required unique-tag ng-maxlength="100" class="text-center form-control" ng-model="tag.name" placeholder="You tag name">
 
           <div class="help-block" ng-messages="tagForm.name.$error" ng-show="tagForm.name.$touched || tagForm.$submitted">
             <p ng-message="maxlength">Tag is too long.</p>
