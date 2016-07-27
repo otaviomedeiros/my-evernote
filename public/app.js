@@ -518,7 +518,7 @@ notesApp.directive('confirm', function(){
 });
 
 
-notesApp.directive('menuItem', ['_', function(_){
+notesApp.directive('menuItem', [function(){
   return {
     restrict: 'A',
     link: function(scope, elem, attrs){
@@ -531,7 +531,7 @@ notesApp.directive('menuItem', ['_', function(_){
 }]);
 
 
-notesApp.directive('showActionsHover', ['_', function(_){
+notesApp.directive('showActionsHover', [function(){
   return {
     restrict: 'A',
     link: function(scope, elem, attrs){
@@ -541,6 +541,19 @@ notesApp.directive('showActionsHover', ['_', function(_){
 
       elem.on('mouseleave', function(){
         elem.find('[actions-hover]').hide();
+      });
+    }
+  }
+}]);
+
+
+notesApp.directive('hideMenu', [function(){
+  return {
+    restrict: 'A',
+    link: function(scope, elem, attrs){
+      $('nav').hide();
+      scope.$on('$destroy', function(){
+        $('nav').show();
       });
     }
   }
