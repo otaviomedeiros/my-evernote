@@ -136,7 +136,7 @@ notesApp.controller('notebookFormController', ['$scope', '$http', '$location', '
 
 }]);
 
-notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', 'Flash', function($scope, $http, authentication, Flash){
+notesApp.controller('newNoteController', ['$scope', '$http', '$location', 'authentication', 'Flash', function($scope, $http, $location, authentication, Flash){
 
   $scope.note = {};
   $scope.notebooks = [];
@@ -149,6 +149,11 @@ notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', '
       .error(function(error){
         Flash.create('danger', error, 0, {}, false);
       });
+  };
+
+  $scope.cancelNote = function(){
+    $scope.note = {};
+    $location.path('/notebooks');
   };
 
   $http.get('/api/notebooks').then(function(result){
@@ -166,7 +171,7 @@ notesApp.controller('newNoteController', ['$scope', '$http', 'authentication', '
 }]);
 
 
-notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', 'authentication', 'Flash', function($scope, $http, $routeParams, authentication, Flash){
+notesApp.controller('editNoteController', ['$scope', '$http', '$location', '$routeParams', 'authentication', 'Flash', function($scope, $http, $location, $routeParams, authentication, Flash){
 
   $scope.note = {};
   $scope.notebooks = [];
@@ -179,6 +184,11 @@ notesApp.controller('editNoteController', ['$scope', '$http', '$routeParams', 'a
       .error(function(error){
         Flash.create('danger', error, 0, {}, false);
       });
+  };
+
+  $scope.cancelNote = function(){
+    $scope.note = {};
+    $location.path('/notebooks');
   };
 
   $http.get('/api/notebooks').then(function(result){
