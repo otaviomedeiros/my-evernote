@@ -1,4 +1,4 @@
-var notesApp = angular.module('notesApp', ['ngRoute', 'ngMessages', 'textAngular', 'ngTagsInput', 'ngFlash', 'underscore']);
+var notesApp = angular.module('notesApp', ['ngRoute', 'ngMessages', 'textAngular', 'ngTagsInput', 'ngFlash', 'underscore', 'ui.gravatar']);
 
 var underscore = angular.module('underscore', []);
 underscore.factory('_', ['$window', function($window) {
@@ -15,6 +15,10 @@ notesApp.config(['$routeProvider', function($routeProvider){
     when('/users/login', {
       templateUrl: 'pages/users/login.html',
       controller: 'authController'
+    }).
+    when('/user/settings', {
+      templateUrl: 'pages/users/settings.html',
+      controller: 'userSettingsController'
     }).
     when('/notebooks', {
       templateUrl: 'pages/notebooks/index.html',
@@ -70,10 +74,20 @@ notesApp.run(['$rootScope', '$location', 'authentication', function($rootScope, 
 }]);
 
 
+notesApp.controller('userSettingsController', ['$scope', function($scope){
+
+  
+
+}]);
+
 notesApp.controller('navigationController', ['$scope', 'authentication', function($scope, authentication){
 
   $scope.isLoggedIn = function(){
     return authentication.isLoggedIn();
+  };
+
+  $scope.user = function(){
+    return authentication.currentUser();
   };
 
 }]);
