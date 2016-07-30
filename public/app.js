@@ -74,9 +74,13 @@ notesApp.run(['$rootScope', '$location', 'authentication', function($rootScope, 
 }]);
 
 
-notesApp.controller('userSettingsController', ['$scope', 'authentication', function($scope, authentication){
+notesApp.controller('userSettingsController', ['$scope', '$location', 'authentication', function($scope, $location, authentication){
 
   $scope.user = authentication.currentUser();
+
+  $scope.cancel = function(){
+    $location.path('/');
+  };
 
 }]);
 
