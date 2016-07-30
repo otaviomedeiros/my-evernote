@@ -1,7 +1,6 @@
 body {
   -webkit-font-smoothing: antialiased;
   font-family: gotham, helvetica, arial, sans-serif;
-  font-weight: 600;
 }
 .main-container {
   padding-left: 0;
@@ -128,6 +127,9 @@ body {
 .main-menu ul.secondary {
   padding-top: 20px;
 }
+.main-menu ul.secondary li.menu-item {
+  margin-right: 20px;
+}
 
 .main-menu .navbar-nav li a {
   padding: 10px 25px;
@@ -153,11 +155,15 @@ body {
 }
 
 
-.simple-form {
-  padding: 50px
+.form-input {
+  padding: 50px 50px 0px 50px;
 }
 
-.simple-form input {
+.form-input label {
+  color: #ccc;
+}
+
+.form-input input {
   padding: 20px 20px !important;
   font-size: 30px !important;
   font-weight: normal !important;
@@ -201,4 +207,9 @@ div[text-angular-toolbar] .btn-group {
   border: none !important;
   border-radius: 0 !important;
   border-top: 1px solid #ccc !important;
+}
+
+.user-profile-menu .information {
+  font-size: 10px;
+  padding: 5px 15px;
 }

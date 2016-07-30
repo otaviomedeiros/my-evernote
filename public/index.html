@@ -3,6 +3,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
     <script src="/bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
     <script src="/bower_components/angular/angular.min.js" charset="utf-8"></script>
     <script src="/bower_components/angular-route/angular-route.min.js" charset="utf-8"></script>
     <script src="/bower_components/angular-messages/angular-messages.min.js" charset="utf-8"></script>
@@ -21,6 +22,8 @@
     <script src="/bower_components/angular-flash-alert/dist/angular-flash.min.js" charset="utf-8"></script>
     <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
 
+    <script src="bower_components/angular-gravatar/build/angular-gravatar.js"></script>
+
     <script src="app.js" charset="utf-8"></script>
     <title>My Evernote</title>
   </head>
@@ -37,13 +40,35 @@
                 <li menu-item><a href="#/tags">Tags</a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right secondary">
-                <li>
+                <li class="menu-item">
                   <a href="#/notes/new" class="btn btn-success">Create Note</a>
                 </li>
-                <li>
-                  <a href="#/logout" ng-controller="authController" ng-click="logout()">
-                    <span class="glyphicon glyphicon-log-out sidebar-icon"></span>
-                  </a>
+                <li class="menu-item">
+                  <div class="dropdown">
+                    <div class="dropdown-toggle" data-toggle="dropdown">
+                      <img gravatar-src="'{{ user().email }}'" gravatar-size="38" style="border-radius: 50%">
+                      <span class="caret"></span>
+                    </div>
+                    <ul class="dropdown-menu user-profile-menu">
+                      <li class="information">
+                        <div class="">
+                          {{ user().name }}
+                        </div>
+                        <div class="">
+                          <small>{{ user().email }}</small>
+                        </div>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a href="#/user/settings">Settings</a>
+                      </li>
+                      <li>
+                        <a href="#/logout" ng-controller="authController" ng-click="logout()">
+                          Logout
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </li>
               </ul>
             </div>
