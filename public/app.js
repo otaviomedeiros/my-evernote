@@ -74,9 +74,9 @@ notesApp.run(['$rootScope', '$location', 'authentication', function($rootScope, 
 }]);
 
 
-notesApp.controller('userSettingsController', ['$scope', function($scope){
+notesApp.controller('userSettingsController', ['$scope', 'authentication', function($scope, authentication){
 
-  
+  $scope.user = authentication.currentUser();
 
 }]);
 

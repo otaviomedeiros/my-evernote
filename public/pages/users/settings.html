@@ -1,5 +1,53 @@
-<div class="row">
-  <div class="col-md-12">
-    <h1>SETTINGS</h1>
+<div class="form-container" hide-menu>
+  <div class="container-row">
+    <div class="row container-cell">
+      <form name="tagForm">
+        <div class="col-md-12 text-center">
+          <h1>SETTINGS</h1>
+        </div>
+        <div class="form-input col-md-12">
+          <label for="email">Email</label>
+          <input name="email" type="text" class="form-control" ng-model="user.email" placeholder="Your email address" disabled>
+        </div>
+
+        <div class="form-input col-md-12">
+          <label for="name">Name</label>
+          <input name="name" type="text" class="form-control" ng-model="user.name" placeholder="Your name">
+        </div>
+
+        <div class="form-input col-md-12">
+          <label for="password">New Password</label>
+          <input name="password" type="password" class="form-control" ng-model="user.password" placeholder="Your New Password">
+        </div>
+
+        <div class="col-md-12 text-center form-input">
+          <button type="button" name="button" class="btn btn-default">Cancel</button>
+          <button type="submit" formnovalidate name="button" class="btn btn-success">Update Profile</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
+
+
+<!--form autocomplete="off">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>SETTINGS</h1>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="name" class="form-control" id="name" placeholder="Name">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Password">
+    </div>
+    <button type="button" name="button" class="btn btn-default" ng-click="cancelNotebook()">Cancel</button>
+    <button type="submit" formnovalidate name="button" class="btn btn-success">Update Profile</button>
+  </div>
+</form-->
