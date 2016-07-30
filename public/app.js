@@ -74,13 +74,29 @@ notesApp.run(['$rootScope', '$location', 'authentication', function($rootScope, 
 }]);
 
 
-notesApp.controller('userSettingsController', ['$scope', '$location', 'authentication', function($scope, $location, authentication){
-
-  $scope.user = authentication.currentUser();
+notesApp.controller('userSettingsController', ['$scope', '$location', '$http', 'authentication', 'Flash', function($scope, $location, $http, authentication, Flash){
 
   $scope.cancel = function(){
     $location.path('/');
   };
+
+  $scope.save = function(){
+    $http.put('/api/users/' + $scope.user._id, $scope.user)
+      .success(function(result){
+
+      })
+      .error(function(error){
+        Flash.create('danger', error, 0, {}, false);
+      });
+  }
+
+  $http.get('/api/users/' + authentication.currentUser().id)
+    .success(function(result){
+      $scope.user = result;
+    })
+    .error(function(error){
+      Flash.create('danger', error, 0, {}, false);
+    });
 
 }]);
 
@@ -409,7 +425,7 @@ notesApp.service('authentication', ['$window', '$http', function($window, $http)
       payload = $window.atob(payload);
       payload = JSON.parse(payload);
 
-      return { email: payload.email, name: payload.name };
+      return { id: payload._id, email: payload.email, name: payload.name };
     }
   };
 

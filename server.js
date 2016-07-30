@@ -6,6 +6,7 @@ var notebooksRouter = require('./app/routes/notebooks');
 var notesRouter = require('./app/routes/notes');
 var tagsRouter = require('./app/routes/tags');
 var authenticationRouter = require('./app/routes/authentication');
+var usersRouter = require('./app/routes/users');
 var auth = require('./app/config/jwtAuth');
 require('./app/config/passport');
 
@@ -21,6 +22,7 @@ app.use('/auth', authenticationRouter);
 app.use('/api/notebooks', notebooksRouter);
 app.use('/api/notes', notesRouter);
 app.use('/api/tags', tagsRouter);
+app.use('/api/users', usersRouter);
 
 
 // error handlers
