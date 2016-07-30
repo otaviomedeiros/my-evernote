@@ -9,8 +9,16 @@ router.get('/:id', function(req, res){
 });
 
 router.put('/:id', function(req, res){
-  User.update({ _id: req.payload._id }, req.body, function(err, user){
-    res.json(user);
+  User.findOne({ _id: req.payload._id }, function(err, user){
+    user.name = req.body.name;
+
+    if (req.body.password && req.body.password.length > 0){
+      user.setPassword(req.body.password);
+    }
+
+    user.save(function(err, u){
+      res.json(u);
+    });
   });
 });
 

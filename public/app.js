@@ -83,7 +83,8 @@ notesApp.controller('userSettingsController', ['$scope', '$location', '$http', '
   $scope.save = function(){
     $http.put('/api/users/' + $scope.user._id, $scope.user)
       .success(function(result){
-
+        $location.path('/');
+        Flash.create('Success', 'Profile updated with success!', 3000, {}, false);
       })
       .error(function(error){
         Flash.create('danger', error, 0, {}, false);
