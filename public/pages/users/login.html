@@ -1,22 +1,34 @@
-<form name="signinForm" ng-submit="signinForm.$valid && login()">
-  <flash-message></flash-message>
-  
-  <div class="form-group" ng-class="{ 'has-error': (signinForm.email.$touched || signinForm.$submitted) && signinForm.email.$invalid}">
-    <label for="email">Email</label>
-    <input ng-model="user.email" name="email" required type="email" class="form-control" id="email" placeholder="Email">
+<div class="form-container">
+  <div class="container-row">
+    <div class="container-cell">
+      <div class="text-center">
+        <h2>Log In</h2>
+      </div>
+      <form name="signinForm" autocomplete="off" ng-submit="signinForm.$valid && login()" class="auth-container">
+        <flash-message></flash-message>
 
-    <div class="help-block" ng-messages="signinForm.email.$error" ng-show="signinForm.email.$touched || signinForm.$submitted">
-      <p ng-message="required">Your email is required.</p>
-      <p ng-message="email">This field must be a valid email address.</p>
+        <div class="form-group form-input" ng-class="{ 'has-error': (signinForm.email.$touched || signinForm.$submitted) && signinForm.email.$invalid}">
+          <input ng-model="user.email" name="email" required type="email" class="form-control" id="email" placeholder="Email Address">
+
+          <div class="help-block" ng-messages="signinForm.email.$error" ng-show="signinForm.email.$touched || signinForm.$submitted">
+            <p ng-message="required">Your email is required.</p>
+            <p ng-message="email">This field must be a valid email address.</p>
+          </div>
+        </div>
+        <div class="form-group form-input" ng-class="{ 'has-error': (signinForm.password.$touched || signinForm.$submitted) && signinForm.password.$invalid}">
+          <input ng-model="user.password" name="password" required type="password" class="form-control" id="password" placeholder="Password">
+
+          <div class="help-block" ng-messages="signinForm.password.$error" ng-show="signinForm.password.$touched || signinForm.$submitted">
+            <p ng-message="required">Your password is required.</p>
+          </div>
+        </div>
+        <div class="form-group form-input">
+          <input type="submit" formnovalidate class="btn btn-success form-control" value="Sign In"/>
+        </div>
+        <div class="form-group text-center">
+          Don't have an account? <a href="#/users/register">Sign Up</a>
+        </div>
+      </form>
     </div>
   </div>
-  <div class="form-group" ng-class="{ 'has-error': (signinForm.password.$touched || signinForm.$submitted) && signinForm.password.$invalid}">
-    <label for="password">Password</label>
-    <input ng-model="user.password" name="password" required type="password" class="form-control" id="password" placeholder="Password">
-
-    <div class="help-block" ng-messages="signinForm.password.$error" ng-show="signinForm.password.$touched || signinForm.$submitted">
-      <p ng-message="required">Your password is required.</p>
-    </div>
-  </div>
-  <button type="submit" formnovalidate class="btn btn-default">Sign in</button>
-</form>
+</div>

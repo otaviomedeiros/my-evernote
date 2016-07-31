@@ -164,9 +164,10 @@ body {
 }
 
 .form-input input {
-  padding: 20px 20px !important;
-  font-size: 30px !important;
+  padding: 10px 10px !important;
+  font-size: 18px !important;
   font-weight: normal !important;
+  height: auto !important;
 }
 
 .note-form {
@@ -212,4 +213,18 @@ div[text-angular-toolbar] .btn-group {
 .user-profile-menu .information {
   font-size: 10px;
   padding: 5px 15px;
+}
+
+.auth-container {
+  width: 400px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.auth-container .form-input {
+  padding-top: 5px;
+}
+
+.auth-container .form-input input[type=submit] {
+  margin-top: 0px !important;
 }
