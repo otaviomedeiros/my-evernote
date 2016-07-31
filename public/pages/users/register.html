@@ -1,34 +1,51 @@
-<form name="registerForm" ng-submit="registerForm.$valid && register()">
-  <div class="form-group" ng-class="{'has-error': (registerForm.name.$touched || registerForm.$submitted) && registerForm.name.$invalid }">
-    <label for="firstname">First Name</label>
-    <input name="name" ng-model="user.name" ng-minlength="3" ng-maxlength="50" required type="text" class="form-control" id="firstname" placeholder="First Name">
+<div class="form-container">
+  <div class="container-row">
+    <div class="container-cell">
+      <div class="text-center">
+        <h2>Sign Up</h2>
+      </div>
+      <form name="registerForm" autocomplete="off" ng-submit="registerForm.$valid && register()" class="auth-container">
+        <flash-message></flash-message>
 
-    <div class="help-block" ng-messages="registerForm.name.$error" ng-show="registerForm.name.$touched || registerForm.$submitted">
-      <p ng-message="minlength">Your name is too short.</p>
-      <p ng-message="maxlength">Your name is too long.</p>
-      <p ng-message="required">Your name is required.</p>
+        <div class="form-group form-input" ng-class="{'has-error': (registerForm.name.$touched || registerForm.$submitted) && registerForm.name.$invalid }">
+          <input name="name" ng-model="user.name" ng-minlength="3" ng-maxlength="50" required type="text" class="form-control" id="firstname" placeholder="First Name">
+
+          <div class="help-block" ng-messages="registerForm.name.$error" ng-show="registerForm.name.$touched || registerForm.$submitted">
+            <p ng-message="minlength">Your name is too short.</p>
+            <p ng-message="maxlength">Your name is too long.</p>
+            <p ng-message="required">Your name is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group form-input" ng-class="{ 'has-error': (registerForm.email.$touched || registerForm.$submitted) && registerForm.email.$invalid }">
+          <input name="email" ng-model="user.email" email-already-in-use ng-maxlength="30" required type="email" class="form-control" id="email" placeholder="Email">
+
+          <div class="help-block" ng-messages="registerForm.email.$error" ng-show="registerForm.email.$touched || registerForm.$submitted">
+            <p ng-message="email">This field must be a valid email address.</p>
+            <p ng-message="maxlength">Your email is too long.</p>
+            <p ng-message="required">Your email is required.</p>
+            <p ng-message="alreadyinuse">Email already in use</p>
+          </div>
+        </div>
+
+        <div class="form-group form-input" ng-class="{ 'has-error': (registerForm.password.$touched || registerForm.$submitted) && registerForm.password.$invalid }">
+          <input name="password" ng-model="user.password" ng-minlength="6" ng-maxlength="20" required type="password" class="form-control" id="password" placeholder="Password">
+
+          <div class="help-block" ng-messages="registerForm.password.$error" ng-show="registerForm.password.$touched || registerForm.$submitted">
+            <p ng-message="minlength">Your password is too short.</p>
+            <p ng-message="maxlength">Your password is too long.</p>
+            <p ng-message="required">Your password is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group form-input">
+          <input type="submit" formnovalidate class="btn btn-success form-control" value="Sign Up"/>
+        </div>
+
+        <div class="form-group text-center">
+          Already have an account? <a href="#/users/login">Log In</a>
+        </div>
+      </form>
     </div>
   </div>
-  <div class="form-group" ng-class="{ 'has-error': (registerForm.email.$touched || registerForm.$submitted) && registerForm.email.$invalid }">
-    <label for="email">Email</label>
-    <input name="email" ng-model="user.email" email-already-in-use ng-maxlength="30" required type="email" class="form-control" id="email" placeholder="Email">
-
-    <div class="help-block" ng-messages="registerForm.email.$error" ng-show="registerForm.email.$touched || registerForm.$submitted">
-      <p ng-message="email">This field must be a valid email address.</p>
-      <p ng-message="maxlength">Your email is too long.</p>
-      <p ng-message="required">Your email is required.</p>
-      <p ng-message="alreadyinuse">Email already in use</p>
-    </div>
-  </div>
-  <div class="form-group" ng-class="{ 'has-error': (registerForm.password.$touched || registerForm.$submitted) && registerForm.password.$invalid }">
-    <label for="password">Password</label>
-    <input name="password" ng-model="user.password" ng-minlength="6" ng-maxlength="20" required type="password" class="form-control" id="password" placeholder="Password">
-
-    <div class="help-block" ng-messages="registerForm.password.$error" ng-show="registerForm.password.$touched || registerForm.$submitted">
-      <p ng-message="minlength">Your password is too short.</p>
-      <p ng-message="maxlength">Your password is too long.</p>
-      <p ng-message="required">Your password is required.</p>
-    </div>
-  </div>
-  <button type="submit" formnovalidate class="btn btn-default">Submit</button>
-</form>
+</div>
