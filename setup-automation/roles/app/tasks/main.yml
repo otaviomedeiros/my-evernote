@@ -14,23 +14,11 @@
   template: src=notes.conf.j2 dest=/etc/init/notes.conf
   notify: restart notes
 
-- name: checkout app repo
-  git: repo={{ app_repo_url }} dest={{ app_source_folder }}
-  notify: restart notes
-
 - name: pull node image
   docker_image:
     name: node
     state: present
     tag: 'argon'
-  notify: restart notes
-
-- name: build app image
-  docker_image:
-    path: "{{ app_source_folder }}"
-    state: present
-    name: "{{ app_container_name }}"
-    tag: latest
   notify: restart notes
 
 - name: ensure notes is started
