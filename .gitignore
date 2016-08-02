@@ -5,3 +5,4 @@ npm-debug.log
 setup-automation/.vagrant/
 *.retry
 *.pem
+public/dist
