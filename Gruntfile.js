@@ -56,8 +56,17 @@ module.exports = function(grunt) {
       dist: {
         files: [
           { expand: true, cwd: './public/bower_components/bootstrap/fonts/', src: ['*'], dest: './public/dist/fonts' },
-          { expand: true, cwd: './public/bower_components/font-awesome/fonts/', src: ['*'], dest: './public/dist/fonts' }
+          { expand: true, cwd: './public/bower_components/font-awesome/fonts/', src: ['*'], dest: './public/dist/fonts' },
+          { expand: true, cwd: './public', src: ['pages/**/*.html'], dest: './public/dist' }
         ]
+      }
+    },
+
+    processhtml: {
+      dist: {
+        files: {
+          './public/dist/index.html': ['./public/index.html']
+        }
       }
     }
 
@@ -68,6 +77,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-bower-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-processhtml');
 
-  grunt.registerTask('default', ['concat', 'bower_concat', 'uglify', 'cssmin', 'copy']);
+  grunt.registerTask('default', ['concat', 'bower_concat', 'uglify', 'cssmin', 'copy', 'processhtml']);
 };
