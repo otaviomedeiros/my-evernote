@@ -11,24 +11,28 @@ module.exports = function(grunt) {
         dest: './public/dist/css/style.css'
       }
     },
+    bower_concat: {
+      all: {
+        dest: {
+          js: './public/dist/js/_bower.js',
+          css: './public/dist/css/_bower.css'
+        }
+      }
+    },
     uglify: {
       js: {
         src: './public/dist/js/app.js',
         dest: './public/dist/js/app.min.js'
+      },
+      bower_js: {
+        src: './public/dist/js/_bower.js',
+        dest: './public/dist/js/_bower.min.js'
       }
     },
     cssmin: {
       dist: {
         files: {
            './public/dist/style.min.css': ['./public/dist/css/**/*.css']
-        }
-      }
-    },
-    bower_concat: {
-      all: {
-        dest: {
-          js: './public/dist/js/_bower.js',
-          css: './public/dist/css/_bower.css'
         }
       }
     }
@@ -40,5 +44,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-bower-concat');
 
-  grunt.registerTask('default', ['concat', 'uglify', 'cssmin', 'bower_concat']);
+  grunt.registerTask('default', ['concat', 'bower_concat', 'uglify', 'cssmin']);
 };
