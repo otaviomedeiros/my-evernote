@@ -15,6 +15,8 @@ WORKDIR /app
 
 COPY . .
 
+RUN grunt
+
 COPY docker-entrypoint /
 RUN chmod +x /docker-entrypoint
 ENTRYPOINT ["/docker-entrypoint"]
