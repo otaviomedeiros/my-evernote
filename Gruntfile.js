@@ -16,11 +16,19 @@ module.exports = function(grunt) {
         src: './public/app.min.js',
         dest: './public/app.min.js'
       }
+    },
+    cssmin: {
+      dist: {
+        files: {
+           './public/css/style.min.css': ['./public/css/**/*.css']
+        }
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-  grunt.registerTask('default', ['concat', 'uglify']);
+  grunt.registerTask('default', ['concat', 'uglify', 'cssmin']);
 };
