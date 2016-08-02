@@ -14,7 +14,7 @@ var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URL);
 
 app.use('/api/*', auth);
-app.use('/', express.static(__dirname + '/public'));
+app.use('/', express.static(__dirname + process.env.PUBLIC_URL));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 
