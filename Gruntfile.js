@@ -1,6 +1,9 @@
 module.exports = function(grunt) {
+
   grunt.initConfig({
+
     pkg: grunt.file.readJSON('package.json'),
+
     concat: {
       js: {
         src: ['./public/**/*.js'],
@@ -11,14 +14,24 @@ module.exports = function(grunt) {
         dest: './public/dist/css/style.css'
       }
     },
+
     bower_concat: {
       all: {
         dest: {
           js: './public/dist/js/_bower.js',
           css: './public/dist/css/_bower.css'
+        },
+        mainFiles: {
+          bootstrap: ['dist/css/bootstrap.min.css'],
+          'font-awesome': ['css/font-awesome.css']
+        },
+        dependencies: {
+          'bootstrap': ['jquery'],
+          'textAngular': ['rangy']
         }
       }
     },
+
     uglify: {
       js: {
         src: './public/dist/js/app.js',
@@ -29,11 +42,22 @@ module.exports = function(grunt) {
         dest: './public/dist/js/_bower.min.js'
       }
     },
+
     cssmin: {
       dist: {
         files: {
-           './public/dist/style.min.css': ['./public/dist/css/**/*.css']
+           './public/dist/css/style.min.css': ['./public/dist/css/style.css'],
+           './public/dist/css/_bower.min.css': ['./public/dist/css/_bower.css']
         }
+      }
+    },
+
+    copy: {
+      dist: {
+        files: [
+          { expand: true, cwd: './public/bower_components/bootstrap/fonts/', src: ['*'], dest: './public/dist/fonts' },
+          { expand: true, cwd: './public/bower_components/font-awesome/fonts/', src: ['*'], dest: './public/dist/fonts' }
+        ]
       }
     }
 
@@ -43,6 +67,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-bower-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('default', ['concat', 'bower_concat', 'uglify', 'cssmin']);
+  grunt.registerTask('default', ['concat', 'bower_concat', 'uglify', 'cssmin', 'copy']);
 };
