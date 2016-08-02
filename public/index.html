@@ -1,30 +1,47 @@
 <html ng-app="notesApp">
   <head>
     <meta charset="utf-8">
+
+    <!-- build:css /css/_bower.min.css -->
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel='stylesheet' href='/bower_components/textAngular/dist/textAngular.css'>
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/bower_components/ng-tags-input/ng-tags-input.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/bower_components/angular-flash-alert/dist/angular-flash.min.css" media="screen" title="no title" charset="utf-8">
+    <!-- /build -->
+
+    <!-- build:css /css/style.min.css -->
+    <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
+    <!-- /build -->
+
+    <!-- build:js /js/_bower.min.js -->
     <script src="/bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
     <script src="/bower_components/angular/angular.min.js" charset="utf-8"></script>
     <script src="/bower_components/angular-route/angular-route.min.js" charset="utf-8"></script>
     <script src="/bower_components/angular-messages/angular-messages.min.js" charset="utf-8"></script>
     <script src="/bower_components/underscore/underscore-min.js" charset="utf-8"></script>
-
-    <link rel='stylesheet' href='/bower_components/textAngular/dist/textAngular.css'>
-    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css" media="screen" title="no title" charset="utf-8">
     <script src='/bower_components/textAngular/dist/textAngular-rangy.min.js'></script>
     <script src='/bower_components/textAngular/dist/textAngular-sanitize.min.js'></script>
     <script src='/bower_components/textAngular/dist/textAngular.min.js'></script>
-
-    <link rel="stylesheet" href="/bower_components/ng-tags-input/ng-tags-input.min.css" media="screen" title="no title" charset="utf-8">
     <script src="/bower_components/ng-tags-input/ng-tags-input.min.js" charset="utf-8"></script>
-
-    <link rel="stylesheet" href="/bower_components/angular-flash-alert/dist/angular-flash.min.css" media="screen" title="no title" charset="utf-8">
     <script src="/bower_components/angular-flash-alert/dist/angular-flash.min.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
+    <script src="/bower_components/angular-gravatar/build/angular-gravatar.js"></script>
+    <!-- /build -->
 
-    <script src="bower_components/angular-gravatar/build/angular-gravatar.js"></script>
-
+    <!-- build:js /js/app.min.js -->
     <script src="app.js" charset="utf-8"></script>
+    <script src="common/filters.js" charset="utf-8"></script>
+    <script src="common/directives.js" charset="utf-8"></script>
+    <script src="pages/notebooks/notebooksController.js" charset="utf-8"></script>
+    <script src="pages/notes/notesController.js" charset="utf-8"></script>
+    <script src="pages/tags/tagsController.js" charset="utf-8"></script>
+    <script src="pages/users/authenticationService.js" charset="utf-8"></script>
+    <script src="pages/users/authController.js" charset="utf-8"></script>
+    <script src="pages/users/registerController.js" charset="utf-8"></script>
+    <script src="pages/users/userController.js" charset="utf-8"></script>
+    <!-- /build -->
+
     <title>My Evernote</title>
   </head>
 
