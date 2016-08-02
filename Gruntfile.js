@@ -2,13 +2,17 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
-      build: {
+      js: {
         src: ['./public/**/*.js'],
         dest: './public/app.min.js'
+      },
+      css: {
+        src: ['./public/css/**/*.css'],
+        dest: './public/css/style.min.css'
       }
     },
     uglify: {
-      build: {
+      js: {
         src: './public/app.min.js',
         dest: './public/app.min.js'
       }
