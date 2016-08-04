@@ -1,6 +1,6 @@
 FROM node:argon
 
-RUN npm install -g bower nodemon grunt
+RUN npm install -g bower nodemon grunt-cli grunt
 
 COPY package.json /opt/
 RUN cd /opt && npm install
