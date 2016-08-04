@@ -1,6 +1,6 @@
 FROM node:argon
 
-RUN npm install -g bower nodemon 
+RUN npm install -g bower nodemon
 
 COPY package.json /opt/
 RUN cd /opt && npm install
@@ -14,8 +14,6 @@ RUN mkdir /app
 WORKDIR /app
 
 COPY . .
-
-RUN cd /opt && grunt
 
 COPY docker-entrypoint /
 RUN chmod +x /docker-entrypoint
