@@ -1,9 +1,9 @@
 FROM node:argon
 
-RUN npm install -g bower nodemon
+RUN npm install -g bower nodemon grunt-cli
 
 COPY package.json /opt/
-RUN cd /opt && npm install
+RUN cd /opt && npm install && npm install --only=dev
 ENV NODE_PATH=/opt/node_modules
 
 COPY bower.json /opt
@@ -14,6 +14,8 @@ RUN mkdir /app
 WORKDIR /app
 
 COPY . .
+
+RUN grunt
 
 COPY docker-entrypoint /
 RUN chmod +x /docker-entrypoint
