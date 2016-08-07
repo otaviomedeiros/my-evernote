@@ -19,7 +19,7 @@ mongo:
 app:
   build: .
   container_name: app
-  command: npm start
+  command: nodemon -L server.js
   links:
     - mongo
   ports:
