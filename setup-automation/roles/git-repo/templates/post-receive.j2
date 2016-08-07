@@ -6,7 +6,7 @@ git checkout -f
 
 FULL_LATEST_TAG="${APP_NAME}:latest"
 
-docker build -t "${FULL_LATEST_TAG}" "${GIT_WORK_TREE}"
+docker build -f Dockerfile.prod -t "${FULL_LATEST_TAG}" "${GIT_WORK_TREE}"
 
 echo "Restarting ${APP_NAME}"
 docker stop "${APP_NAME}"
