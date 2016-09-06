@@ -1,74 +1,26 @@
-angular.module('notesApp').controller('notebooksController', ['$scope', '$http', '$location', 'authentication', 'Flash', function($scope, $http, $location, authentication, Flash){
+class NotebooksController {
 
-  $scope.notebooks = [];
-
-  $scope.deleteNotebook = function(notebook){
-    $http.delete('/api/notebooks/' + notebook._id)
-      .success(function(result){
-        Flash.create('Success', "Notebook deleted", 3000, {}, false);
-        $scope.loadNotebooks();
-      })
-      .error(function(error){
-        Flash.create('danger', error, 0, {}, false);
-      });
-  };
-
-  $scope.loadNotebooks = function(){
-    $http.get('/api/notebooks').then(function(result){
-      $scope.notebooks = result.data;
-    });
-  };
-
-  $scope.loadNotebooks();
-}]);
-
-
-angular.module('notesApp').controller('notebookFormController', ['$scope', '$http', '$location', '$routeParams', 'authentication', 'Flash', function($scope, $http, $location, $routeParams, authentication, Flash){
-
-  if ($routeParams.id){
-    $http.get('/api/notebooks/' + $routeParams.id).then(function(result){
-        $scope.notebook = result.data;
-    });
-  } else {
-    $scope.notebook = {};
+  constructor($http, Flash){
+    this.notebooks = [];
+    this.$http = $http;
+    this.Flash = Flash;
+    this.loadNotebooks();
   }
 
-  $scope.saveNotebook = function(){
-    $http.post('/api/notebooks', $scope.notebook).then(function(result){
-      $scope.notebook = {};
-      Flash.create('Success', 'Notebook created with success!', 3000, {}, false);
-      $location.path('/notebooks');
-    });
-  };
+  deleteNotebook(notebook){
+    this.$http.delete('/api/notebooks/' + notebook._id)
+      .success(result => {
+        this.Flash.create('Success', "Notebook deleted", 3000, {}, false);
+        this.loadNotebooks();
+      })
+      .error(error => this.Flash.create('danger', error, 0, {}, false));
+  }
 
-  $scope.updateNotebook = function(){
-    $http.put('/api/notebooks/' + $scope.notebook._id, $scope.notebook).then(function(result){
-      $scope.notebook = {};
-      Flash.create('Success', 'Notebook changed with success!', 3000, {}, false);
-      $location.path('/notebooks');
-    });
-  };
+  loadNotebooks(){
+    this.$http.get('/api/notebooks').then(result => this.notebooks = result.data);
+  }
+}
 
-  $scope.cancelNotebook = function(){
-    $scope.notebook = {};
-    $location.path('/notebooks');
-  };
+NotebooksController.$inject = ['$http', 'Flash'];
 
-}]);
-
-
-angular.module('notesApp').config(['$routeProvider', function($routeProvider){
-  $routeProvider.
-    when('/notebooks', {
-      templateUrl: 'pages/notebooks/index.html',
-      controller: 'notebooksController'
-    }).
-    when('/notebooks/new', {
-      templateUrl: 'pages/notebooks/new.html',
-      controller: 'notebookFormController'
-    }).
-    when('/notebooks/:id', {
-      templateUrl: 'pages/notebooks/edit.html',
-      controller: 'notebookFormController'
-    })
-}]);
+exports default NotebooksController;
