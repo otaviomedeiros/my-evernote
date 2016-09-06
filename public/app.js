@@ -1,9 +1,5 @@
 var notesApp = angular.module('notesApp', ['ngRoute', 'ngMessages', 'textAngular', 'ngTagsInput', 'ngFlash', 'underscore', 'ui.gravatar']);
 
-var underscore = angular.module('underscore', []);
-underscore.factory('_', ['$window', function($window) {
-  return $window._;
-}]);
 
 
 notesApp.config(['$routeProvider', function($routeProvider){
@@ -35,14 +31,4 @@ notesApp.controller('navigationController', ['$scope', 'authentication', functio
     return authentication.currentUser();
   };
 
-}]);
-
-
-notesApp.service('authInterceptor', ['$window', function($window){
-  return {
-    request: function(config){
-      config.headers['Authorization'] = 'Bearer ' + $window.localStorage['note-app-token'];
-      return config;
-    }
-  };
 }]);
