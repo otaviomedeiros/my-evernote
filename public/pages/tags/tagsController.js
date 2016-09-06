@@ -41,7 +41,6 @@ angular.module('notesApp').controller('tagsFormController', ['$scope', '$http', 
 
 }]);
 
-
 angular.module('notesApp').config(['$routeProvider', function($routeProvider){
 
   $routeProvider.

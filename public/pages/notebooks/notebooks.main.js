@@ -1,6 +1,7 @@
 import NotebooksController from './NotebooksController';
 import NewNotebookController from './NewNotebookController';
 import EditNotebookController from './EditNotebookController';
+import NotebookNotesController from './NotebookNotesController';
 
 const moduleName = 'notebooks';
 
@@ -17,6 +18,10 @@ function config($routeProvider){
     when('/notebooks/:id', {
       templateUrl: 'pages/notebooks/edit.html',
       controller: 'EditNotebookController'
+    }).
+    when('/notebooks/:id/notes', {
+      templateUrl: 'pages/notes/index.html',
+      controller: 'NotebookNotesController'
     })
 }]);
 
@@ -27,5 +32,6 @@ angular.module(moduleName, [])
   .controller('NotebooksController', NotebooksController)
   .controller('NewNotebookController', NewNotebookController)
   .controller('EditNotebookController', EditNotebookController);
+  .controller('NotebookNotesController', NotebookNotesController);
 
 exports default moduleName;
