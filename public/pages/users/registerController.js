@@ -1,26 +1,21 @@
-angular.module('notesApp').controller('registerController', ['$scope', '$location', 'authentication', function($scope, $location, authentication){
+class RegisterController {
 
-  $scope.user = { name: '', email: '', password: '' };
+  constructor($location, authentication){
+    this.authentication = authentication;
+    this.$location = $location;
+    this.serverErrors = [];
+    this.user = { name: '', email: '', password: '' };
+  }
 
-  $scope.serverErrors = [];
+  register(){
+    this.authentication
+      .register(this.user)
+      .error(err => console.log(err))
+      .then(() => this.$location.path('/notebooks'));
+  }
 
-  $scope.register = function(){
-    authentication
-      .register($scope.user)
-      .error(function(err){
-        console.log(err);
-      })
-      .then(function(){
-        $location.path('/notebooks');
-      });
-  };
+}
 
-}]);
+RegisterController.$inject = ['$location', 'authentication']
 
-angular.module('notesApp').config(['$routeProvider', function($routeProvider){
-  $routeProvider.
-    when('/users/register', {
-      templateUrl: 'pages/users/register.html',
-      controller: 'registerController'
-    });
-}]);
+exports default RegisterController;

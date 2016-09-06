@@ -1,36 +1,32 @@
-angular.module('notesApp').controller('authController', ['$scope', '$location', 'authentication', 'Flash', function($scope, $location, authentication, Flash){
+class AuthController {
 
-  if (authentication.isLoggedIn()){
-    $location.path('/notebooks');
+  constructor($location, authentication, Flash){
+    if (authentication.isLoggedIn()){
+      $location.path('/notebooks');
+    }
+
+    this.Flash = Flash;
+    this.authentication = authentication;
+    this.$location = $location;
+    this.user = { email: '', password: '' };
   }
 
-  $scope.user = { email: '', password: '' };
+  login(){
+    this.Flash.clear();
 
-  $scope.login = function(){
-    Flash.clear();
+    this.authentication
+      .login(this.user)
+      .error(err => this.Flash.create('danger', err.message, 0, {}, false))
+      .success(() => this.$location.path('/notebooks'));
+  }
 
-    authentication
-      .login($scope.user)
-      .error(function(err){
-        Flash.create('danger', err.message, 0, {}, false);
-      })
-      .success(function(){
-        $location.path('/notebooks');
-      });
-  };
+  logout(){
+    this.authentication.logout();
+    this.$location.path('/users/login');
+  }
 
-  $scope.logout = function(){
-    authentication.logout();
-    $location.path('/users/login');
-  };
+}
 
-}]);
+AuthController.$inject = ['$location', 'authentication', 'Flash'];
 
-
-angular.module('notesApp').config(['$routeProvider', function($routeProvider){
-  $routeProvider.
-    when('/users/login', {
-      templateUrl: 'pages/users/login.html',
-      controller: 'authController'
-    });
-}]);
+exports default AuthController;

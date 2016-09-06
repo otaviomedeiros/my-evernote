@@ -1,34 +1,34 @@
-angular.module('notesApp').controller('userSettingsController', ['$scope', '$location', '$http', 'authentication', 'Flash', function($scope, $location, $http, authentication, Flash){
+class UserController {
 
-  $scope.cancel = function(){
-    $location.path('/');
-  };
+  constructor($location, $http, Flash){
+    this.$location = $location;
+    this.$http = $http;
+    this.Flash = Flash;
 
-  $scope.save = function(){
-    $http.put('/api/users/' + $scope.user._id, $scope.user)
-      .success(function(result){
-        $location.path('/');
-        Flash.create('Success', 'Profile updated with success!', 3000, {}, false);
-      })
-      .error(function(error){
-        Flash.create('danger', error, 0, {}, false);
-      });
+    this.loadUser();
   }
 
-  $http.get('/api/users/' + authentication.currentUser().id)
-    .success(function(result){
-      $scope.user = result;
-    })
-    .error(function(error){
-      Flash.create('danger', error, 0, {}, false);
-    });
+  cancel(){
+    this.$location.path('/');
+  }
 
-}]);
+  save(){
+    this.$http.put(`/api/users/${this.user._id}`, this.user)
+      .success(result => {
+        this.$location.path('/');
+        this.Flash.create('Success', 'Profile updated with success!', 3000, {}, false);
+      })
+      .error(error => this.Flash.create('danger', error, 0, {}, false));
+  }
 
-angular.module('notesApp').config(['$routeProvider', function($routeProvider){
-  $routeProvider.
-    when('/user/settings', {
-      templateUrl: 'pages/users/settings.html',
-      controller: 'userSettingsController'
-    });
-}]);
+  loadUser(){
+    this.$http.get(`/api/users/${this.authentication.currentUser().id}`)
+      .success(result => this.user = result)
+      .error(error => this.Flash.create('danger', error, 0, {}, false));
+  }
+
+}
+
+UserController.$inject = ['$location', '$http', 'Flash'];
+
+exports default UserController;
