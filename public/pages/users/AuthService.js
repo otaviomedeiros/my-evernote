@@ -60,4 +60,4 @@ class AuthService {
 
 AuthService.authServiceFactory.$inject = ['$http', '$window'];
 
-exports default AuthService;
+exports default AuthService.authServiceFactory;
