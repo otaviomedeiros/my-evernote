@@ -1,6 +1,6 @@
 FROM node:argon
 
-RUN npm install -g bower nodemon
+RUN npm install -g bower nodemon gulp-cli
 
 COPY package.json /opt/
 RUN cd /opt && npm install
