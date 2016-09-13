@@ -1,11 +1,11 @@
 <div class="note-form">
   <flash-message></flash-message>
-  <form name="noteForm", ng-submit="noteForm.$valid && saveNote()">
+  <form name="noteForm", ng-submit="noteForm.$valid && noteCtrl.save()">
     <div class="row note-form-header">
       <div class="col-md-12">
         <div class="pull-left note-options" ng-class="{ 'has-error': noteForm.$submitted && noteForm.notebook.$invalid }">
-          <select required class="form-control" name="notebook" ng-model="note.notebookId">
-            <option ng-repeat="notebook in notebooks" ng-selected="notebook._id === note.notebookId" ng-value="notebook._id">{{notebook.name}}</option>
+          <select required class="form-control" name="notebook" ng-model="noteCtrl.note.notebookId">
+            <option ng-repeat="notebook in noteCtrl.notebooks" ng-selected="notebook._id === noteCtrl.note.notebookId" ng-value="notebook._id">{{notebook.name}}</option>
           </select>
 
           <div class="help-block" ng-messages="noteForm.notebook.$error" ng-show="noteForm.notebook.$touched || noteForm.$submitted">
@@ -13,20 +13,20 @@
           </div>
         </div>
         <div class="pull-left note-options tags">
-          <tags-input ng-model="note.tags">
-            <auto-complete source="loadTags()"></auto-complete>
+          <tags-input ng-model="noteCtrl.note.tags">
+            <auto-complete source="noteCtrl.loadTags()"></auto-complete>
           </tags-input>
         </div>
         <div class="pull-right">
           <button type="submit" formnovalidate name="button" class="btn btn-success">Save</button>
-          <button type="button" name="button" class="btn btn-default" ng-click="cancelNote()">Cancel</button>
+          <button type="button" name="button" class="btn btn-default" ng-click="noteCtrl.cancel()">Cancel</button>
         </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-12" ng-class="{ 'has-error': (noteForm.title.$touched || noteForm.$submitted) && noteForm.title.$invalid }">
-        <input name="title" type="text" required ng-minlength="2" ng-maxlength="500" placeholder="Your title here" ng-model="note.title" class="form-control">
+        <input name="title" type="text" required ng-minlength="2" ng-maxlength="500" placeholder="Your title here" ng-model="noteCtrl.note.title" class="form-control">
 
         <div class="help-block" ng-messages="noteForm.title.$error" ng-show="noteForm.title.$touched || noteForm.$submitted">
           <p ng-message="minlength">Note title is too short.</p>
@@ -38,7 +38,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <div text-angular ng-model="note.content" ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','ul','ol','undo','redo'],['justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent']]"></div>
+        <div text-angular ng-model="noteCtrl.note.content" ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','ul','ol','undo','redo'],['justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent']]"></div>
       </div>
     </div>
   </form>

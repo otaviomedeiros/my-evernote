@@ -4,11 +4,11 @@
       <div class="text-center">
         <h2>Log In</h2>
       </div>
-      <form name="signinForm" autocomplete="off" ng-submit="signinForm.$valid && login()" class="auth-container">
+      <form name="signinForm" autocomplete="off" ng-submit="signinForm.$valid && auth.login()" class="auth-container">
         <flash-message></flash-message>
 
         <div class="form-group form-input" ng-class="{ 'has-error': (signinForm.email.$touched || signinForm.$submitted) && signinForm.email.$invalid}">
-          <input ng-model="user.email" name="email" required type="email" class="form-control" id="email" placeholder="Email Address">
+          <input ng-model="auth.user.email" name="email" required type="email" class="form-control" id="email" placeholder="Email Address">
 
           <div class="help-block" ng-messages="signinForm.email.$error" ng-show="signinForm.email.$touched || signinForm.$submitted">
             <p ng-message="required">Your email is required.</p>
@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="form-group form-input" ng-class="{ 'has-error': (signinForm.password.$touched || signinForm.$submitted) && signinForm.password.$invalid}">
-          <input ng-model="user.password" name="password" required type="password" class="form-control" id="password" placeholder="Password">
+          <input ng-model="auth.user.password" name="password" required type="password" class="form-control" id="password" placeholder="Password">
 
           <div class="help-block" ng-messages="signinForm.password.$error" ng-show="signinForm.password.$touched || signinForm.$submitted">
             <p ng-message="required">Your password is required.</p>
