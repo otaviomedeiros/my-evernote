@@ -1,9 +1,8 @@
 class EditNoteController {
 
-  constructor($http, $location, $routeParams, Flash){
+  constructor($http, $location, $routeParams){
     this.$http = $http;
     this.$location = $location;
-    this.Flash = Flash;
 
     this.loadNotebooks();
     this.loadNote($routeParams.id);
@@ -11,8 +10,12 @@ class EditNoteController {
 
   save(){
     this.$http.put(`/api/notes/${this.note._id}`, this.note)
-      .success(result => this.Flash.create('Success', "Note saved", 3000, {}, false))
-      .error(error => this.Flash.create('danger', error, 0, {}, false));
+      .success(result => {
+
+      })
+      .error(error => {
+
+      });
   }
 
   cancel(){
@@ -36,6 +39,6 @@ class EditNoteController {
   }
 }
 
-EditNoteController.$inject = ['$http', '$location', '$routeParams', 'Flash'];
+EditNoteController.$inject = ['$http', '$location', '$routeParams'];
 
 export default EditNoteController;

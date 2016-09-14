@@ -1,17 +1,20 @@
 class NewNoteController {
 
-  constructor($http, $location, Flash){
+  constructor($http, $location){
     this.$http = $http;
     this.$location = $location;
-    this.Flash = Flash;
     this.resetNote();
     this.loadNotebooks();
   }
 
   save(){
     this.$http.post('/api/notes', this.note)
-      .success(result => this.Flash.create('Success', "Note saved", 3000, {}, false))
-      .error(error => this.Flash.create('danger', error, 0, {}, false));
+      .success(result => {
+
+      })
+      .error(error => {
+
+      });
   }
 
   cancel(){
@@ -34,6 +37,6 @@ class NewNoteController {
   };
 }
 
-NewNoteController.$inject = ['$http', '$location', 'Flash'];
+NewNoteController.$inject = ['$http', '$location'];
 
 export default NewNoteController;

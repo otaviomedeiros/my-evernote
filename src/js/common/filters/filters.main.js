@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 const htmlToPlaintext = () => {
   return (text) => text ? String(text).replace(/<[^>]+>/gm, '') : '';
 };

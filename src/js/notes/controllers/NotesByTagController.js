@@ -1,8 +1,7 @@
 class NotesByTagController {
 
-  constructor($http, $routeParams, Flash){
+  constructor($http, $routeParams){
     this.$http = $http;
-    this.Flash = Flash;
     this.notebookId = $routeParams.id;
     this.loadNotes();
   }
@@ -10,10 +9,11 @@ class NotesByTagController {
   delete(note){
     this.$http.delete(`/api/notes/${note._id}`)
       .success(result => {
-        this.Flash.create('Success', "Note deleted", 3000, {}, false);
         this.loadNotes();
       })
-      .error(error => this.Flash.create('danger', error, 0, {}, false));
+      .error(error => {
+
+      });
   }
 
   loadNotes(){
@@ -23,6 +23,6 @@ class NotesByTagController {
 
 };
 
-NotesByTagController.$inject = ['$http', '$routeParams', 'Flash'];
+NotesByTagController.$inject = ['$http', '$routeParams'];
 
 export default NotesByTagController;

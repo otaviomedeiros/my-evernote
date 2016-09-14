@@ -1,3 +1,4 @@
+import angular from 'angular';
 import TagsController from './controllers/TagsController';
 import NewTagController from './controllers/NewTagController';
 

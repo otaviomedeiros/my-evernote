@@ -1,3 +1,4 @@
+import angular from 'angular';
 import NotebooksController from './controllers/NotebooksController';
 import NewNotebookController from './controllers/NewNotebookController';
 import EditNotebookController from './controllers/EditNotebookController';

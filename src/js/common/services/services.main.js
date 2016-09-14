@@ -1,3 +1,4 @@
+import angular from 'angular';
 import authInterceptor from './AuthInterceptor';
 import underscore from './Underscore';
 

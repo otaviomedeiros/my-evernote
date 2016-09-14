@@ -1,8 +1,7 @@
 class NotesByNotebookController {
 
-  constructor($http, $routeParams, Flash){
+  constructor($http, $routeParams){
     this.$http = $http;
-    this.Flash = Flash;
     this.notebookId = $routeParams.id;
     this.loadNotes();
   }
@@ -15,14 +14,15 @@ class NotesByNotebookController {
   delete(note){
     this.$http.delete(`/api/notes/${note._id}`)
       .success(result => {
-        this.Flash.create('Success', "Note deleted", 3000, {}, false);
         this.loadNotes();
       })
-      .error(error => this.Flash.create('danger', error, 0, {}, false));
+      .error(error => {
+
+      });
   }
 
 }
 
-NotesByNotebookController.$inject = ['$http', '$routeParams', 'Flash'];
+NotesByNotebookController.$inject = ['$http', '$routeParams'];
 
 export default NotesByNotebookController;

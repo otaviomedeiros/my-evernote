@@ -1,19 +1,19 @@
 class NotebooksController {
 
-  constructor($http, Flash){
+  constructor($http){
     this.notebooks = [];
     this.$http = $http;
-    this.Flash = Flash;
     this.loadNotebooks();
   }
 
   delete(notebook){
     this.$http.delete('/api/notebooks/' + notebook._id)
       .success(result => {
-        this.Flash.create('Success', "Notebook deleted", 3000, {}, false);
         this.loadNotebooks();
       })
-      .error(error => this.Flash.create('danger', error, 0, {}, false));
+      .error(error => {
+        
+      });
   }
 
   loadNotebooks(){
@@ -21,6 +21,6 @@ class NotebooksController {
   }
 }
 
-NotebooksController.$inject = ['$http', 'Flash'];
+NotebooksController.$inject = ['$http'];
 
 export default NotebooksController;

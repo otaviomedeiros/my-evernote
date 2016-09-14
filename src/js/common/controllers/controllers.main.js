@@ -1,3 +1,4 @@
+import angular from 'angular';
 import NavigationController from './NavigationController';
 
 const moduleName = 'controllers';

@@ -1,3 +1,4 @@
+import angular from 'angular';
 import EmailAlreadyInUse from './EmailAlreadyInUse';
 import UniqueNotebook from './UniqueNotebook';
 import UniqueTag from './UniqueTag';

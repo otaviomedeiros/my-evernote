@@ -1,15 +1,13 @@
 class EditNoteboookController {
 
-  constructor($routeParams, $http, $location, Flash){
+  constructor($routeParams, $http, $location){
     this.$http = $http;
     this.$location = $location;
-    this.Flash = Flash;
     this.loadNotebook($routeParams.id);
   }
 
   save() {
     this.$http.put(`/api/notebooks/${this.notebook._id}`, this.notebook).then(result => {
-      this.Flash.create('Success', 'Notebook changed with success!', 3000, {}, false);
       this.$location.path('/notebooks');
     });
   }
@@ -24,6 +22,6 @@ class EditNoteboookController {
 
 }
 
-EditNoteboookController.$inject = ['$routeParams', '$http', '$location', 'Flash'];
+EditNoteboookController.$inject = ['$routeParams', '$http', '$location'];
 
 export default EditNoteboookController;

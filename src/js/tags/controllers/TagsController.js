@@ -1,8 +1,7 @@
 class TagsController {
 
-  constructor($http, Flash){
+  constructor($http){
     this.$http = $http;
-    this.Flash = Flash;
 
     this.loadTags();
   }
@@ -10,10 +9,11 @@ class TagsController {
   delete(tag){
     this.$http.delete(`/api/tags/${tag._id}`)
       .success(result => {
-        this.Flash.create('Success', "Tag deleted", 3000, {}, false);
         this.loadTags();
       })
-      .error(error => this.Flash.create('danger', error, 0, {}, false));
+      .error(error => {
+
+      });
   }
 
   loadTags(){
@@ -23,6 +23,6 @@ class TagsController {
 
 }
 
-TagsController.$inject = ['$http', 'Flash'];
+TagsController.$inject = ['$http'];
 
 export default TagsController;

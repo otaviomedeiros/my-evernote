@@ -1,22 +1,21 @@
 class AuthController {
 
-  constructor($location, AuthService, Flash){
+  constructor($location, AuthService){
     if (AuthService.isLoggedIn()){
       $location.path('/notebooks');
     }
 
-    this.Flash = Flash;
     this.AuthService = AuthService;
     this.$location = $location;
     this.user = { email: '', password: '' };
   }
 
   login(){
-    this.Flash.clear();
-
     this.AuthService
       .login(this.user)
-      .error(err => this.Flash.create('danger', err.message, 0, {}, false))
+      .error(err => {
+
+      })
       .success(() => this.$location.path('/notebooks'));
   }
 
@@ -27,6 +26,6 @@ class AuthController {
 
 }
 
-AuthController.$inject = ['$location', 'AuthService', 'Flash'];
+AuthController.$inject = ['$location', 'AuthService'];
 
 export default AuthController;

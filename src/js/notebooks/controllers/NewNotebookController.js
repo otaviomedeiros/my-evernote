@@ -1,16 +1,14 @@
 class NewNoteboookController {
 
-  constructor($http, $location, Flash){
+  constructor($http, $location){
     this.resetNotebook();
     this.$http = $http;
     this.$location = $location;
-    this.Flash = Flash;
   }
 
   save() {
     this.$http.post('/api/notebooks', this.notebook).then(result => {
       this.resetNotebook();
-      this.Flash.create('Success', 'Notebook created with success!', 3000, {}, false);
       this.$location.path('/notebooks');
     });
   }
@@ -26,6 +24,6 @@ class NewNoteboookController {
 
 }
 
-NewNoteboookController.$inject = ['$http', '$location', 'Flash'];
+NewNoteboookController.$inject = ['$http', '$location'];
 
 export default NewNoteboookController;

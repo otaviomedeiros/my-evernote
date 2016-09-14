@@ -1,23 +1,14 @@
 FROM node:argon
 
-RUN npm install -g bower nodemon gulp-cli
-
-COPY package.json /opt/
-RUN cd /opt && npm install
-ENV NODE_PATH=/opt/node_modules
-
-COPY bower.json /opt
-COPY .bowerrc /opt
-RUN cd /opt && bower install
+RUN npm install -g nodemon gulp-cli
 
 RUN mkdir /app
 WORKDIR /app
 
-COPY . .
+COPY package.json .
+RUN npm install
 
-COPY docker-entrypoint /
-RUN chmod +x /docker-entrypoint
-ENTRYPOINT ["/docker-entrypoint"]
+COPY . .
 
 EXPOSE 3000
 CMD [ "npm", "start" ]

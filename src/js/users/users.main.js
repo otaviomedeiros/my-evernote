@@ -1,3 +1,4 @@
+import angular from 'angular';
 import AuthController from './controllers/AuthController';
 import RegisterController from './controllers/RegisterController';
 import UserController from './controllers/UserController';

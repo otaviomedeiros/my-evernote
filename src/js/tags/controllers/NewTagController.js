@@ -1,16 +1,14 @@
 class NewTagController {
 
-  constructor($http, $location, Flash){
+  constructor($http, $location){
     this.$location = $location;
     this.$http = $http;
-    this.Flash = Flash;
   }
 
   save(){
     this.$http.post('/api/tags', this.tag)
       .then(result => {
         this.resetTag();
-        this.Flash.create('Success', 'Tag created with success!', 3000, {}, false);
         this.$location.path('/tags');
       });
   }
@@ -26,6 +24,6 @@ class NewTagController {
 
 }
 
-NewTagController.$inject = ['$http', '$location', 'Flash'];
+NewTagController.$inject = ['$http', '$location'];
 
 export default NewTagController;

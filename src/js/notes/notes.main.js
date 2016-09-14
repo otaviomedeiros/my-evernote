@@ -1,3 +1,4 @@
+import angular from 'angular';
 import NewNoteController from './controllers/NewNoteController';
 import EditNoteController from './controllers/EditNoteController';
 import NotesByNotebookController from './controllers/NotesByNotebookController';
