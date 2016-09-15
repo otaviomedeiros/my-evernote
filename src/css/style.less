@@ -1,15 +1,18 @@
+@default-font-family: gotham, helvetica, arial, sans-serif;
+
 @import "~bootstrap/less/bootstrap";
+@import "header";
 @import "menu";
 @import "buttons";
 @import "lists";
 @import "forms";
 @import "auth";
 
+
 body {
   -webkit-font-smoothing: antialiased;
-  font-family: gotham, helvetica, arial, sans-serif;
+  font-family: @default-font-family;
 }
-
 
 
 

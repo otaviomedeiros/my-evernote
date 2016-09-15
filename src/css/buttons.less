@@ -1,20 +1,16 @@
+@green-button: #15CD72;
+@green-button-hover: #0CB863;
+
 .btn {
   &.btn-success {
     color: white !important;
-    background: #15CD72;
-    border: 1px solid #15CD72;
+    background: @green-button;
+    border: 1px solid @green-button;
     font-weight: 600;
 
     &:hover {
-      background: #0CB863 !important;
-      border: 1px solid #0CB863 !important;
+      background: @green-button-hover !important;
+      border: 1px solid @green-button-hover !important;
     }
-  }
-
-  &.btn-primary {
-    color: white !important;
-    background: #0069ff;
-    border: 1px solid #0069ff;
-    font-weight: 500;
   }
 }
