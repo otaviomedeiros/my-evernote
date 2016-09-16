@@ -7,3 +7,4 @@ setup-automation/.vagrant/
 *.pem
 public/dist
 public/assets
+stats.json
