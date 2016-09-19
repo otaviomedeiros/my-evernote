@@ -1,15 +1,25 @@
 class NotebooksController {
 
-  constructor(notebookService){
+  constructor(notebookService, $http, $location){
     this.notebookService = notebookService;
-    //this.load();
+    this.$http = $http;
+    this.$location = $location;
+  }
+
+  create() {
+    this.notebookService
+      .create(this.notebook)
+      .then(result => {
+        this.resetNotebook();
+        this.$location.path('/notebooks');
+      });
   }
 
   delete(notebook){
     this.notebookService
       .delete(notebook)
       .success(result => {
-        this.load();
+        this.loadNotebooks();
         // flash
       })
       .error(error => {
@@ -17,13 +27,22 @@ class NotebooksController {
       })
   }
 
+  cancel() {
+    this.resetNotebook();
+    this.$location.path('/notebooks');
+  };
+
   loadNotebooks(){
     this.notebookService
       .loadNotebooks()
       .then(notebooks => this.notebooks = notebooks);
   }
+
+  resetNotebook(){
+    this.notebook = {};
+  }
 }
 
-NotebooksController.$inject = ['notebookService'];
+NotebooksController.$inject = ['notebookService', '$http', '$location'];
 
 export default NotebooksController;

@@ -10,6 +10,11 @@ class NotebookService {
       .then(result => result.data);
   }
 
+  create(notebook){
+    return this.$http
+      .post('/api/notebooks', notebook);
+  }
+
   delete(notebook){
     return this.$http
       .delete('/api/notebooks/' + notebook._id)

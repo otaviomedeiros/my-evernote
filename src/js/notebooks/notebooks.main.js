@@ -1,6 +1,5 @@
 import angular from 'angular';
 import NotebooksController from './controllers/NotebooksController';
-import NewNotebookController from './controllers/NewNotebookController';
 import EditNotebookController from './controllers/EditNotebookController';
 import notebookService from './services/NotebookService';
 
@@ -15,7 +14,7 @@ function config($routeProvider){
     }).
     when('/notebooks/new', {
       templateUrl: 'pages/notebooks/new.html',
-      controller: 'NewNotebookController',
+      controller: 'NotebooksController',
       controllerAs: 'newNotebook'
     }).
     when('/notebooks/:id', {
@@ -30,7 +29,6 @@ config.$inject = ['$routeProvider'];
 angular.module(moduleName, [])
   .config(config)
   .controller('NotebooksController', NotebooksController)
-  .controller('NewNotebookController', NewNotebookController)
   .controller('EditNotebookController', EditNotebookController)
   .service('notebookService', notebookService);
 

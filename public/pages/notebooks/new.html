@@ -1,7 +1,7 @@
-<div class="form-container text-center" hide-menu>
+<div class="form-container text-center" hide-menu ng-init="newNotebook.resetNotebook()">
   <div class="container-row">
     <div class="row container-cell text-center">
-      <form name="notebookForm" autocomplete="off" ng-submit="notebookForm.$valid && newNotebook.save()">
+      <form name="notebookForm" autocomplete="off" ng-submit="notebookForm.$valid && newNotebook.create()">
         <div class="col-md-12">
           <h1>NEW NOTEBOOK</h1>
         </div>
