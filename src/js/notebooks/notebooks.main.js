@@ -2,6 +2,7 @@ import angular from 'angular';
 import NotebooksController from './controllers/NotebooksController';
 import NewNotebookController from './controllers/NewNotebookController';
 import EditNotebookController from './controllers/EditNotebookController';
+import notebookService from './services/NotebookService';
 
 const moduleName = 'notebooks';
 
@@ -30,6 +31,7 @@ angular.module(moduleName, [])
   .config(config)
   .controller('NotebooksController', NotebooksController)
   .controller('NewNotebookController', NewNotebookController)
-  .controller('EditNotebookController', EditNotebookController);
+  .controller('EditNotebookController', EditNotebookController)
+  .service('notebookService', notebookService);
 
 export default moduleName;
