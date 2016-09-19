@@ -2,7 +2,7 @@ class NotebooksController {
 
   constructor(notebookService){
     this.notebookService = notebookService;
-    this.load();
+    //this.load();
   }
 
   delete(notebook){
@@ -17,7 +17,7 @@ class NotebooksController {
       })
   }
 
-  load(){
+  loadNotebooks(){
     this.notebookService
       .loadNotebooks()
       .then(notebooks => this.notebooks = notebooks);

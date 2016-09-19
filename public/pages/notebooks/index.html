@@ -7,7 +7,7 @@
 
 <flash-message></flash-message>
 
-<div class="list row">
+<div class="list row" ng-init="notebooks.loadNotebooks()">
   <div class="list-item col-md-12" show-actions-hover ng-repeat="notebook in notebooks.notebooks">
     <div class="list-item-title col-md-12">
       <div class="pull-left">
