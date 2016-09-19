@@ -21,8 +21,5 @@ module.exports = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js"),
     new webpack.ProvidePlugin({ "window.jQuery": "jquery" })
-  ],
-  watchOptions: {
-    poll: true
-  }
+  ]
 }
