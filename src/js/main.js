@@ -12,6 +12,7 @@ import services from './common/services/services.main';
 import controllers from './common/controllers/controllers.main';
 import directives from './common/directives/directives.main';
 import filters from './common/filters/filters.main';
+import flashMessages from './flash/flash.main';
 
 import {config, run} from './config';
 
@@ -20,7 +21,7 @@ import '../css/style.less';
 
 const moduleName = 'notesApp';
 
-angular.module(moduleName, [angularRouter, angularMessages, services, controllers, directives,
+angular.module(moduleName, [angularRouter, angularMessages, flashMessages, services, controllers, directives,
   filters, notebooks, notes, tags, users])
   .config(config)
   .run(run);

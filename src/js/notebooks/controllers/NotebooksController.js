@@ -1,10 +1,11 @@
 class NotebooksController {
 
-  constructor(notebookService, $http, $location, $routeParams){
+  constructor(notebookService, $http, $location, $routeParams, flash){
     this.notebookService = notebookService;
     this.$http = $http;
     this.$location = $location;
     this.$routeParams = $routeParams;
+    this.flash = flash;
   }
 
   index(){
@@ -29,22 +30,20 @@ class NotebooksController {
       this.$routeParams.id ?
         this.notebookService.update(this.notebook) :
         this.notebookService.create(this.notebook)
-    ).then(result => {
+    ).then(() => {
         this.$location.path('/notebooks');
-        // flash
+        this.flash.success("Notebook saved with success");
       });
   }
-  
+
   delete(notebook){
     this.notebookService
       .delete(notebook)
-      .success(result => {
+      .success(() => {
         this.index();
-        // flash
+        this.flash.success("Notebook deleted with success")
       })
-      .error(error => {
-        // flash
-      })
+      .error(error => this.flash.error(error));
   }
 
   cancel() {
@@ -56,6 +55,6 @@ class NotebooksController {
   }
 }
 
-NotebooksController.$inject = ['notebookService', '$http', '$location', '$routeParams'];
+NotebooksController.$inject = ['notebookService', '$http', '$location', '$routeParams', 'flash'];
 
 export default NotebooksController;
