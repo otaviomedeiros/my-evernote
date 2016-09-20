@@ -2,7 +2,8 @@ import angular from 'angular';
 import AuthController from './controllers/AuthController';
 import RegisterController from './controllers/RegisterController';
 import UserController from './controllers/UserController';
-import AuthService from './services/AuthService';
+import authService from './services/AuthService';
+import UserService from "./services/UserService";
 
 function config($routeProvider){
   $routeProvider.
@@ -32,7 +33,8 @@ angular.module(moduleName, [])
   .controller('AuthController', AuthController)
   .controller('RegisterController', RegisterController)
   .controller('UserController', UserController)
-  .service('AuthService', AuthService)
+  .service('authService', authService)
+  .service("userService", UserService)
   .config(config);
 
 export default moduleName;

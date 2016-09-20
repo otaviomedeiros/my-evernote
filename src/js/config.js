@@ -4,12 +4,12 @@ export function config($routeProvider){
 
 config.$inject = ['$routeProvider'];
 
-export function run($rootScope, $location, AuthService){
+export function run($rootScope, $location, authService){
   $rootScope.$on('$routeChangeStart', function(){
-    if ($location.path() !== '/users/login' && $location.path() !== '/users/register' && !AuthService.isLoggedIn()){
+    if ($location.path() !== '/users/login' && $location.path() !== '/users/register' && !authService.isLoggedIn()){
       $location.path('/users/login');
     }
   });
 }
 
-run.$inject = ['$rootScope', '$location', 'AuthService'];
+run.$inject = ['$rootScope', '$location', 'authService'];

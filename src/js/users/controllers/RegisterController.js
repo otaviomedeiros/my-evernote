@@ -1,14 +1,14 @@
 class RegisterController {
 
-  constructor($location, AuthService){
-    this.AuthService = AuthService;
+  constructor($location, authService){
+    this.authService = authService;
     this.$location = $location;
     this.serverErrors = [];
     this.user = { name: '', email: '', password: '' };
   }
 
   register(){
-    this.AuthService
+    this.authService
       .register(this.user)
       .error(err => console.log(err))
       .then(() => this.$location.path('/notebooks'));
@@ -16,6 +16,6 @@ class RegisterController {
 
 }
 
-RegisterController.$inject = ['$location', 'AuthService'];
+RegisterController.$inject = ['$location', 'authService'];
 
 export default RegisterController;

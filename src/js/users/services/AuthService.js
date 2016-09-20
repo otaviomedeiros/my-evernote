@@ -52,12 +52,12 @@ class AuthService {
       .success(result => this.saveToken(result.token));
   }
 
-  static authServiceFactory($http, $window){
+  static factory($http, $window){
     return new AuthService($http, $window);
   }
 }
 
 
-AuthService.authServiceFactory.$inject = ['$http', '$window'];
+AuthService.factory.$inject = ['$http', '$window'];
 
-export default AuthService.authServiceFactory;
+export default AuthService.factory;

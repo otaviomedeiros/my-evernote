@@ -1,11 +1,9 @@
 class UserController {
 
-  constructor($location, $http, AuthService){
+  constructor($location, userService, authService){
     this.$location = $location;
-    this.$http = $http;
-    this.AuthService = AuthService;
-
-    this.loadUser();
+    this.userService = userService;
+    this.authService = authService;
   }
 
   cancel(){
@@ -13,25 +11,25 @@ class UserController {
   }
 
   save(){
-    this.$http.put(`/api/users/${this.user._id}`, this.user)
+    this.userService
+      .update(this.user)
       .success(result => {
         this.$location.path('/');
+        // flash
       })
       .error(error => {
-        
+        // flash
       });
   }
 
-  loadUser(){
-    this.$http.get(`/api/users/${this.AuthService.currentUser().id}`)
-      .success(result => this.user = result)
-      .error(error => {
-
-      });
+  edit(){
+    this.userService
+      .load(this.authService.currentUser().id)
+      .then(user => this.user = user);
   }
 
 }
 
-UserController.$inject = ['$location', '$http', 'AuthService'];
+UserController.$inject = ['$location', 'userService', 'authService'];
 
 export default UserController;

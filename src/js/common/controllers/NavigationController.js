@@ -1,19 +1,19 @@
 class NavigationController {
 
-  constructor(AuthService){
-    this.AuthService = AuthService;
+  constructor(authService){
+    this.authService = authService;
   }
 
   isLoggedIn(){
-    return this.AuthService.isLoggedIn();
+    return this.authService.isLoggedIn();
   }
 
   user(){
-    return this.AuthService.currentUser();
+    return this.authService.currentUser();
   }
 
 }
 
-NavigationController.$inject = ['AuthService'];
+NavigationController.$inject = ['authService'];
 
 export default NavigationController;
