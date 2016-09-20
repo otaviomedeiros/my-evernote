@@ -1,17 +1,17 @@
 import angular from 'angular';
-import NewNoteController from './controllers/NewNoteController';
-import EditNoteController from './controllers/EditNoteController';
+import NotesController from "./controllers/NotesController";
 import NotesByNotebookController from './controllers/NotesByNotebookController';
 import NotesByTagController from './controllers/NotesByTagController';
+import noteService from "./services/NoteService";
 
 const moduleName = 'notes';
 
 function config($routeProvider){
   $routeProvider.
     when('/notes/new', {
-      templateUrl: 'pages/notes/form.html',
-      controller: 'NewNoteController',
-      controllerAs: 'noteCtrl'
+      templateUrl: 'pages/notes/new.html',
+      controller: 'NotesController',
+      controllerAs: 'notes'
     }).
     when('/notebooks/:id/notes', {
       templateUrl: 'pages/notes/index.html',
@@ -19,9 +19,9 @@ function config($routeProvider){
       controllerAs: 'notes'
     }).
     when('/notes/:id', {
-      templateUrl: 'pages/notes/form.html',
-      controller: 'EditNoteController',
-      controllerAs: 'noteCtrl'
+      templateUrl: 'pages/notes/edit.html',
+      controller: 'NotesController',
+      controllerAs: 'notes'
     }).
     when('/tags/:id/notes', {
       templateUrl: 'pages/notes/index.html',
@@ -33,10 +33,10 @@ function config($routeProvider){
 config.$inject = ['$routeProvider'];
 
 angular.module(moduleName, [])
-  .controller('NewNoteController', NewNoteController)
-  .controller('EditNoteController', EditNoteController)
+  .controller("NotesController", NotesController)
   .controller('NotesByTagController', NotesByTagController)
   .controller('NotesByNotebookController', NotesByNotebookController)
+  .service("noteService", noteService)
   .config(config);
 
 export default moduleName;
