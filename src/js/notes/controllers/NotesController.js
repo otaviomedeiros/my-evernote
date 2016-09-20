@@ -8,6 +8,18 @@ class NotesController {
     this.loadNotebooks();
   }
 
+  indexByNotebook(){
+    this.noteService
+      .loadNotesByNotebook(this.$routeParams.id)
+      .then(notes => this.notes = notes);
+  }
+
+  indexByNote(){
+    this.noteService
+      .loadNotesByTag(this.$routeParams.id)
+      .then(notes => this.notes = notes);
+  }
+
   save(){
     (
       this.$routeParams.id ?
@@ -18,6 +30,18 @@ class NotesController {
     }).error(error => {
       // flash
     })
+  }
+
+  delete(note){
+    this.noteService
+      .delete(note)
+      .success(result => {
+        this.loadNotes();
+        //flash
+      })
+      .error(error => {
+        //flash
+      });
   }
 
   cancel(){
@@ -43,7 +67,7 @@ class NotesController {
 
   loadTags(query) {
     return this.noteService.loadTags();
-  };
+  }
 
 }
 

@@ -10,6 +10,18 @@ class NoteService {
       .then(result => result.data);
   }
 
+  loadNotesByNotebook(notebookId){
+    return this.$http
+      .get(`/api/notebooks/${notebookId}/notes`)
+      .then(result => result.data);
+  }
+
+  loadNotesByTag(tagId){
+    return this.$http
+      .get(`/api/tags/${tagId}/notes`)
+      .then(result => result.data);
+  }
+
   loadTags(){
     return this.$http
       .get('/api/tags')
@@ -24,6 +36,10 @@ class NoteService {
 
   update(note){
     return this.$http.put(`/api/notes/${note._id}`, note);
+  }
+
+  delete(note){
+    return this.$http.delete(`/api/notes/${note._id}`);
   }
 
   static factory($http){
