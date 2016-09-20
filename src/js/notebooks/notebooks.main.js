@@ -14,12 +14,12 @@ function config($routeProvider){
     when('/notebooks/new', {
       templateUrl: 'pages/notebooks/new.html',
       controller: 'NotebooksController',
-      controllerAs: 'newNotebook'
+      controllerAs: 'notebooks'
     }).
     when('/notebooks/:id', {
       templateUrl: 'pages/notebooks/edit.html',
       controller: 'NotebooksController',
-      controllerAs: 'editNotebook'
+      controllerAs: 'notebooks'
     });
 };
 

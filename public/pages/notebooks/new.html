@@ -1,25 +1,5 @@
-<div class="form-container text-center" hide-menu ng-init="newNotebook.resetNotebook()">
-  <div class="container-row">
-    <div class="row container-cell text-center">
-      <form name="notebookForm" autocomplete="off" ng-submit="notebookForm.$valid && newNotebook.create()">
-        <div class="col-md-12">
-          <h1>NEW NOTEBOOK</h1>
-        </div>
-        <div class="form-input col-md-12" ng-class="{ 'has-error': (notebookForm.name.$touched || notebookForm.$submitted) && notebookForm.name.$invalid}">
-          <input name="name" required unique-notebook ng-minlength="2" ng-maxlength="150" type="text" class="text-center form-control" ng-model="newNotebook.notebook.name" placeholder="Title your notebook">
-
-          <div class="help-block" ng-messages="notebookForm.name.$error" ng-show="notebookForm.name.$touched || notebookForm.$submitted">
-            <p ng-message="minlength">Notebook name is too short.</p>
-            <p ng-message="maxlength">Notebook name is too long.</p>
-            <p ng-message="required">Notebook name is required.</p>
-            <p ng-message="unique">A notebook with this name already exists.</p>
-          </div>
-        </div>
-        <div class="col-md-12 form-input">
-          <button type="button" name="button" class="btn btn-default" ng-click="newNotebook.cancel()">Cancel</button>
-          <button type="submit" formnovalidate name="button" class="btn btn-success">Create notebook</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+<ng-include
+  src="'pages/notebooks/form.html'"
+  onload="title = 'NEW NOTEBOOK'; buttonName = 'Create notebook';"
+  ng-init="notebooks.new()">
+</ng-include>

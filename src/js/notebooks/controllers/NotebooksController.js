@@ -7,29 +7,39 @@ class NotebooksController {
     this.$routeParams = $routeParams;
   }
 
-  create() {
+  index(){
     this.notebookService
-      .create(this.notebook)
-      .then(result => {
-        this.resetNotebook();
-        this.$location.path('/notebooks');
-      });
+      .loadNotebooks()
+      .then(notebooks => this.notebooks = notebooks);
   }
 
-  update() {
+  new(){
+    this.resetNotebook();
+  }
+
+  edit(){
+    this.resetNotebook();
     this.notebookService
-      .update(this.notebook)
-      .then(result => {
+      .load(this.$routeParams.id)
+      .then(notebook => this.notebook = notebook)
+  }
+
+  save(){
+    (
+      this.$routeParams.id ?
+        this.notebookService.update(this.notebook) :
+        this.notebookService.create(this.notebook)
+    ).then(result => {
         this.$location.path('/notebooks');
         // flash
       });
   }
-
+  
   delete(notebook){
     this.notebookService
       .delete(notebook)
       .success(result => {
-        this.loadNotebooks();
+        this.index();
         // flash
       })
       .error(error => {
@@ -38,20 +48,7 @@ class NotebooksController {
   }
 
   cancel() {
-    this.resetNotebook();
     this.$location.path('/notebooks');
-  };
-
-  loadNotebooks(){
-    this.notebookService
-      .loadNotebooks()
-      .then(notebooks => this.notebooks = notebooks);
-  }
-
-  loadNotebook(){
-    this.notebookService
-      .load(this.$routeParams.id)
-      .then(notebook => this.notebook = notebook)
   }
 
   resetNotebook(){
