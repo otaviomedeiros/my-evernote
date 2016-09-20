@@ -1,28 +1,49 @@
 class TagsController {
 
-  constructor($http){
-    this.$http = $http;
-
-    this.loadTags();
+  constructor(tagService, $location){
+    this.tagService = tagService;
+    this.$location = $location;
   }
 
-  delete(tag){
-    this.$http.delete(`/api/tags/${tag._id}`)
-      .success(result => {
-        this.loadTags();
-      })
-      .error(error => {
-
+  save(){
+    this.tagService
+      .save(this.tag)
+      .then(result => {
+        this.resetTag();
+        this.$location.path('/tags');
+        // flash
       });
   }
 
+  delete(tag){
+    this.tagService
+      .delete(tag)
+      .success(result => {
+        this.loadTags();
+        // flash
+      })
+      .error(error => {
+        //flash
+      });
+  }
+
+  cancel(){
+    this.resetTag();
+    this.$location.path('/tags');
+  }
+  
   loadTags(){
-    this.$http.get('/api/tags')
-      .then(result => this.tags = result.data);
+    this.tagService
+      .loadTags()
+      .then(tags => this.tags = tags);
+  }
+
+  resetTag(){
+    this.tag = {};
   }
 
 }
 
-TagsController.$inject = ['$http'];
+TagsController.$inject = ['tagService', '$location'];
 
 export default TagsController;

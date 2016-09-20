@@ -1,6 +1,6 @@
 import angular from 'angular';
 import TagsController from './controllers/TagsController';
-import NewTagController from './controllers/NewTagController';
+import tagService from "./services/TagService";
 
 function config($routeProvider){
   $routeProvider.
@@ -11,8 +11,8 @@ function config($routeProvider){
     }).
     when('/tags/new', {
       templateUrl: 'pages/tags/form.html',
-      controller: 'NewTagController',
-      controllerAs: 'newTag'
+      controller: 'TagsController',
+      controllerAs: 'tags'
     });
 };
 
@@ -23,6 +23,6 @@ const moduleName = 'tags';
 angular.module(moduleName, [])
   .config(config)
   .controller('TagsController', TagsController)
-  .controller('NewTagController', NewTagController)
+  .service('tagService', tagService);
 
 export default moduleName;

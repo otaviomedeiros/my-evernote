@@ -1,12 +1,12 @@
 <div class="form-container text-center" hide-menu>
   <div class="container-row">
     <div class="row container-cell">
-      <form name="tagForm" autocomplete="off"  ng-submit="tagForm.$valid && newTag.save()">
+      <form name="tagForm" autocomplete="off"  ng-submit="tagForm.$valid && tags.save()">
         <div class="col-md-12">
           <h1>NEW TAG</h1>
         </div>
         <div class="form-input col-md-12" ng-class="{ 'has-error': (tagForm.name.$touched || tagForm.$submitted) && tagForm.name.$invalid}">
-          <input name="name" type="text" required unique-tag ng-maxlength="100" class="text-center form-control" ng-model="newTag.tag.name" placeholder="You tag name">
+          <input name="name" type="text" required unique-tag ng-maxlength="100" class="text-center form-control" ng-model="tags.tag.name" placeholder="You tag name">
 
           <div class="help-block" ng-messages="tagForm.name.$error" ng-show="tagForm.name.$touched || tagForm.$submitted">
             <p ng-message="maxlength">Tag is too long.</p>
@@ -16,7 +16,7 @@
         </div>
 
         <div class="col-md-12 form-input">
-          <button type="button" name="button" class="btn btn-default" ng-click="newTag.cancel()">Cancel</button>
+          <button type="button" name="button" class="btn btn-default" ng-click="tags.cancel()">Cancel</button>
           <button type="submit" formnovalidate name="button" class="btn btn-success">Create tag</button>
         </div>
       </form>
