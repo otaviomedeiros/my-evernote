@@ -1,6 +1,7 @@
 import angular from 'angular';
 import NotebooksController from './controllers/NotebooksController';
 import notebookService from './services/NotebookService';
+import UniqueNotebook from './directives/UniqueNotebook';
 
 const moduleName = 'notebooks';
 
@@ -27,6 +28,7 @@ config.$inject = ['$routeProvider'];
 
 angular.module(moduleName, [])
   .config(config)
+  .directive('uniqueNotebook', UniqueNotebook)
   .controller('NotebooksController', NotebooksController)
   .service('notebookService', notebookService);
 

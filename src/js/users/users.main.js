@@ -1,4 +1,5 @@
 import angular from 'angular';
+import EmailAlreadyInUse from './directives/EmailAlreadyInUse';
 import AuthController from './controllers/AuthController';
 import RegisterController from './controllers/RegisterController';
 import UserController from './controllers/UserController';
@@ -30,6 +31,7 @@ config.$inject = ['$routeProvider'];
 const moduleName = 'users';
 
 angular.module(moduleName, [])
+  .directive('emailAlreadyInUse', EmailAlreadyInUse)
   .controller('AuthController', AuthController)
   .controller('RegisterController', RegisterController)
   .controller('UserController', UserController)
