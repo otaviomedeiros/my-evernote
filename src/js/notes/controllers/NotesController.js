@@ -5,7 +5,6 @@ class NotesController {
     this.noteService = noteService;
     this.$routeParams = $routeParams;
     this.$location = $location;
-    this.loadNotebooks();
   }
 
   indexByNotebook(){
