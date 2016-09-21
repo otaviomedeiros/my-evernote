@@ -13,16 +13,16 @@ import controllers from './common/controllers/controllers.main';
 import directives from './common/directives/directives.main';
 import filters from './common/filters/filters.main';
 import flashMessages from './flash/flash.main';
+import notebookSelector from './components/notebook-selector/main';
 
 import {config, run} from './config';
 
 import '../css/style.less';
 
-
 const moduleName = 'notesApp';
 
-angular.module(moduleName, [angularRouter, angularMessages, flashMessages, services, controllers, directives,
-  filters, notebooks, notes, tags, users])
+angular.module(moduleName, [angularRouter, angularMessages, flashMessages, notebookSelector,
+  services, controllers, directives, filters, notebooks, notes, tags, users])
   .config(config)
   .run(run);
 
