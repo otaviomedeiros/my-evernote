@@ -1,37 +1,36 @@
 class TagsController {
 
-  constructor(tagService, $location){
+  constructor(tagService, $location, flash){
     this.tagService = tagService;
     this.$location = $location;
+    this.flash = flash;
   }
 
   save(){
     this.tagService
       .save(this.tag)
-      .then(result => {
+      .then(() => {
         this.resetTag();
         this.$location.path('/tags');
-        // flash
+        this.flash.success("Tag saved with success");
       });
   }
 
   delete(tag){
     this.tagService
       .delete(tag)
-      .success(result => {
+      .success(() => {
         this.loadTags();
-        // flash
+        this.flash.success("Tag deleted with success");
       })
-      .error(error => {
-        //flash
-      });
+      .error(error => this.flash.error(error));
   }
 
   cancel(){
     this.resetTag();
     this.$location.path('/tags');
   }
-  
+
   loadTags(){
     this.tagService
       .loadTags()
@@ -44,6 +43,6 @@ class TagsController {
 
 }
 
-TagsController.$inject = ['tagService', '$location'];
+TagsController.$inject = ['tagService', '$location', 'flash'];
 
 export default TagsController;

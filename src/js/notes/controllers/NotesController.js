@@ -1,10 +1,11 @@
 class NotesController {
 
-  constructor(notebookService, noteService, $routeParams, $location){
+  constructor(notebookService, noteService, $routeParams, $location, flash){
     this.notebookService = notebookService;
     this.noteService = noteService;
     this.$routeParams = $routeParams;
     this.$location = $location;
+    this.flash = flash;
   }
 
   indexByNotebook(){
@@ -24,23 +25,18 @@ class NotesController {
       this.$routeParams.id ?
         this.noteService.update(this.note) :
         this.noteService.create(this.note)
-    ).success(result => {
-      // flash
-    }).error(error => {
-      // flash
-    })
+    ).success(() => this.flash.success("Note Saved with success"))
+    .error(error => this.flash.error(error));
   }
 
   delete(note){
     this.noteService
       .delete(note)
-      .success(result => {
+      .success(() => {
         this.loadNotes();
-        //flash
+        this.flash.success("Note deleted with success");
       })
-      .error(error => {
-        //flash
-      });
+      .error(error => this.flash.error(error));
   }
 
   cancel(){
@@ -70,6 +66,6 @@ class NotesController {
 
 }
 
-NotesController.$inject = ["notebookService", "noteService", "$routeParams", "$location"];
+NotesController.$inject = ["notebookService", "noteService", "$routeParams", "$location", "flash"];
 
 export default NotesController;

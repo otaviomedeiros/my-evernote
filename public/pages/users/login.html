@@ -1,11 +1,11 @@
 <div class="form-container">
   <div class="container-row">
     <div class="container-cell">
+      <flash-message></flash-message>
       <div class="text-center">
         <h2>Log In</h2>
       </div>
       <form name="signinForm" autocomplete="off" ng-submit="signinForm.$valid && auth.login()" class="auth-container">
-        <flash-message></flash-message>
 
         <div class="form-group form-input" ng-class="{ 'has-error': (signinForm.email.$touched || signinForm.$submitted) && signinForm.email.$invalid}">
           <input ng-model="auth.user.email" name="email" required type="email" class="form-control" id="email" placeholder="Email Address">

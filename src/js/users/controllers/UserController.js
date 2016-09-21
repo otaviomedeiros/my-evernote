@@ -1,9 +1,10 @@
 class UserController {
 
-  constructor($location, userService, authService){
+  constructor($location, userService, authService, flash){
     this.$location = $location;
     this.userService = userService;
     this.authService = authService;
+    this.flash = flash;
   }
 
   cancel(){
@@ -13,13 +14,11 @@ class UserController {
   save(){
     this.userService
       .update(this.user)
-      .success(result => {
+      .success(() => {
         this.$location.path('/');
-        // flash
+        this.flash.success("User created with success");
       })
-      .error(error => {
-        // flash
-      });
+      .error(error => this.flash.error(error));
   }
 
   edit(){
@@ -30,6 +29,6 @@ class UserController {
 
 }
 
-UserController.$inject = ['$location', 'userService', 'authService'];
+UserController.$inject = ['$location', 'userService', 'authService', 'flash'];
 
 export default UserController;
