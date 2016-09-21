@@ -1,3 +1,6 @@
+@form-label-color: #ccc;
+@note-option-height: 30px;
+
 .main-container {
   padding-left: 0;
 
@@ -21,13 +24,13 @@
       font-weight: normal !important;
 
       .note-form-header {
-        padding-bottom: 10px;
-      }
+        border-bottom:1px solid @form-label-color;
+        margin-bottom: 20px;
 
-      .note-form-header {
         .note-options {
           margin-top:20px;
           margin-right: 10px;
+          height: @note-option-height;
         }
       }
 
@@ -43,7 +46,7 @@
       padding: 50px 50px 0px 50px;
 
       label {
-        color: #ccc;
+        color: @form-label-color;
       }
 
       input {

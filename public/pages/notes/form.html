@@ -1,30 +1,157 @@
+<style media="screen">
+
+  .notebook-selector {
+    color: #ccc;
+    display: block;;
+    position: relative;
+  }
+
+  .notebook-selector div {
+    display: inline;
+    padding-right: 5px;
+  }
+
+  .notebook-selector .choose-book {
+    color: #777;
+    font-weight: bold;
+  }
+
+  .notebook-selector .choose-book-arrow {
+    padding-top:20px;
+  }
+
+  .notebook-selector .notebooks-list {
+    display: block;
+    position: absolute;
+    z-index: 10000;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: #fff;
+    padding: 0;
+    min-width: 400px;
+    max-height: 400px;
+    overflow: scroll;
+    border-top: 1px solid #ccc;
+    top: 30px;
+  }
+
+  .notebook-selector .notebooks-list .list {
+    width: 100%;
+    display: block;
+    margin-top: 0px;
+  }
+
+  .notebook-selector .notebooks-list .list .notebook {
+    margin: 0px 15px;
+    padding: 20px 10px;
+    color: #4a4a4a;
+    display: block;
+    border-bottom: 1px solid #f1f1f1;
+  }
+
+  .notebook-selector:hover .notebooks-list {
+    display: block;
+  }
+
+  .notebook-selector .find-notebook {
+    width: 100%;
+    display: block;
+    padding: 18px;
+    border-bottom: 1px solid #f1f1f1;
+  }
+
+  .notebook-selector .find-notebook input {
+    width: 100%;
+    height: 40px;
+  }
+</style>
 <div class="note-form">
   <form name="noteForm", ng-submit="noteForm.$valid && notes.save()">
-    <div class="row note-form-header">
-      <div class="col-md-12">
-        <div class="pull-left note-options" ng-class="{ 'has-error': noteForm.$submitted && noteForm.notebook.$invalid }">
-          <select required class="form-control" name="notebook" ng-model="notes.note.notebookId">
+    <div class=" note-form-header">
+        <div class="note-options notebook-selector" ng-class="{ 'has-error': noteForm.$submitted && noteForm.notebook.$invalid }">
+
+
+
+
+            <div class="">
+              <i class="glyphicon glyphicon-book"></i>
+            </div>
+            <div class="choose-book">
+              Choose a book
+            </div>
+            <div class="choose-book-arrow">
+              <i class="glyphicon glyphicon-chevron-down"></i>
+            </div>
+
+            <div class="notebooks-list">
+              <div class="find-notebook">
+                <input type="text" name="name" value="" placeholder="Find a notebook">
+              </div>
+              <div class="list">
+                <div class="notebook">
+                  notebooks 1
+                </div>
+                <div class="notebook">
+                  notebooks 1
+                </div>
+                <div class="notebook">
+                  notebooks 1
+                </div>
+                <div class="notebook">
+                  notebooks 1
+                </div>
+                <div class="notebook">
+                  notebooks 1
+                </div>
+                <div class="notebook">
+                  notebooks 1
+                </div>
+                <div class="notebook">
+                  notebooks 1
+                </div>
+                <div class="notebook">
+                  notebooks 1
+                </div>
+                <div class="notebook">
+                  notebooks 1
+                </div>
+                <div class="notebook">
+                  notebooks 1
+                </div>
+                <div class="notebook">
+                  notebooks 1
+                </div>
+                <div class="notebook">
+                  notebooks 1
+                </div>
+                <div class="notebook">
+                  notebooks 1
+                </div>
+              </div>
+            </div>
+
+
+
+          <!--select required class="form-control" name="notebook" ng-model="notes.note.notebookId">
             <option ng-repeat="notebook in notes.notebooks" ng-selected="notebook._id === notes.note.notebookId" ng-value="notebook._id">{{notebook.name}}</option>
-          </select>
+          </select-->
 
           <div class="help-block" ng-messages="noteForm.notebook.$error" ng-show="noteForm.notebook.$touched || noteForm.$submitted">
             <p ng-message="required">Notebook name is required.</p>
           </div>
         </div>
-        <div class="pull-left note-options tags">
+        <!--div class="pull-left note-options tags">
           <tags-input ng-model="notes.note.tags">
             <auto-complete source="notes.loadTags()"></auto-complete>
           </tags-input>
-        </div>
-        <div class="pull-right">
+        </div-->
+        <!--div class="">
           <button type="submit" formnovalidate name="button" class="btn btn-success">Save</button>
           <button type="button" name="button" class="btn btn-default" ng-click="notes.cancel()">Cancel</button>
-        </div>
-      </div>
+        </div-->
     </div>
 
     <div class="row">
-      <div class="col-md-12" ng-class="{ 'has-error': (noteForm.title.$touched || noteForm.$submitted) && noteForm.title.$invalid }">
+      <!--div class="col-md-12" ng-class="{ 'has-error': (noteForm.title.$touched || noteForm.$submitted) && noteForm.title.$invalid }">
         <input name="title" type="text" required ng-minlength="2" ng-maxlength="500" placeholder="Your title here" ng-model="notes.note.title" class="form-control">
 
         <div class="help-block" ng-messages="noteForm.title.$error" ng-show="noteForm.title.$touched || noteForm.$submitted">
@@ -33,12 +160,12 @@
           <p ng-message="required">Note title is required.</p>
         </div>
       </div>
-    </div>
+    </div-->
 
     <div class="row">
-      <div class="col-md-12">
+      <!--div class="col-md-12">
         <div text-angular ng-model="notes.note.content" ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','ul','ol','undo','redo'],['justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent']]"></div>
-      </div>
+      </div-->
     </div>
   </form>
 </div>
