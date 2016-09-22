@@ -9,13 +9,19 @@ class NotebookSelector {
     this.templateUrl = "components/notebook-selector/index.html";
   }
 
-  link(scope, elem, attrs, notebookIdModel){
+  link(scope, elem, attrs, notebookModel){
     scope.showList = false;
     scope.notebooks = [];
     scope.notebookName = "Choose a book";
 
+    notebookModel.$render = () => {
+      if (notebookModel.$modelValue && notebookModel.$modelValue.name){
+        scope.notebookName = notebookModel.$modelValue.name;
+      }
+    }
+
     scope.select = (notebook) => {
-      notebookIdModel.$setViewValue(notebook._id);
+      notebookModel.$setViewValue(notebook);
       scope.notebookName = notebook.name;
       scope.showList = false;
     };
@@ -32,7 +38,7 @@ class NotebookSelector {
         scope.$apply(() => scope.showList = false);
       }
     };
-    
+
     document.addEventListener("click", clickCheck);
     scope.$on("$locationChangeStart", () => document.removeEventListener("click", clickCheck));
   }

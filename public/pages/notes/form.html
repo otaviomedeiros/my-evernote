@@ -2,8 +2,7 @@
   <form name="noteForm", ng-submit="noteForm.$valid && notes.save()">
     <div class=" note-form-header">
         <div class="note-options" ng-class="{ 'has-error': noteForm.$submitted && noteForm.notebook.$invalid }">
-
-          <notebook-selector ng-model="notes.note.notebookId"></notebook-selector>
+          <notebook-selector ng-model="notes.note.notebook"></notebook-selector>
 
 
 
