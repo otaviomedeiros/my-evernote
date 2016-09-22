@@ -1,20 +1,22 @@
 <div class="notebook-selector">
-  <div class="">
-    <i class="glyphicon glyphicon-book"></i>
-  </div>
-  <div class="choose-book">
-    Choose a book
-  </div>
-  <div class="choose-book-arrow">
-    <i class="glyphicon glyphicon-chevron-down"></i>
+  <div ng-click="loadNotebooks()">
+    <div>
+      <i class="glyphicon glyphicon-book"></i>
+    </div>
+    <div class="choose-book">
+      {{ notebookName }}
+    </div>
+    <div class="choose-book-arrow">
+      <i class="glyphicon glyphicon-chevron-down"></i>
+    </div>
   </div>
 
-  <div class="notebooks-list">
+  <div class="notebooks-list" ng-show="showList">
     <div class="find-notebook">
       <input type="text" name="name" value="" placeholder="Find a notebook">
     </div>
     <div class="list">
-      <div ng-repeat="notebook in selectorCtrl.notebooks" class="notebook">
+      <div ng-repeat="notebook in notebooks" ng-click="select(notebook)" class="notebook">
         {{ notebook.name }}
       </div>
     </div>

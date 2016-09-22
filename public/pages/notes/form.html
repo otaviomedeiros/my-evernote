@@ -3,7 +3,7 @@
     <div class=" note-form-header">
         <div class="note-options" ng-class="{ 'has-error': noteForm.$submitted && noteForm.notebook.$invalid }">
 
-          <notebook-selector></notebook-selector>
+          <notebook-selector ng-model="notes.note.notebookId"></notebook-selector>
 
 
 
@@ -20,14 +20,14 @@
             <auto-complete source="notes.loadTags()"></auto-complete>
           </tags-input>
         </div-->
-        <!--div class="">
+        <div class="">
           <button type="submit" formnovalidate name="button" class="btn btn-success">Save</button>
           <button type="button" name="button" class="btn btn-default" ng-click="notes.cancel()">Cancel</button>
-        </div-->
+        </div>
     </div>
 
     <div class="row">
-      <!--div class="col-md-12" ng-class="{ 'has-error': (noteForm.title.$touched || noteForm.$submitted) && noteForm.title.$invalid }">
+      <div class="col-md-12" ng-class="{ 'has-error': (noteForm.title.$touched || noteForm.$submitted) && noteForm.title.$invalid }">
         <input name="title" type="text" required ng-minlength="2" ng-maxlength="500" placeholder="Your title here" ng-model="notes.note.title" class="form-control">
 
         <div class="help-block" ng-messages="noteForm.title.$error" ng-show="noteForm.title.$touched || noteForm.$submitted">
@@ -36,7 +36,7 @@
           <p ng-message="required">Note title is required.</p>
         </div>
       </div>
-    </div-->
+    </div>
 
     <div class="row">
       <!--div class="col-md-12">
