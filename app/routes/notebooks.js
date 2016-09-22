@@ -39,7 +39,7 @@ router.put('/:id', function(req, res){
 });
 
 router.get('/:id/notes', function(req, res){
-  Note.find({ userId: req.payload._id, notebookId: req.params.id }, function(err, notes){
+  Note.find({ userId: req.payload._id, notebook: req.params.id }, function(err, notes){
     res.json(notes);
   });
 });

@@ -7,7 +7,7 @@ var notesSchema = new Schema({
     required: true
   },
   title: String,
-  notebookId: String,
+  notebook: { type: Schema.Types.ObjectId, ref: 'Notebook' },
   content: String,
   tags: [tagSchema]
 });
