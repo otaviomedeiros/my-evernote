@@ -13,7 +13,7 @@ class NotebookSelector {
 
   link(scope, elem, attrs){
     $("body").on("click", (e) => {
-      if (!$(".notebook-selector, .notebook-selector *").is(e.target)){
+      if (this.clickedOutsideComponent(elem, e)){
         elem.find(".notebooks-list").hide();
       }
     });
@@ -22,6 +22,10 @@ class NotebookSelector {
       elem.find(".notebooks-list").show();
       this.$rootScope.$emit("notebook:list");
     });
+  }
+
+  clickedOutsideComponent(elem, e){
+    return !elem.is(e.target) && !elem.find('*').is(e.target)
   }
 
   static factory($rootScope){
