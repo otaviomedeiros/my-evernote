@@ -21,7 +21,6 @@ class NotesController {
   }
 
   save(){
-    console.log(this.note);
     (
       this.$routeParams.id ?
         this.noteService.update(this.note) :
