@@ -14,44 +14,8 @@
       <input type="text" name="name" value="" placeholder="Find a notebook">
     </div>
     <div class="list">
-      <div class="notebook">
-        notebooks 1
-      </div>
-      <div class="notebook">
-        notebooks 1
-      </div>
-      <div class="notebook">
-        notebooks 1
-      </div>
-      <div class="notebook">
-        notebooks 1
-      </div>
-      <div class="notebook">
-        notebooks 1
-      </div>
-      <div class="notebook">
-        notebooks 1
-      </div>
-      <div class="notebook">
-        notebooks 1
-      </div>
-      <div class="notebook">
-        notebooks 1
-      </div>
-      <div class="notebook">
-        notebooks 1
-      </div>
-      <div class="notebook">
-        notebooks 1
-      </div>
-      <div class="notebook">
-        notebooks 1
-      </div>
-      <div class="notebook">
-        notebooks 1
-      </div>
-      <div class="notebook">
-        notebooks 1
+      <div ng-repeat="notebook in selectorCtrl.notebooks" class="notebook">
+        {{ notebook.name }}
       </div>
     </div>
   </div>

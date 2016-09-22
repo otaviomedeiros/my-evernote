@@ -44,12 +44,6 @@ class NotesController {
     this.$location.path('/notebooks');
   }
 
-  loadNotebooks(){
-    this.notebookService
-      .loadNotebooks()
-      .then(notebooks => this.notebooks = notebooks)
-  }
-
   resetNote(){
     this.note = {};
   }

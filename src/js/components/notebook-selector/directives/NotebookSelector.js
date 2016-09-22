@@ -1,10 +1,14 @@
 import $ from "jquery";
-console.log();
+import NotebookSelectorController from "../controllers/NotebookSelectorController";
+
 class NotebookSelector {
 
-  constructor(){
+  constructor($rootScope){
+    this.$rootScope = $rootScope;
     this.restrict = "E";
     this.templateUrl = "components/notebook-selector/index.html";
+    this.controller = NotebookSelectorController;
+    this.controllerAs = "selectorCtrl";
   }
 
   link(scope, elem, attrs){
@@ -16,13 +20,16 @@ class NotebookSelector {
 
     elem.on("click", () => {
       elem.find(".notebooks-list").show();
+      this.$rootScope.$emit("notebook:list");
     });
   }
 
-  static factory(){
-    return new NotebookSelector();
+  static factory($rootScope){
+    return new NotebookSelector($rootScope);
   }
 
 }
+
+NotebookSelector.factory.$inject = ["$rootScope"];
 
 export default NotebookSelector.factory;
