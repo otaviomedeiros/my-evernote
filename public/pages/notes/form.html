@@ -2,13 +2,7 @@
   <form name="noteForm", ng-submit="noteForm.$valid && notes.save()">
     <div class=" note-form-header">
         <div class="note-options" ng-class="{ 'has-error': noteForm.$submitted && noteForm.notebook.$invalid }">
-          <notebook-selector ng-model="notes.note.notebook"></notebook-selector>
-
-
-
-          <!--select required class="form-control" name="notebook" ng-model="notes.note.notebookId">
-            <option ng-repeat="notebook in notes.notebooks" ng-selected="notebook._id === notes.note.notebookId" ng-value="notebook._id">{{notebook.name}}</option>
-          </select-->
+          <notebook-selector required name="notebook" ng-model="notes.note.notebook"></notebook-selector>
 
           <div class="help-block" ng-messages="noteForm.notebook.$error" ng-show="noteForm.notebook.$touched || noteForm.$submitted">
             <p ng-message="required">Notebook name is required.</p>
@@ -20,10 +14,10 @@
           </tags-input>
         </div-->
 
-        <!--div class="">
+        <div class="">
           <button type="submit" formnovalidate name="button" class="btn btn-success">Save</button>
           <button type="button" name="button" class="btn btn-default" ng-click="notes.cancel()">Cancel</button>
-        </div-->
+        </div>
     </div>
 
     <div class="row">

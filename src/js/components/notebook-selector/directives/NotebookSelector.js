@@ -9,19 +9,25 @@ class NotebookSelector {
     this.templateUrl = "components/notebook-selector/index.html";
   }
 
-  link(scope, elem, attrs, notebookModel){
+  link(scope, elem, attrs, ngModel){
     scope.showList = false;
     scope.notebooks = [];
     scope.notebookName = "Choose a book";
 
-    notebookModel.$render = () => {
-      if (notebookModel.$modelValue && notebookModel.$modelValue.name){
-        scope.notebookName = notebookModel.$modelValue.name;
+    if (attrs.required) {
+      let hiddenInput = elem.find("[data-notebook]");
+      hiddenInput.attr("required", true);
+      hiddenInput.attr("name", attrs.name);
+    }
+
+    ngModel.$render = () => {
+      if (ngModel.$modelValue && ngModel.$modelValue.name){
+        scope.notebookName = ngModel.$modelValue.name;
       }
     }
 
     scope.select = (notebook) => {
-      notebookModel.$setViewValue(notebook);
+      ngModel.$setViewValue(notebook);
       scope.notebookName = notebook.name;
       scope.showList = false;
     };
