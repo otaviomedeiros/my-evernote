@@ -1,4 +1,4 @@
-<div class="note-form">
+<div class="note-form" hide-menu>
   <form name="noteForm", ng-submit="noteForm.$valid && notes.save()">
     <div class=" note-form-header">
         <div class="note-options" ng-class="{ 'has-error': noteForm.$submitted && noteForm.notebook.$invalid }">
@@ -14,10 +14,10 @@
           </tags-input>
         </div-->
 
-        <div class="">
+        <!--div class="">
           <button type="submit" formnovalidate name="button" class="btn btn-success">Save</button>
           <button type="button" name="button" class="btn btn-default" ng-click="notes.cancel()">Cancel</button>
-        </div>
+        </div-->
     </div>
 
     <div class="row">
