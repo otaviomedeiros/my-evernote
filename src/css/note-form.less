@@ -1,0 +1,41 @@
+.note-form {
+  font-weight: normal !important;
+
+  .note-form-header {
+    border-bottom:1px solid @form-label-color;
+    margin-bottom: 20px;
+
+    .note-options {
+      margin-top:20px;
+      margin-right: 10px;
+      height: @note-option-height;
+    }
+  }
+
+  input[name=title] {
+    border: none;
+    color: @green-button;
+    width:100%;
+    font-size: 25px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  ::-webkit-input-placeholder {
+    color: @green-button;
+  }
+
+  :-moz-placeholder {
+    color: @green-button;
+  }
+
+  ::-moz-placeholder {
+    color: @green-button;
+  }
+
+  :-ms-input-placeholder {
+    color: @green-button;
+  }
+}
