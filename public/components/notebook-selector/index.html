@@ -13,10 +13,10 @@
 
   <div class="notebooks-list" ng-show="showList">
     <div class="find-notebook">
-      <input type="text" name="name" value="" placeholder="Find a notebook">
+      <input type="text" name="name" ng-model="searchTerm" autocomplete="off" placeholder="Find a notebook">
     </div>
     <div class="list">
-      <div ng-repeat="notebook in notebooks" ng-click="select(notebook)" class="notebook">
+      <div ng-repeat="notebook in notebooks | filter:searchTerm" ng-click="select(notebook)" class="notebook">
         {{ notebook.name }}
       </div>
     </div>
