@@ -1,5 +1,5 @@
 .notebook-selector {
-  color: #ccc;
+  color: @form-label-color;
   display: inline-block;
   position: relative;
   cursor: pointer;
@@ -25,12 +25,12 @@
     background-color: #fff;
     padding: 0;
     min-width: 400px;
-    max-height: 400px;
-    overflow: scroll;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid @form-label-color;
     top: 30px;
 
     .list {
+      max-height: 360px;
+      overflow: scroll;
       width: 100%;
       display: block;
       margin-top: 0px;
@@ -38,22 +38,24 @@
       .notebook {
         margin: 0px 15px;
         padding: 20px 10px;
-        color: #4a4a4a;
+        color: @list-item-title-color;
         display: block;
-        border-bottom: 1px solid #f1f1f1;
+        border-bottom: 1px solid @list-border-color;
       }
     }
-  }
 
-  .find-notebook {
-    width: 100%;
-    display: block;
-    padding: 18px;
-    border-bottom: 1px solid #f1f1f1;
-
-    input {
+    .find-notebook {
       width: 100%;
-      height: 40px;
+      display: block;
+      padding: 18px;
+      border-bottom: 1px solid @list-border-color;
+
+      input {
+        color: @list-item-title-color;
+        width: 100%;
+        height: 40px;
+      }
+
     }
   }
 
