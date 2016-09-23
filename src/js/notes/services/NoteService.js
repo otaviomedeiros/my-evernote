@@ -31,7 +31,9 @@ class NoteService {
   }
 
   create(note){
-    return this.$http.post('/api/notes', note);
+    return this.$http
+      .post('/api/notes', note)
+      .success(result => result.data);
   }
 
   update(note){

@@ -20,13 +20,26 @@ class NotesController {
       .then(notes => this.notes = notes);
   }
 
-  save(){
-    (
-      this.$routeParams.id ?
-        this.noteService.update(this.note) :
-        this.noteService.create(this.note)
-    ).success(() => this.flash.success("Note Saved with success"))
-    .error(error => this.flash.error(error));
+  create(){
+    if (!this.note._id) {
+      this.noteService
+      .create(this.note)
+      .success((note) => {
+        this.note = note;
+        this.flash.success("Note Saved with success")
+      })
+      .error(error => this.flash.error(error));
+    }
+  }
+
+  done(){
+    this.noteService
+      .update(this.note)
+      .success(() => {
+        this.$location.path("/notebooks");
+        this.flash.success("Note Saved with success")}
+      )
+      .error(error => this.flash.error(error));
   }
 
   delete(note){
@@ -40,7 +53,6 @@ class NotesController {
   }
 
   cancel(){
-    this.resetNote();
     this.$location.path('/notebooks');
   }
 
