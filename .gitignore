@@ -6,3 +6,5 @@ setup-automation/.vagrant/
 *.retry
 *.pem
 public/dist
+public/assets
+stats.json

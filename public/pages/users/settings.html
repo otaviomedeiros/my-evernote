@@ -1,18 +1,18 @@
-<div class="form-container" hide-menu>
+<div class="form-container" hide-menu ng-init="userCtrl.edit()">
   <div class="container-row">
     <div class="row container-cell">
-      <form name="settingsForm" autocomplete="off" name="tagForm" ng-submit="settingsForm.$valid && save()">
+      <form name="settingsForm" autocomplete="off" name="tagForm" ng-submit="settingsForm.$valid && userCtrl.save()">
         <div class="col-md-12 text-center">
           <h1>SETTINGS</h1>
         </div>
         <div class="form-input col-md-12">
           <label for="email">Email</label>
-          <input name="email" type="text" class="form-control" ng-model="user.email" placeholder="Your email address" disabled>
+          <input name="email" type="text" class="form-control" ng-model="userCtrl.user.email" placeholder="Your email address" disabled>
         </div>
 
         <div class="form-input col-md-12" ng-class="{'has-error': (settingsForm.name.$touched || settingsForm.$submitted) && settingsForm.name.$invalid }">
           <label for="name">Name</label>
-          <input name="name" type="text" class="form-control" ng-minlength="3" ng-maxlength="50" required ng-model="user.name" placeholder="Your name">
+          <input name="name" type="text" class="form-control" ng-minlength="3" ng-maxlength="50" required ng-model="userCtrl.user.name" placeholder="Your name">
 
           <div class="help-block" ng-messages="settingsForm.name.$error" ng-show="settingsForm.name.$touched || settingsForm.$submitted">
             <p ng-message="minlength">Your name is too short.</p>
@@ -23,11 +23,11 @@
 
         <div class="form-input col-md-12">
           <label for="password">New Password</label>
-          <input name="password" type="password" class="form-control" ng-model="user.password" placeholder="Your New Password">
+          <input name="password" type="password" class="form-control" ng-model="userCtrl.user.password" placeholder="Your New Password">
         </div>
 
         <div class="col-md-12 text-center form-input">
-          <button type="button" name="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+          <button type="button" name="button" class="btn btn-default" ng-click="userCtrl.cancel()">Cancel</button>
           <button type="submit" formnovalidate name="button" class="btn btn-success">Update Profile</button>
         </div>
       </form>

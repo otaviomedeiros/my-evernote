@@ -1,0 +1,25 @@
+<div class="notebook-selector">
+  <div ng-click="loadNotebooks()">
+    <div>
+      <i class="glyphicon glyphicon-book"></i>
+    </div>
+    <div class="choose-book">
+      {{ notebookName }}
+      <input type="hidden" data-notebook>
+    </div>
+    <div class="choose-book-arrow">
+      <i class="glyphicon glyphicon-chevron-down"></i>
+    </div>
+  </div>
+
+  <div class="notebooks-list" ng-show="showList">
+    <div class="find-notebook">
+      <input type="text" name="name" ng-model="searchTerm" autocomplete="off" placeholder="Find a notebook">
+    </div>
+    <div class="list">
+      <div ng-repeat="notebook in notebooks | filter:searchTerm" ng-click="select(notebook)" class="notebook">
+        {{ notebook.name }}
+      </div>
+    </div>
+  </div>
+</div>

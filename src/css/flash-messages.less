@@ -1,0 +1,28 @@
+.flash-messages-container {
+  position: relative;
+  width: 100%;
+
+  .flash-message {
+    z-index: 100000;
+    text-align:center;
+    position: absolute;
+    top: 70;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 50%;
+    border-radius: 4px;
+    padding-top:10px;
+    padding-bottom:10px;
+    color: #fff;
+    font-size: 10px;
+
+    &.success {
+      background: #15CD72;
+    }
+
+    &.error {
+      background: rgb(189, 63, 66);
+    }
+  }
+}

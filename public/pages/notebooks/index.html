@@ -5,10 +5,9 @@
   </div>
 </div>
 
-<flash-message></flash-message>
 
-<div class="list row">
-  <div class="list-item col-md-12" show-actions-hover ng-repeat="notebook in notebooks">
+<div class="list row" ng-init="notebooks.index()">
+  <div class="list-item col-md-12" show-actions-hover ng-repeat="notebook in notebooks.notebooks">
     <div class="list-item-title col-md-12">
       <div class="pull-left">
         <a href="#/notebooks/{{ notebook._id }}/notes">
@@ -19,7 +18,7 @@
         <a href="#/notebooks/{{ notebook._id }}">
           <span class="glyphicon glyphicon-edit"></span>
         </a>
-        <a ng-click="deleteNotebook(notebook)" confirm="Are you sure?">
+        <a ng-click="notebooks.delete(notebook)" confirm="Are you sure?">
           <span class="glyphicon glyphicon-trash"></span>
         </a>
       </div>

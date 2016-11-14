@@ -5,10 +5,8 @@
   </div>
 </div>
 
-<flash-message></flash-message>
-
-<div class="list row">
-  <div class="list-item col-md-12" show-actions-hover ng-repeat="tag in tags">
+<div class="list row" ng-init="tags.loadTags()">
+  <div class="list-item col-md-12" show-actions-hover ng-repeat="tag in tags.tags">
     <div class="list-item-title col-md-12">
       <div class="pull-left">
         <a href="#/tags/{{ tag._id }}/notes">
@@ -16,7 +14,7 @@
         </a>
       </div>
       <div actions-hover class="list-item-action-bar pull-right">
-        <a ng-click="deleteTag(tag)" confirm="Are you sure?">
+        <a ng-click="tags.delete(tag)" confirm="Are you sure?">
           <span class="glyphicon glyphicon-trash"></span>
         </a>
       </div>

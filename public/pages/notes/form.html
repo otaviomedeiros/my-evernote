@@ -1,32 +1,35 @@
-<div class="note-form">
-  <flash-message></flash-message>
-  <form name="noteForm", ng-submit="noteForm.$valid && saveNote()">
-    <div class="row note-form-header">
-      <div class="col-md-12">
-        <div class="pull-left note-options" ng-class="{ 'has-error': noteForm.$submitted && noteForm.notebook.$invalid }">
-          <select required class="form-control" name="notebook" ng-model="note.notebookId">
-            <option ng-repeat="notebook in notebooks" ng-selected="notebook._id === note.notebookId" ng-value="notebook._id">{{notebook.name}}</option>
-          </select>
+<form name="noteForm", ng-submit="noteForm.$valid && notes.done()">
+  <div class="row">
+    <div class="col-md-12">
+      <button type="submit" formnovalidate name="button" class="btn btn-success pull-right" ng-show="notes.note._id">Done</button>
+      <button type="button" name="button" class="btn btn-success pull-right" ng-click="notes.cancel()" ng-show="!notes.note._id">Cancel</button>
+    </div>
+  </div>
 
-          <div class="help-block" ng-messages="noteForm.notebook.$error" ng-show="noteForm.notebook.$touched || noteForm.$submitted">
+  <div class="note-form" hide-menu>
+    <div class=" note-form-header">
+        <div class="note-options" ng-class="{ 'has-error': noteForm.notebook.$invalid }">
+          <notebook-selector required name="notebook" ng-model="notes.note.notebook"></notebook-selector>
+
+          <div class="help-block" ng-messages="noteForm.notebook.$error" ng-show="noteForm.title.$touched || noteForm.notebook.$touched || noteForm.$submitted">
             <p ng-message="required">Notebook name is required.</p>
           </div>
         </div>
-        <div class="pull-left note-options tags">
-          <tags-input ng-model="note.tags">
-            <auto-complete source="loadTags()"></auto-complete>
+        <!--div class="pull-left note-options tags">
+          <tags-input ng-model="notes.note.tags">
+            <auto-complete source="notes.loadTags()"></auto-complete>
           </tags-input>
-        </div>
-        <div class="pull-right">
+        </div-->
+
+        <!--div class="">
           <button type="submit" formnovalidate name="button" class="btn btn-success">Save</button>
-          <button type="button" name="button" class="btn btn-default" ng-click="cancelNote()">Cancel</button>
-        </div>
-      </div>
+          <button type="button" name="button" class="btn btn-default" ng-click="notes.cancel()">Cancel</button>
+        </div-->
     </div>
 
     <div class="row">
       <div class="col-md-12" ng-class="{ 'has-error': (noteForm.title.$touched || noteForm.$submitted) && noteForm.title.$invalid }">
-        <input name="title" type="text" required ng-minlength="2" ng-maxlength="500" placeholder="Your title here" ng-model="note.title" class="form-control">
+        <input name="title" type="text" required ng-minlength="2" ng-maxlength="500" autocomplete="off" placeholder="Your title here" ng-blur="noteForm.$valid && notes.create()" ng-model="notes.note.title">
 
         <div class="help-block" ng-messages="noteForm.title.$error" ng-show="noteForm.title.$touched || noteForm.$submitted">
           <p ng-message="minlength">Note title is too short.</p>
@@ -37,9 +40,9 @@
     </div>
 
     <div class="row">
-      <div class="col-md-12">
-        <div text-angular ng-model="note.content" ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','ul','ol','undo','redo'],['justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent']]"></div>
-      </div>
+      <!--div class="col-md-12">
+        <div text-angular ng-model="notes.note.content" ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','ul','ol','undo','redo'],['justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent']]"></div>
+      </div-->
     </div>
-  </form>
-</div>
+  </div>
+</form>

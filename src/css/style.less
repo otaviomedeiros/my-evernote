@@ -1,0 +1,63 @@
+@default-font-family: gotham, helvetica, arial, sans-serif;
+
+@import "~bootstrap/less/bootstrap";
+@import "header";
+@import "menu";
+@import "buttons";
+@import "lists";
+@import "forms";
+@import "auth";
+@import "flash-messages";
+@import "notebook-selector";
+@import "note-form";
+
+body {
+  -webkit-font-smoothing: antialiased;
+  font-family: @default-font-family;
+}
+
+
+
+
+
+//----
+tags-input .host {
+  margin: 0 !important;
+}
+
+tags-input .tags {
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+tags-input .tags .tag-item {
+  border: 1px solid #ccc !important;
+  background: #e6e6e6 !important;
+  color: #585858 !important;
+}
+
+tags-input .autocomplete .suggestion-item.selected, tags-input .autocomplete .suggestion-item.selected em {
+  color: #585858;
+  background-color: #e6e6e6;
+}
+
+div[text-angular-toolbar] .btn {
+  font-size: 10px;
+  height: 25px;
+}
+
+div[text-angular-toolbar] .btn-group {
+  margin-bottom: 10px;
+}
+
+.ta-scroll-window.ta-text.ta-editor.form-control {
+  border: none !important;
+  border-radius: 0 !important;
+  border-top: 1px solid #ccc !important;
+}
+
+.user-profile-menu .information {
+  font-size: 10px;
+  padding: 5px 15px;
+}

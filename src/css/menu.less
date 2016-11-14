@@ -1,0 +1,55 @@
+@blue: #0069ff;
+
+.main-menu {
+  .navbar-nav {
+    li {
+      a {
+        padding: 10px 25px;
+      }
+    }
+  }
+
+  &.navbar {
+    background-color: #fff !important;
+    border: none !important;
+  }
+
+  ul {
+    &.primary {
+      li {
+        a {
+          padding-top: 30px;
+          padding-bottom: 6px;
+          padding-left: 0px;
+          padding-right: 0px;
+          margin-left: 15px;
+          margin-right: 15px;
+
+          &:hover {
+            border-bottom: 2px solid @blue;
+            color: @blue;
+            cursor: pointer;
+          }
+        }
+
+        &.active {
+          a {
+            color: @blue !important;
+            background: none !important;
+          }
+        }
+      }
+    }
+
+    &.secondary {
+      padding-top: 20px;
+
+      li {
+        &.menu-item {
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+
+}

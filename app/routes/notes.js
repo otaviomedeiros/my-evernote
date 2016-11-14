@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Note = require('../models/note');
+var Notebook = require('../models/notebook');
 
 router.post('/', function(req, res){
   var note = new Note(req.body);
@@ -12,9 +13,11 @@ router.post('/', function(req, res){
 });
 
 router.get('/:id', function(req, res){
-  Note.findOne({ userId: req.payload._id, _id: req.params.id }, function(err, note){
-    res.json(note);
-  });
+  Note.findOne({ userId: req.payload._id, _id: req.params.id })
+    .populate("notebook")
+    .exec(function(err, note){
+      res.json(note);
+    });
 });
 
 router.put('/:id', function(req, res){

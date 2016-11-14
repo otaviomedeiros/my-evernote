@@ -4,11 +4,11 @@
       <div class="text-center">
         <h2>Sign Up</h2>
       </div>
-      <form name="registerForm" autocomplete="off" ng-submit="registerForm.$valid && register()" class="auth-container">
+      <form name="registerForm" autocomplete="off" ng-submit="registerForm.$valid && vm.register()" class="auth-container">
         <flash-message></flash-message>
 
         <div class="form-group form-input" ng-class="{'has-error': (registerForm.name.$touched || registerForm.$submitted) && registerForm.name.$invalid }">
-          <input name="name" ng-model="user.name" ng-minlength="3" ng-maxlength="50" required type="text" class="form-control" id="firstname" placeholder="First Name">
+          <input name="name" ng-model="vm.user.name" ng-minlength="3" ng-maxlength="50" required type="text" class="form-control" id="firstname" placeholder="First Name">
 
           <div class="help-block" ng-messages="registerForm.name.$error" ng-show="registerForm.name.$touched || registerForm.$submitted">
             <p ng-message="minlength">Your name is too short.</p>
@@ -18,7 +18,7 @@
         </div>
 
         <div class="form-group form-input" ng-class="{ 'has-error': (registerForm.email.$touched || registerForm.$submitted) && registerForm.email.$invalid }">
-          <input name="email" ng-model="user.email" email-already-in-use ng-maxlength="30" required type="email" class="form-control" id="email" placeholder="Email">
+          <input name="email" ng-model="vm.user.email" email-already-in-use ng-maxlength="30" required type="email" class="form-control" id="email" placeholder="Email">
 
           <div class="help-block" ng-messages="registerForm.email.$error" ng-show="registerForm.email.$touched || registerForm.$submitted">
             <p ng-message="email">This field must be a valid email address.</p>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="form-group form-input" ng-class="{ 'has-error': (registerForm.password.$touched || registerForm.$submitted) && registerForm.password.$invalid }">
-          <input name="password" ng-model="user.password" ng-minlength="6" ng-maxlength="20" required type="password" class="form-control" id="password" placeholder="Password">
+          <input name="password" ng-model="vm.user.password" ng-minlength="6" ng-maxlength="20" required type="password" class="form-control" id="password" placeholder="Password">
 
           <div class="help-block" ng-messages="registerForm.password.$error" ng-show="registerForm.password.$touched || registerForm.$submitted">
             <p ng-message="minlength">Your password is too short.</p>
